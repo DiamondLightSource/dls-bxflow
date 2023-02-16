@@ -1,0 +1,15 @@
+{
+    "runDirectory": "/tmp/dls-bxflow/tests/TestDawn1/test",
+    "name": "my_dawn",
+    "filePath": "/tmp/dls-bxflow/tests/TestDawn1/test/tests/datafiles/i22-4996.nxs",
+    "dataDimensions": [
+        -1,
+        -2
+    ],
+    "processingPath": "/tmp/dls-bxflow/tests/TestDawn1/test/dawn_pipeline.nxs",
+    "outputFilePath": "/tmp/dls-bxflow/tests/TestDawn1/test/dawn_output_data.nxs",
+    "deleteProcessingFile": false,
+    "datasetPath": "/entry1/instrument/Rapid2D/data",
+    "numberOfCores": 1,
+    "xmx": 1024
+}

@@ -1,0 +1,346 @@
+type: dls_bxflow_lib.bx_contexts.classic
+
+visit:
+    beamline: b29
+    year: 2022
+    visit: cy29757-3
+    directory: /dls/b29/data/2022/cy29757-3
+    # Format to make actual data_filename using data_label as token.
+    data_path_pattern: "/dls/b29/data/2022/cy29757-3/Merlin/{data_label}_data.mib"
+
+gui:
+    job_data_grid:
+        prepend_job_labels:
+            "B":
+                workflow_filename_classname: "tests/workflows/b/workflow.py::B"
+            "D":
+                workflow_filename_classname: "tests/workflows/d/workflow.py::D"
+
+testing:
+    notebook_paths:
+        - ${CWD}/tests/notebooks
+
+logging_settings:
+    console:
+        enabled: True
+        verbose: True
+    logfile:
+        enabled: True
+        directory: ${output_directory}/logfile.log
+    graypy:
+        enabled: False
+        host: 172.23.7.128
+        port: 12201
+        protocol: UDP
+
+# The external access bits.
+external_access_bits:
+    filestore_root: &FILESTORE_DIRECTORY ${output_directory}
+    news_server: &NEWS_SERVER http://*:22420
+    news_client: &NEWS_CLIENT http://localhost:22420
+    news_producer: &NEWS_PRODUCER tcp://*:22421
+    news_consumer: &NEWS_CONSUMER tcp://localhost:22421
+    dls_servbase_dataface_server: &DLS_SERVBASE_DATAFACE_SERVER http://*:22427
+    dls_servbase_dataface_client: &DLS_SERVBASE_DATAFACE_CLIENT http://localhost:22427
+    dataface_port: &DATAFACE_PORT 22422
+    launcher1_server: &LAUNCHER1_SERVER http://*:22424
+    launcher1_client: &LAUNCHER1_CLIENT http://localhost:22424
+    launcher2_server: &LAUNCHER2_SERVER http://*:22429
+    launcher2_client: &LAUNCHER2_CLIENT http://localhost:22429
+    scheduler_server: &SCHEDULER_SERVER http://*:22425
+    scheduler_client: &SCHEDULER_CLIENT http://localhost:22425
+    catalog_server: &CATALOG_SERVER http://*:22426
+    catalog_client: &CATALOG_CLIENT http://localhost:22426
+    collector_server: &COLLECTOR_SERVER http://*:22428
+    collector_client: &COLLECTOR_CLIENT http://localhost:22428
+    bx_gui_server: &BX_GUI_SERVER http://*:22222
+    bx_gui_client: &BX_GUI_CLIENT http://127.0.0.1:22222
+    graylog_client: &GRAYLOG_CLIENT http://172.23.7.128:9000
+
+    stomp_server: &STOMP_SERVER stomp://172.23.7.128:61613
+    stomp_client: &STOMP_CLIENT stomp://172.23.7.128:61613
+
+bx_task_specification:
+    pairstream:
+        producer:
+            class_name: "dls::pairstream::zmq_pushpull"
+            endpoint: "tcp://*:0"
+        consumer:
+            class_name: "dls::pairstream::zmq_pushpull"
+            endpoint: "tcp://{hostname}:{port}"
+            recv_timeout_milliseconds: 50
+
+# Task environments.
+# These are commands run in the task's shell where the task itself is run.
+# It can be different for different task thing_types.
+bx_task_environments:
+    default:
+        - "export PYTHONPATH=${PYTHONPATH}"
+
+# Task remex hints.
+# These describe the remex hints for tasks.
+# It can be different for different task thing_types.
+remex_clusters:
+    - &CLUSTER_HAMILTON "dls_bxflow_api::remex::cluster::hamilton"
+    - &CLUSTER_SCIENCE "dls_bxflow_api::remex::cluster::global/cluster"
+    - &CLUSTER_TEST "dls_bxflow_api::remex::cluster::global/testcluster"
+    - &CLUSTER_LOCAL "dls_bxflow_api::remex::cluster::local"
+
+# Remex hints predefined.
+# The following keywords are honored:
+# cluster
+# m_mem_free
+# h_rt
+# q
+# pe
+# num_gpu
+# gpu_arch
+# h
+predefined_remex_hints:
+    workflow_A_dummy_task:
+        cluster: *CLUSTER_LOCAL
+    standard_science_cluster:
+        cluster: *CLUSTER_SCIENCE
+        redhat_release: rhel7
+        m_mem_free: "64G"
+        h_rt: "8:00:00"
+        q: "high.q"
+        pe: "smp 1"
+    ptypy_mpi:
+        cluster: *CLUSTER_HAMILTON
+        redhat_release: rhel7
+        # This is from https://github.com/DiamondLightSource/PtychographyTools/tree/master/ptychotools/ptychotools.ptypy_launcher
+        #   TOTAL_NUM_PROCESSORS=$(( NUM_GPU * 10 ));
+        #   NUM_PROCS_PER_NODE=$(( 4 < NUM_GPU ? 4 : NUM_GPU )); # can be maximum 4
+        #   EXTRA_ARGS="$EXTRA_ARGS -g"
+        #   JOB_NAME="ptypy_gpu"
+        #   MEMORY_REQUEST=8G
+        #   qsub_args="-pe openmpi $TOTAL_NUM_PROCESSORS -l gpu=$NUM_PROCS_PER_NODE,m_mem_free=$MEMORY_REQUEST,gpu_arch=$GPU_ARCH,h=!(cs05r-sc-gpu01-02.diamond.ac.uk|cs05r-sc-gpu01-01.diamond.ac.uk) -N $JOB_NAME"
+        m_mem_free: "8G"
+        h_rt: "8:00:00"
+        pe: "openmpi 40"
+        gpu: 4
+        gpu_arch: "Volta"
+        h: "!(cs05r-sc-gpu01-02.diamond.ac.uk|cs05r-sc-gpu01-01.diamond.ac.uk)"
+    ptyrex_mpi:
+        cluster: *CLUSTER_HAMILTON
+        redhat_release: rhel7
+        m_mem_free: "64G"
+        h_rt: "8:00:00"
+        pe: "openmpi 4"
+        gpu: 4
+        gpu_arch: "Volta"
+
+# Remex hints for task type.
+bx_task_remex_hints:
+    default:
+        cluster: *CLUSTER_LOCAL
+
+# File store.
+bx_filestore_specification:
+    type: dls_bxflow_lib.bx_filestores.explicit
+    type_specific_tbd:
+        directory: *FILESTORE_DIRECTORY
+        beamline: "b29"
+        visit: "cy29757-3"
+
+# News feed.
+bx_news_specification: &BX_NEWS_SPECIFICATION
+    type: "dls_bxflow_lib.bx_news.aiohttp"
+    type_specific_tbd:
+        # The remote bx_news server access.
+        aiohttp_specification:
+            server: *NEWS_SERVER
+            client: *NEWS_CLIENT
+        local_bx_news_specification:
+            type: "dls_bxflow_lib.bx_news.zmq_pubsub"
+            type_specific_tbd:
+                producer:
+                    class_name: "dls::pairstream::zmq_pubsub"
+                    endpoint: *NEWS_PRODUCER
+                consumer:
+                    class_name: "dls::pairstream::zmq_pubsub"
+                    endpoint: *NEWS_CONSUMER
+                    recv_timeout_milliseconds: 50
+    context:
+        start_as: process
+
+# The dls_servbase_dataface client/server composite.
+dls_servbase_dataface_specification: &DLS_SERVBASE_DATAFACE_SPECIFICATION
+    type: "dls_servbase_lib.datafaces.aiohttp"
+    type_specific_tbd:
+        # The remote dataface server access.
+        aiohttp_specification:
+            server: *DLS_SERVBASE_DATAFACE_SERVER
+            client: *DLS_SERVBASE_DATAFACE_CLIENT
+        # The local implementation of the dataface.
+        actual_dataface_specification:
+            type: "dls_servbase_lib.datafaces.aiosqlite"
+            database:
+                type: "dls_servbase_lib.databases.aiosqlite"
+                filename: "${output_directory}/dls_servbase_dataface.sqlite"
+                log_level: "WARNING"
+    context:
+        start_as: process
+
+# The bx_dataface client/server composite.
+bx_dataface_specification: &BX_DATAFACE_SPECIFICATION
+    type: "dls_bxflow_lib.bx_datafaces.aiohttp"
+    type_specific_tbd:
+        # The remote bx_dataface server access.
+        aiohttp_specification:
+            server_host: "*"
+            client_host: "127.0.0.1"
+            port: *DATAFACE_PORT
+        # The local implementation of the bx_dataface.
+        actual_bx_dataface_specification:
+            type: "dls_bxflow_lib.bx_datafaces.aiosqlite"
+            database:
+                type: "dls_bxflow_lib.bx_databases.aiosqlite"
+                filename: "${output_directory}/bx_dataface.sqlite"
+                log_level: "WARNING"
+            bx_news_specification: *BX_NEWS_SPECIFICATION
+    context:
+        start_as: process
+
+# The available bx_launchers.
+bx_launcher_popener_specification: &BX_LAUNCHER_POPENER_SPECIFICATION
+    type: "dls_bxflow_lib.bx_launchers.aiohttp"
+    uuid: "popener-01"
+    remex_cluster: "dls_bxflow_api::remex::cluster::local"
+    type_specific_tbd:
+        aiohttp_specification:
+            server: *LAUNCHER1_SERVER
+            client: *LAUNCHER1_CLIENT
+        actual_bx_launcher_specification:
+            type: "dls_bxflow_lib.bx_launchers.popener"
+            type_specific_tbd:
+                should_pass_environ: True
+                task_count_max: 10
+    context:
+        start_as: process
+
+bx_launcher_qsubber_specification:
+    type: "dls_bxflow_lib.bx_launchers.aiohttp"
+    uuid: "qsubber-01"
+    remex_cluster: "dls_bxflow_api::remex::cluster::global/testcluster"
+    type_specific_tbd:
+        aiohttp_specification:
+            server: *LAUNCHER2_SERVER
+            client: *LAUNCHER2_CLIENT
+        actual_bx_launcher_specification:
+            type: "dls_bxflow_lib.bx_launchers.qsubber"
+            type_specific_tbd:
+                task_count_max: 10
+                cluster_project: test_project
+                cluster_queue: test_queue
+    context:
+        start_as: process
+
+# The bx_launchers pool.
+bx_launcher_specifications:
+    - bx_launcher_popener_specification
+    - bx_launcher_qsubber_specification
+
+# The bx_job.
+bx_job_specification:
+    type: "dls_bxflow_lib.bx_jobs.standard"
+    label: "unlabeled"
+
+# The bx_scheduler.
+bx_scheduler_specification:
+    type: "dls_bxflow_lib.bx_schedulers.aiohttp"
+    type_specific_tbd:
+        aiohttp_specification:
+            server: *SCHEDULER_SERVER
+            client: *SCHEDULER_CLIENT
+        actual_bx_scheduler_specification:
+            type: "dls_bxflow_lib.bx_schedulers.naive"
+    context:
+        start_as: process
+
+# The bx_catalog.
+bx_catalog_specification:
+    type: "dls_bxflow_lib.bx_catalogs.aiohttp"
+    type_specific_tbd:
+        # The remote bx_catalog server access.
+        aiohttp_specification:
+            server: *CATALOG_SERVER
+            client: *CATALOG_CLIENT
+        # Catalog server uses this actual implementation.
+        actual_bx_catalog_specification:
+            type: "dls_bxflow_lib.bx_catalogs.ispyb"
+    context:
+        start_as: process
+
+# The available bx_collectors.
+bx_collector_specification_manual: &BX_COLLECTOR_SPECIFICATION_MANUAL
+    type: "dls_bxflow_lib.bx_collectors.manual"
+
+bx_collector_specification_gdascan: &BX_COLLECTOR_SPECIFICATION_GDASCAN
+    type: "dls_bxflow_lib.bx_collectors.gdascan"
+    type_specific_tbd:
+        server: *STOMP_SERVER
+        client: *STOMP_CLIENT
+        gda_parser: "set-by-code"
+        activemq_topic: "/topic/bxflow/test"
+
+# Here testing dynamic import of scraper class.
+bx_collector_specification_scraper: &BX_COLLECTOR_SPECIFICATION_SCRAPER
+    type: "src/dls_bxflow_lib/bx_collectors/scraper.py::Scraper"
+    type_specific_tbd:
+        scrape_glob: "set-by-code"
+        scrape_recursive: True
+        workflow_filename_classname: "set-by-code"
+        workflow_constructor_kwargs: "set-by-code"
+
+# The bx_collector.
+bx_collector_specification:
+    type: "dls_bxflow_lib.bx_collectors.aiohttp"
+    type_specific_tbd:
+        aiohttp_specification:
+            server: *COLLECTOR_SERVER
+            client: *COLLECTOR_CLIENT
+        actual_bx_collector_specification: *BX_COLLECTOR_SPECIFICATION_MANUAL
+    context:
+        start_as: process
+
+# The bx_gui specification.
+bx_gui_specification:
+    type: "dls_bxflow_lib.bx_guis.aiohttp"
+    type_specific_tbd:
+        # The remote bx_gui server access.
+        aiohttp_specification:
+            server: *BX_GUI_SERVER
+            client: *BX_GUI_CLIENT
+            search_paths: ["examples/html"]
+            cookie_specification:
+                type: "dls_servbase_lib.cookies.dataface"
+                type_specific_tbd:
+                    dataface_specification: *DLS_SERVBASE_DATAFACE_SPECIFICATION
+    # The dataface which the gui talks to.
+    bx_dataface_specification: *BX_DATAFACE_SPECIFICATION
+    context:
+        start_as: process
+
+# The bx_gui specification for the curses gui.
+# TODO: Allow configurable choice of non-curses gui composer.
+curses:
+    type: "dls_bxflow_lib.bx_guis.curses"
+    # The dataface which the gui talks to.
+    bx_dataface_specification: *BX_DATAFACE_SPECIFICATION
+    type_specific_tbd:
+        initial_page_name: "job_details"
+        # initial_page_name: "recent_jobs"
+        # initial_page_name: "recent_actions"
+
+# Log store.
+bx_logstore_specification:
+    type: dls_bxflow_lib.bx_logstores.graylogger
+    type_specific_tbd:
+        client: *GRAYLOG_CLIENT
+        authorization:
+            type: http_basic
+            # Graylog 4.2 local instance token created in web admin.
+            username: "6nk16nqi4thvprgn33bt7j3ghn5n2ucccebsm6j32acr75e5122"
+            password: "token"

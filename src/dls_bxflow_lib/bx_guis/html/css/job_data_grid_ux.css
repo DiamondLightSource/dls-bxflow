@@ -1,0 +1,57 @@
+#job_data_grid_ux_interaction_parent .T_legend {
+  margin-bottom: 16px;
+}
+
+#job_data_grid_ux_interaction_parent .T_instructions {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+#job_data_grid_ux_interaction_parent .T_legend .T_space {
+  width: 10px;
+}
+
+#job_data_grid_ux_interaction_parent .T_grid TH {
+  border-right: 1px solid silver;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#job_data_grid_ux_interaction_parent .T_composed TD {
+  text-align: center;
+}
+
+#job_data_grid_ux_interaction_parent .T_composed TD.T_picked {
+  background-color: black;
+}
+
+#job_data_grid_ux_interaction_parent .T_cell {
+  cursor: pointer;
+}
+
+#job_data_grid_ux_interaction_parent .T_box {
+  width: 10px;
+  height: 10px;
+  border: 1px solid silver;
+  display: inline-block;
+}
+
+#job_data_grid_ux_interaction_parent .T_NEVER {
+  background-color: white;
+}
+
+#job_data_grid_ux_interaction_parent .T_ready {
+  background-color: yellow;
+}
+
+#job_data_grid_ux_interaction_parent .T_succeeded {
+  background-color: green;
+}
+
+#job_data_grid_ux_interaction_parent .T_failed {
+  background-color: orangered;
+}
+
+#job_data_grid_ux_interaction_parent .T_cancelled {
+  background-color: gray;
+}

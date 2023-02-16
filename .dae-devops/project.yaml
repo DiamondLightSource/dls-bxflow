@@ -1,0 +1,40 @@
+# Primary information needed for devops.
+primary:
+  repository_name: dls-bxflow
+  package_name: dls_bxflow_lib
+  one_line_description: "Distributed beamline data processing workflow engine and gui platform core."
+  author:
+    name: David Erb
+    email: david.erb@diamond.ac.uk
+  project_urls:
+    gitlab: https://gitlab.diamond.ac.uk/scisoft/bxflow
+  project_scripts:
+    dls-bxflow: "dls_bxflow_lib.__main__:main"
+    dls-bxflow.cli: "dls_bxflow_cli.main:main"
+  dependencies:
+    - type: pypi
+      list:
+        - aio-pika
+        - dask[distributed]
+        - dls-servbase
+        - dls-mainiac
+        - dls-utilpack
+        - dls-pairstream
+        - future
+        - graypy
+        - h5py
+        # There is a newer version 7 of ispyb but it doesn't support the import ispyb.model.__future__.
+        # TODO: Change away from using import ispyb.model.__future__.
+        - ispyb==6.13.0
+        - ipykernel
+        - jsonpickle
+        - lxml
+        - nbclient
+        - nbconvert
+        - nbformat
+        - pika
+        - prettytable
+        - pyyaml
+        - ruamel.yaml
+        - stomp.py
+        - workflows

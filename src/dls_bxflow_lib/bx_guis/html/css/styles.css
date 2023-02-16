@@ -1,0 +1,320 @@
+BODY {
+  margin: 0px;
+  height: 100%;
+}
+
+BODY,
+A,
+SELECT,
+INPUT,
+BUTTON,
+TH,
+TD,
+CAPTION {
+  font-family: Geneva, Verdana, sans-serif;
+  font-size: 12px;
+}
+
+A,
+A:visited,
+A:hover,
+.ui-widget-content A {
+  text-decoration: none;
+  color: blue;
+}
+
+#tabs {
+  height: 100%
+}
+
+TD {
+  padding: 2px;
+}
+
+BUTTON,
+SELECT,
+INPUT {
+  width: 172px;
+}
+
+INPUT[type=checkbox] {
+  width: 22px;
+}
+
+BUTTON.T_reset_button,
+BUTTON.T_show_button,
+BUTTON.T_hide_button {
+  width: 48px;
+}
+
+
+.T_side_by_side {
+  white-space: nowrap;
+  width: 100%;
+}
+
+.T_side_by_side>DIV {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.T_columns>DIV {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.T_left_column {
+  overflow: hidden;
+}
+
+.T_right_column {}
+
+.T_ajax_error_message_container {
+  border-radius: 4px;
+  border: 1px solid orangered;
+  color: orangered;
+}
+
+.T_ajax_error_message {
+  margin: 4px;
+}
+
+/* This is the list of files show in the job details pane. */
+.T_execution_outputs .T_bytes {
+  text-align: right;
+  padding-right: 4px;
+}
+
+.T_execution_outputs .T_filename {
+  text-align: left;
+}
+
+.T_bx_job_detail_job {
+  color: blue;
+  cursor: pointer;
+}
+
+.T_bx_job_cancel_job {
+  color: orange;
+  cursor: pointer;
+}
+
+.T_bx_job_status {
+  white-space: nowrap;
+}
+
+.T_bx_job_status>DIV {
+  display: inline-block;
+  margin-left: 8px;
+}
+
+.T_bx_job_status>DIV:first-child {
+  margin-left: 0px;
+}
+
+.T_bx_job_status>.T_bx_job_delete_job {
+  color: red;
+  cursor: pointer;
+}
+
+.T_bx_job_status>.T_bx_job_unblock_job {
+  color: green;
+  cursor: pointer;
+}
+
+.T_bx_job_detail_job.T_picked {
+  font-weight: bold;
+}
+
+
+.T_auto_update .T_toggle {
+  color: blue;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.T_auto_update .T_toggle.T_disabled {
+  text-decoration: line-through;
+}
+
+.T_auto_update .T_status {
+  display: inline-block;
+  color: gray;
+  font-style: italic;
+  font-size: smaller;
+}
+
+/* section layout */
+.T_section {
+  margin-top: 16px;
+}
+
+.T_section>DIV {
+  margin-top: 4px;
+  margin-left: 16px;
+}
+
+.T_section:first-child {
+  margin-top: 0px;
+}
+
+.T_section>.T_title {
+  margin-left: 0px;
+  display: block;
+  font-weight: bold;
+}
+
+.T_section>.T_title:hover {
+  color: blue;
+}
+
+.T_section .T_composed>TABLE {
+  border-collapse: collapse;
+  border: 1px solid silver;
+}
+
+/* Don't display table captions put there by the prettytable title attribute. */
+.T_section .T_composed>TABLE>CAPTION {
+  display: none;
+}
+
+.T_section .T_composed>TABLE>THEAD>TR {
+  font-weight: bold;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.T_section .T_composed>TABLE>THEAD>TR>TH,
+.T_section .T_composed>TABLE>TBODY>TR>TD {
+  padding: 6px;
+  border: 1px solid silver;
+  vertical-align: top;
+}
+
+/* displaying workflow settings */
+TABLE.T_settings>TBODY>TR>TD {
+  vertical-align: top;
+}
+
+.T_settings .T_explanation_lines {
+  font-style: italic;
+}
+
+.T_setting {
+  margin-top: 8px;
+}
+
+TR.T_setting>TD {
+  padding-top: 8px;
+}
+
+.T_setting:first-child {
+  margin-top: 0px;
+}
+
+.T_setting .T_prompt {
+  padding-top: 2px;
+  display: inline-block;
+}
+
+.T_setting .T_input {
+  display: inline-block;
+
+}
+
+.T_setting .T_input INPUT {
+  width: 640px;
+}
+
+.T_setting .T_input.T_float INPUT {
+  width: 128px;
+}
+
+.T_setting .T_input.T_integer INPUT {
+  width: 80px;
+}
+
+.T_setting .T_input.T_boolean INPUT {
+  width: 48px;
+}
+
+
+/* Debug lines in html about callsign where code was generated. */
+.T_callsign {
+  font-style: italic;
+  color: gray;
+  font-size: smaller;
+  display: none;
+}
+
+/* Job states for jobs list and job details */
+
+.T_job_state {
+  white-space: nowrap;
+}
+
+.T_job_state.T_ready {
+  background-color: yellow;
+  color: slategray;
+  font-weight: bold;
+}
+
+.T_job_state.T_succeeded {
+  background-color: green;
+  color: white;
+  font-weight: bold;
+}
+
+.T_job_state.T_failed {
+  background-color: orangered;
+  color: white;
+  font-weight: bold;
+}
+
+.T_job_state.T_cancelled {
+  background-color: gray;
+  color: white;
+  font-weight: bold;
+}
+
+/* Job comment/rating input for jobs list and job details */
+
+.T_composed.T_recent_jobs>TABLE>THEAD>TR>TH,
+.T_composed.T_recent_jobs>TABLE>TBODY>TR>TD {
+  vertical-align: middle;
+}
+
+.T_composed.T_recent_jobs TD.T_created_column {
+  white-space: nowrap;
+}
+
+.T_composed.T_recent_jobs TD.T_dataset_column {
+  white-space: nowrap;
+}
+
+.T_composed.T_recent_jobs TD.T_rubber_column {
+  width: 100%;
+}
+
+.T_composed.T_recent_jobs TEXTAREA.T_job_comment {
+  width: 100%;
+}
+
+.T_job_ratings {
+  white-space: nowrap;
+}
+
+.T_job_ratings>DIV {
+  display: inline-block;
+  padding-left: 3px;
+  padding-right: 4px;
+  cursor: pointer;
+}
+
+.T_job_ratings>DIV {
+  border: 1px solid white;
+}
+
+.T_job_ratings>DIV.T_selected {
+  border: 1px solid blue;
+}

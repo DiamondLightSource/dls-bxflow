@@ -1,0 +1,19 @@
+/* Don't show the details column of the recent_jobs table. */
+#job_details_ux_interaction_parent .T_recent_jobs .T_details_column {
+  display: none;
+}
+
+#job_details_ux_interaction_parent .T_workflow_filename_classname {}
+
+/* We need to store data label and job label for submission to start a new workflow. */
+#job_details_ux_interaction_parent .T_data_label {
+  display: none;
+}
+
+#job_details_ux_interaction_parent .T_job_label {
+  display: none;
+}
+
+#job_details_ux_interaction_parent .T_new_workflow {
+  margin-top: 4px;
+}

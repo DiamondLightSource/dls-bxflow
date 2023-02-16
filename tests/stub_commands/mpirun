@@ -1,0 +1,15 @@
+#!/usr/bin/env python
+
+import argparse
+import logging
+import sys
+
+logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.DEBUG)
+
+# mpirun -np {mpi_number_of_processors} ptyrex_recon -c {ptyrex_configfile}
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-np", dest="mpi_number_of_processors", required=False)
+args, remainder = parser.parse_known_args()
+
+sys.exit(0)

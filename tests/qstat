@@ -1,0 +1,106 @@
+#!/usr/bin/env python
+
+import argparse
+import glob
+import os
+
+job1_number = "1325866"
+job2_number = "1325867"
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-j", dest="job_name", required=True)
+args = parser.parse_args()
+
+
+# For unit test purposes, qsub has written this file that we read here in the fake qstat.
+# Output directory environment variable is set by the unit test.
+output_directory = os.environ["OUTPUT_DIRECTORY"]
+
+filenames = glob.glob(f"{output_directory}/**/.bxflow/exit_code.txt", recursive=True)
+
+if len(filenames) == 0:
+    # Until the exit code file is written, we are not done, so print a fake qstat.
+    print(
+        "==============================================================\n"
+        f"job_number:                {job1_number}\n"
+        "jclass:                     NONE\n"
+        "exec_file:                  job_scripts/1325866\n"
+        "submission_time:            06/13/2022 08:05:41.486\n"
+        "owner:                      kbp43231\n"
+        "uid:                        1220488\n"
+        "group:                      kbp43231\n"
+        "gid:                        1220488\n"
+        "supplementary group:        dls_staff, dls_dasc, dls-softinst, kbp43231\n"
+        "sge_o_home:                 /home/kbp43231\n"
+        "sge_o_log_name:             kbp43231\n"
+        "sge_o_path:                 /dls_sw/cluster/GE/common/bin:/dls_sw/cluster/GE/UGE8.6.17/bin/lx-amd64:/dls_sw/apps/mamba/0.22.1/bin:/dls_sw/apps/mamba/0.22.1/condabin:/dls_sw/epics/R3.14.12.7/base/bin/linux-x86_64:/dls_sw/epics/R3.14.12.7/extensions/bin/linux-x86_64:/dls_sw/prod/tools/RHEL7-x86_64/defaults/bin:/usr/lib64/qt-3.3/bin:/home/kbp43231/perl5/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/var/cfengine/bin\n"
+        "sge_o_shell:                /bin/bash\n"
+        "sge_o_workdir:              /home/kbp43231/22/dls-bxflow\n"
+        "sge_o_host:                 ws478\n"
+        "account:                    sge\n"
+        "cwd:                        /home/kbp43231/22/dls-bxflow\n"
+        "hard resource_list:         cpu_model=intel-xeon,m_mem_free=1G,redhat_release=rhel7\n"
+        "notify:                     FALSE\n"
+        "job_name:                   bxflow_job1\n"
+        "priority:                   -20\n"
+        "jobshare:                   0\n"
+        "hard_queue_list:            test-low.q\n"
+        "shell_list:                 NONE:/bin/bash\n"
+        "env_list:                   BXFLOW=something\n"
+        "script_file:                STDIN\n"
+        "parallel environment:       smp range: 1\n"
+        "project:                    dls\n"
+        "department:                 defaultdepartment\n"
+        "binding:                    NONE\n"
+        "mbind:                      NONE\n"
+        "submit_cmd:                 std -N bxflow test -now yes -pe smp 1 -N bxflow_job1 -terse -v BXFLOW=something\n"
+        "category_id:                78\n"
+        "request_dispatch_info:      FALSE\n"
+        "start_time            1:    06/13/2022 08:05:41.522\n"
+        "job_state             1:    r\n"
+        "exec_host_list        1:    cs04r-sc-com99-11.diamond.ac.uk:1\n"
+        "granted_req.          1:    m_mem_free=1.000G\n"
+        "usage                 1:    wallclock=00:00:00, cpu=00:00:00, mem=0.00000 GBs, io=0.00000 GB, iow=0.000 s, ioops=0, vmem=N/A, maxvmem=N/A\n"
+        "scheduling info:            -\n"
+        "==============================================================\n"
+        f"job_number:                {job2_number}\n"
+        "jclass:                     NONE\n"
+        "exec_file:                  job_scripts/1325867\n"
+        "submission_time:            06/13/2022 08:05:41.610\n"
+        "owner:                      kbp43231\n"
+        "uid:                        1220488\n"
+        "group:                      kbp43231\n"
+        "gid:                        1220488\n"
+        "supplementary group:        dls_staff, dls_dasc, dls-softinst, kbp43231\n"
+        "sge_o_home:                 /home/kbp43231\n"
+        "sge_o_log_name:             kbp43231\n"
+        "sge_o_path:                 /dls_sw/cluster/GE/common/bin:/dls_sw/cluster/GE/UGE8.6.17/bin/lx-amd64:/dls_sw/apps/mamba/0.22.1/bin:/dls_sw/apps/mamba/0.22.1/condabin:/dls_sw/epics/R3.14.12.7/base/bin/linux-x86_64:/dls_sw/epics/R3.14.12.7/extensions/bin/linux-x86_64:/dls_sw/prod/tools/RHEL7-x86_64/defaults/bin:/usr/lib64/qt-3.3/bin:/home/kbp43231/perl5/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/var/cfengine/bin\n"
+        "sge_o_shell:                /bin/bash\n"
+        "sge_o_workdir:              /home/kbp43231/22/dls-bxflow\n"
+        "sge_o_host:                 ws478\n"
+        "account:                    sge\n"
+        "cwd:                        /home/kbp43231/22/dls-bxflow\n"
+        "hard resource_list:         cpu_model=intel-xeon,m_mem_free=1G,redhat_release=rhel7\n"
+        "notify:                     FALSE\n"
+        "job_name:                   bxflow_job2\n"
+        "priority:                   -20\n"
+        "jobshare:                   0\n"
+        "hard_queue_list:            test-low.q\n"
+        "shell_list:                 NONE:/bin/bash\n"
+        "env_list:                   BXFLOW=something\n"
+        "script_file:                STDIN\n"
+        "parallel environment:       smp range: 1\n"
+        "project:                    dls\n"
+        "department:                 defaultdepartment\n"
+        "binding:                    NONE\n"
+        "mbind:                      NONE\n"
+        "submit_cmd:                 std -N bxflow test -now yes -pe smp 1 -N bxflow_job2 -terse -v BXFLOW=something\n"
+        "category_id:                78\n"
+        "request_dispatch_info:      FALSE\n"
+        "start_time            1:    06/13/2022 08:05:41.649\n"
+        "job_state             1:    r\n"
+        "exec_host_list        1:    cs04r-sc-com99-11.diamond.ac.uk:1\n"
+        "granted_req.          1:    m_mem_free=1.000G\n"
+        "usage                 1:    wallclock=00:00:00, cpu=00:00:00, mem=0.00000 GBs, io=0.00000 GB, iow=0.000 s, ioops=0, vmem=N/A, maxvmem=N/A\n"
+        "scheduling info:            -\n"
+    )

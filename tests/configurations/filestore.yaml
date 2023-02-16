@@ -1,0 +1,39 @@
+type: dls_bxflow_lib.bx_contexts.classic
+
+visit:
+    directory: /dls/my_beamline/data/2022/my00001-1
+
+# The external access bits.
+external_access_bits:
+    filestore_root: &FILESTORE_DIRECTORY ${output_directory}
+    filestore_scandir: &FILESTORE_SCANDIR /dls/b29/data/2022/cm00001-1
+
+# Explicit file store.
+bx_filestore_specification_explicit: &BX_FILESTORE_SPECIFICATION_EXPLICIT
+    type: dls_bxflow_lib.bx_filestores.explicit
+    type_specific_tbd:
+        directory: *FILESTORE_DIRECTORY
+        beamline: "b29"
+        visit: "cm00001-1"
+
+# Here testing dynamic import of filestore class.
+bx_filestore_specification_dynamic: &BX_FILESTORE_SPECIFICATION_DYNAMIC
+    type: "src/dls_bxflow_lib/bx_filestores/explicit.py::Explicit"
+    type_specific_tbd:
+        directory: *FILESTORE_DIRECTORY
+        beamline: "b29"
+        visit: "cm00001-1"
+
+# Scandir file store.
+bx_filestore_specification_scandir: &BX_FILESTORE_SPECIFICATION_SCANDIR
+    type: dls_bxflow_lib.bx_filestores.scandir
+    type_specific_tbd:
+        scandir: *FILESTORE_SCANDIR
+
+# File store.
+bx_filestore_specification: *BX_FILESTORE_SPECIFICATION_EXPLICIT
+
+# The bx_job.
+bx_job_specification:
+    type: "dls_bxflow_lib.bx_jobs.standard"
+    label: "unlabeled"

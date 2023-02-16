@@ -1,0 +1,81 @@
+# Originally from: /dls/i14/data/2022/cm31135-3/processing/web_submitter/i14_unknown_probe_dm.yaml
+visit_path: "replaced-by-code"
+base_file:
+parameter_tree:
+  frames_per_block: 1000
+  engines:
+    engine_00:
+      name: DM
+      numiter: 1000
+      numiter_contiguous: 100
+      alpha: 0.99
+      probe_support: null
+      probe_fourier_support: null
+      overlap_max_iterations: 20
+      overlap_converge_factor: 0.001
+      probe_update_start: 0
+      update_object_first: true
+      obj_smooth_std: 20
+      probe_inertia: 0.001
+      object_inertia: 0.001
+      fourier_power_bound: 0.25
+      clip_object:
+        - 0.0
+        - 1.0
+  io:
+    autoplot:
+      active: false
+    autosave:
+      active: false
+  verbose_level: 3
+  scans:
+    I14:
+      illumination:
+        diversity:
+          power: 0.1
+          noise:
+            - 0.5
+            - 0.2
+        aperture:
+          form: rect
+          size:
+            - 0.00018
+            - 0.00018
+          offset:
+            - 0.0
+            - 0.0
+        propagation:
+          focussed: 0.15
+          parallel: 0.8e-3
+      propagation: farfield
+      coherence:
+        num_object_modes: 1
+        num_probe_modes: 1
+      data:
+        auto_center: true
+        orientation: 0
+        positions:
+          fast_multiplier: 0.001
+          slow_multiplier: 0.001
+          fast_key: entry/xsp3_addetector_sum/SampleX_value_set
+          slow_key: entry/xsp3_addetector_sum/SampleY_value_set
+          file: "/%(visit_path)s/scan/i14-%(run)s.nxs"
+        psize: 5.5e-05
+        shape: 128
+        mask:
+          key: data/data
+          file: /%(visit_path)s/processed/ptychography_mask/mask-I14-merlin-%(run)s.h5
+        intensities:
+          key: entry/merlin_addetector/data
+          file: "/%(visit_path)s/scan/i14-%(run)s.nxs"
+        recorded_energy:
+          key: /entry/instrument/dcm_enrg/value
+          file: "/%(visit_path)s/scan/i14-%(run)s.nxs"
+          multiplier: 1
+        recorded_distance:
+          key: /entry/instrument/detectors/xreye_z
+          file: "/%(visit_path)s/scan/i14-%(run)s.nxs"
+          multiplier: 0.001
+        save: null
+        name: Hdf5Loader
+      name: BlockFull

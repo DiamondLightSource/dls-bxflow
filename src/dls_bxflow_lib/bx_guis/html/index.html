@@ -1,0 +1,228 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- jQuery -->
+    <script src="javascript/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- jQuery UI. -->
+    <script src="javascript/jqueryui/1.13.1/jquery-ui.min.js"></script>
+
+    <!-- jQuery UI theme. -->
+    <link rel="stylesheet" href="javascript/jqueryui/1.13.1/jquery-ui.min.css">
+    <link rel="stylesheet" href="javascript/jqueryui/1.13.1/themes/smoothness/jquery-ui.css">
+
+    <!-- DLS common javascript classes. -->
+    <script src="javascript/dls_common/base.js"></script>
+
+    <!-- Logic for bxflow pages. -->
+    <script src="javascript/version.js"></script>
+    <script src="javascript/runtime.js"></script>
+    <script src="javascript/bxflow/page.js"></script>
+
+    <!-- Logic for this page. -->
+    <script src="javascript/bxflow/events.js"></script>
+    <script src="javascript/bxflow/ux_base.js"></script>
+    <script src="javascript/bxflow/ux_auto_update.js"></script>
+    <script src="javascript/bxflow/tabs_manager.js"></script>
+    <script src="javascript/bxflow/job_news_ux.js"></script>
+    <script src="javascript/bxflow/recent_jobs_ux.js"></script>
+    <script src="javascript/bxflow/job_variables_ux.js"></script>
+    <script src="javascript/bxflow/job_details_ux.js"></script>
+    <script src="javascript/bxflow/job_submit_ux.js"></script>
+    <script src="javascript/bxflow/job_data_grid_ux.js"></script>
+    <script src="javascript/bxflow/system_health_ux.js"></script>
+    <script src="javascript/index.js"></script>
+
+    <!-- Styles for this page. -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/job_submit_ux.css">
+    <link rel="stylesheet" href="css/job_details_ux.css">
+    <link rel="stylesheet" href="css/job_data_grid_ux.css">
+    <link rel="stylesheet" href="css/system_health_ux.css">
+
+</head>
+
+<body class="body">
+    <div id="tabs_manager_interaction_parent">
+        <div class="T_tabs" id="tabs">
+
+            <ul>
+                <li><a href="#tab-job_data_grid">Job Data Grid</a></li>
+                <li><a href="#tab-jobs-list">Jobs List</a></li>
+                <li><a href="#tab-job-details">Job Details</a></li>
+                <li><a href="#tab-job-submit">Job Submit</a></li>
+                <li><a href="#tab-system-health">System Health</a></li>
+            </ul>
+            <div id="tab-system-health">
+                <div id="system_health_ux_interaction_parent">
+                    <div class="T_auto_update">
+                        <div class="T_toggle">AUTO</div>
+                        <div class="T_status">-</div>
+                    </div>
+                    <div class="T_section">
+                        <div class="T_title" title="system health">System Health</div>
+                        <div class="T_composed T_system_health">-</div>
+                    </div>
+                </div>
+            </div>
+            <div id="tab-job-submit">
+                <div id="job_submit_ux_interaction_parent">
+                    <div class="T_initial">Please pick an existing job.</div>
+                    <div class="T_contents">
+                        <div class="T_section">
+                            <div class="T_title">you are preparing to submit the workflow</div>
+                            <div class="T_workflow_filename_classname">-</div>
+                        </div>
+                        <div class="T_section" style="display: none;">
+                            <div class="T_title">for dataset</div>
+                            <div class="T_data_label">-</div>
+                            <div class="T_title">for job label</div>
+                            <div class="T_job_label">-</div>
+                        </div>
+                        <div class="T_section">
+                            <div class="T_title">please make your changes below</div>
+                            <div class="T_form_container">
+                                <form>
+                                    <div class="T_settings_container">-</div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="T_section">
+                            <span class="T_start">Start Workflow</span>
+                        </div>
+                        <div class="T_section">
+                            <span class="T_refresh_settings">Refresh Settings</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="tab-job_data_grid">
+                <div id="job_data_grid_ux_interaction_parent">
+                    <div class="T_auto_update">
+                        <div class="T_toggle">AUTO</div>
+                        <div class="T_status">-</div>
+                    </div>
+                    <div class="T_section">
+                        <div class="T_title">
+                            Job vs. Data Grid
+                        </div>
+
+                        <div class="T_instructions">
+                            Please click on a white box to submit the data for processing.
+                            Click any other box to see details about the ongoing or finished processing.
+                        </div>
+
+                        <table class="T_legend">
+                            <tr>
+                                <td>
+                                    legend
+                                </td>
+                                <td>
+                                    <div class="T_space"></div>
+                                </td>
+                                <td>
+                                    <div class="T_box T_NEVER"></div>
+                                </td>
+                                <td>not submitted</td>
+                                <td>
+                                    <div class="T_space"></div>
+                                </td>
+                                <td>
+                                    <div class="T_box T_ready"></div>
+                                </td>
+                                <td>in progress</td>
+                                <td>
+                                    <div class="T_space"></div>
+                                </td>
+                                <td>
+                                    <div class="T_box T_succeeded"></div>
+                                </td>
+                                <td>finished</td>
+                                <td>
+                                    <div class="T_space"></div>
+                                </td>
+                                <td>
+                                    <div class="T_box T_failed"></div>
+                                </td>
+                                <td>error</td>
+                                <td>
+                                    <div class="T_space"></div>
+                                </td>
+                                <td>
+                                    <div class="T_box T_cancelled"></div>
+                                </td>
+                                <td>cancelled</td>
+                            </tr>
+                        </table>
+                        <div class="T_composed">-</div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="tab-jobs-list">
+                <!-- =========================================================================== -->
+                <div id="recent_jobs_ux_interaction_parent">
+                    <div class="T_auto_update">
+                        <div class="T_toggle">AUTO</div>
+                        <div class="T_status">-</div>
+                    </div>
+                    <div class="T_section">
+                        <div class="T_title" title="recent jobs">Recent Jobs</div>
+                        <div class="T_composed T_recent_jobs">-</div>
+                    </div>
+                </div>
+            </div>
+            <div id="tab-job-details">
+                <!-- =========================================================================== -->
+                <div id="job_details_ux_interaction_parent">
+                    <div class="T_auto_update">
+                        <div class="T_toggle">AUTO</div>
+                        <div class="T_status">-</div>
+                    </div>
+                    <div class="T_section">
+                        <div class="T_title" title="job summary">Job Summary</div>
+                        <div class="T_composed T_summary T_recent_jobs">-</div>
+                    </div>
+                    <!-- =========================================================================== -->
+                    <div class="T_section">
+                        <div class="T_title" title="workflow settings">Workflow Settings
+                            <span class="T_workflow_filename_classname">-</span>
+                        </div>
+                        <div class="T_data_label">-</div>
+                        <div class="T_job_label">-</div>
+                        <div class="T_form_container">
+                            <div class="T_composed T_settings_container">-</div>
+                            <div class="T_new_workflow">New Workflow</div>
+                        </div>
+                    </div>
+                    <!-- =========================================================================== -->
+                    <div class="T_section">
+                        <div class="T_title" title="task progress">Task Progress</div>
+                        <div class="T_composed T_details">-</div>
+                    </div>
+                </div>
+                <!-- =========================================================================== -->
+                <div id="job_news_ux_interaction_parent">
+                    <div class="T_section">
+                        <div class="T_title" title="recent actions">Job Actions</div>
+                        <div>
+                            <div class="T_composed">-</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- =========================================================================== -->
+                <div id="job_variables_ux_interaction_parent">
+                    <div class="T_section">
+                        <div class="T_title" title="job variables">Job Variables</div>
+                        <div>
+                            <div class="T_composed">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- tabs_manager_interaction_parent -->
+</body>
+
+</html>

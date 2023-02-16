@@ -1,0 +1,20 @@
+import logging
+
+# Base class for a Thing which has a name and traits.
+from dls_bxflow_api.thing import Thing
+
+logger = logging.getLogger(__name__)
+
+
+class Base(Thing):
+    """ """
+
+    # ----------------------------------------------------------------------------------------
+    def __init__(self, thing_type, specification=None, predefined_uuid=None):
+        Thing.__init__(self, thing_type, specification, predefined_uuid=predefined_uuid)
+
+    # ----------------------------------------------------------------------------------------
+    def test_uncaught(self, test_message):
+        """"""
+
+        raise RuntimeError(test_message)

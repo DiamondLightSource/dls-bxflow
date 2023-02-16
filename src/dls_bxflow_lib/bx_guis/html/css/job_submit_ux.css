@@ -1,0 +1,30 @@
+#job_submit_ux_interaction_parent .T_filename INPUT {
+  width: 640px;
+}
+
+#job_submit_ux_interaction_parent .T_section>DIV {
+  margin-left: 16px;
+}
+
+#job_submit_ux_interaction_parent .T_section>DIV:first-child {
+  margin-top: 4px;
+  margin-left: 0px;
+}
+
+#job_submit_ux_interaction_parent .T_title {
+  font-weight: bold;
+}
+
+#job_submit_ux_interaction_parent .T_body {
+  margin-left: 16px;
+}
+
+#job_submit_ux_interaction_parent .T_save_confirmation {
+  display: none;
+}
+
+#job_submit_ux_interaction_parent .T_save_confirmation.showing {
+  display: inline-block;
+  color: magenta;
+  font-style: italic;
+}
