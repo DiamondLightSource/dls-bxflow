@@ -93,14 +93,15 @@ class TestGoodConfigurationEnv:
     def test(self, constants, logging_setup, output_directory):
         """ """
 
-        with open("good_config1.yaml", "w") as stream:
+        good_config = f"{output_directory}/good_config1.yaml"
+        with open(good_config, "w") as stream:
             stream.write("")
 
         os.makedirs(f"{output_directory}/good_data_dir1")
 
         # ---------------------------------------------------
         environ = {
-            Envvar.BXFLOW_CONFIGFILE: "good_config1.yaml",
+            Envvar.BXFLOW_CONFIGFILE: good_config,
         }
         GoodConfigurationEnvTester().main(constants, environ, output_directory)
 
