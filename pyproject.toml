@@ -16,7 +16,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
 ]
 description = "Distributed beamline data processing workflow engine and gui platform core."
-dependencies = ["aio-pika", "dask[distributed]", "dls-servbase", "dls-mainiac", "dls-utilpack", "dls-pairstream", "future", "graypy", "h5py", "ispyb==6.13.0", "ipykernel", "jsonpickle", "lxml", "nbclient", "nbconvert", "nbformat", "pika", "prettytable", "pyyaml", "ruamel.yaml", "stomp.py", "workflows"]
+dependencies = ["aio-pika", "dask[distributed]", "dls-servbase", "dls-mainiac", "dls-utilpack", "dls-pairstream", "future", "graypy", "h5py", "ispyb==7.1.2", "ipykernel", "jsonpickle", "lxml", "nbclient", "nbconvert", "nbformat", "pika", "prettytable", "pyyaml", "ruamel.yaml", "stomp.py", "workflows"]
 dynamic = ["version"]
 license.file = "LICENSE"
 readme = "README.rst"
