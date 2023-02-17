@@ -324,7 +324,7 @@ class Aiohttp(Thing, BaseAiohttp):
         )
 
         records = await bx_datafaces_get_default().get_bx_jobs(
-            order_by="created_on DESC",
+            order_by="created_on DESC", why="[GUIPOLL] get recent jobs"
         )
         html = bx_composers_get_default().compose_bx_jobs(records)
         response = {"html": html, "auto_update_enabled": auto_update_enabled}
@@ -376,34 +376,36 @@ class Aiohttp(Thing, BaseAiohttp):
         data_label = None
         job_label = None
         if bx_job_uuid is not None:
-            # bx_job_uuid = require("request json", request_dict, "bx_job_uuid")
-            bx_job_record = await dataface.get_bx_job(bx_job_uuid)
-            if bx_job_record is None:
+            # Look up the full job record.
+            record = await dataface.get_bx_job(
+                bx_job_uuid, why="[GUIPOLL] _get_job_details"
+            )
+            if record is None:
                 return {"has_been_deleted": True}
 
-            data_label = bx_job_record.get(BxJobFieldnames.DATA_LABEL)
-            job_label = bx_job_record.get(BxJobFieldnames.LABEL)
+            data_label = record.get(BxJobFieldnames.DATA_LABEL)
+            job_label = record.get(BxJobFieldnames.LABEL)
 
             # Look up the tasks-and-gates records from the database.
             bx_jobs_bx_tasks_bx_gates_records = (
                 await dataface.get_bx_jobs_bx_tasks_bx_gates(
-                    bx_job_uuid=bx_job_uuid, why="[GUIPOLL]"
+                    bx_job_uuid=bx_job_uuid, why="[GUIPOLL] _get_job_details"
                 )
             )
             # Turn this into nice html.
             html = callsign_html(self)
             html += composer.compose_bx_job_details(
-                bx_job_record, bx_jobs_bx_tasks_bx_gates_records
+                record, bx_jobs_bx_tasks_bx_gates_records
             )
 
-            # Look up the full job record.
-            record = await dataface.get_bx_job(bx_job_uuid, why="[GUIPOLL]")
             # Turn this into the job summary line html.
             job_summary_html = callsign_html(self)
             job_summary_html += composer.compose_bx_jobs([record])
 
             # Get the workflow record for this job.
-            bx_workflow_records = await dataface.get_bx_workflows([bx_job_uuid])
+            bx_workflow_records = await dataface.get_bx_workflows(
+                [bx_job_uuid], why="[GUIPOLL] _get_job_details"
+            )
             settings_html = callsign_html(self)
             if len(bx_workflow_records) > 0:
                 bx_workflow_record = bx_workflow_records[0]
@@ -412,7 +414,7 @@ class Aiohttp(Thing, BaseAiohttp):
                 ]
 
                 # Get the workflow's settings from the json field in the record.
-                bx_settings = BxSettings(f"workflow for job {bx_job_record['label']}")
+                bx_settings = BxSettings(f"workflow for job {record['label']}")
                 bx_settings.load_from_json(bx_workflow_record["bx_settings_json"])
                 settings_html += bx_settings.compose_html_outputs()
 
@@ -557,7 +559,9 @@ class Aiohttp(Thing, BaseAiohttp):
     # ----------------------------------------------------------------------------------------
     async def _connect_registered_launchers(self):
 
-        launcher_records = await bx_datafaces_get_default().get_bx_launchers()
+        launcher_records = await bx_datafaces_get_default().get_bx_launchers(
+            why="[GUIPOLL]"
+        )
 
         for launcher_record in launcher_records:
 

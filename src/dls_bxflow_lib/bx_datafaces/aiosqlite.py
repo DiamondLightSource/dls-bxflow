@@ -138,7 +138,7 @@ class Aiosqlite(Thing):
         await self.__database.bx_news_table.insert(bx_news_dict)
 
     # ----------------------------------------------------------------------------------------
-    async def get_bx_launcher(self, bx_launcher_uuid):
+    async def get_bx_launcher(self, bx_launcher_uuid, why=None):
         """
         Get single bx_launcher from its uuid.
         Returns database record format.
@@ -148,7 +148,7 @@ class Aiosqlite(Thing):
         # Get all the bx_launchers for the bx_job.
         sql = "SELECT * FROM bx_launchers WHERE uuid = '%s'" % (bx_launcher_uuid)
 
-        records = await self.__database.query(sql)
+        records = await self.__database.query(sql, why=why)
 
         if len(records) == 0:
             return None
@@ -156,7 +156,7 @@ class Aiosqlite(Thing):
         return records[0]
 
     # ----------------------------------------------------------------------------------------
-    async def get_bx_launchers(self, states=None):
+    async def get_bx_launchers(self, states=None, why=None):
         """
         Get bx_launchers with given states.
         Returns database records format.
@@ -169,7 +169,7 @@ class Aiosqlite(Thing):
             quoted_states = ", ".join([f"'{state}'" for state in states])
             sql = f"{sql} WHERE state IN ({quoted_states})"
 
-        records = await self.__database.query(sql)
+        records = await self.__database.query(sql, why=why)
 
         return records
 
@@ -488,7 +488,7 @@ class Aiosqlite(Thing):
     async def delete_bx_job(self, bx_job_uuid):
         """ """
 
-        bx_job_record = await self.get_bx_job(bx_job_uuid)
+        bx_job_record = await self.get_bx_job(bx_job_uuid, "to delete the job")
         if bx_job_record is None:
             logger.warning(f"cannot find bx_job {bx_job_uuid} to delete it")
             return

@@ -65,7 +65,10 @@ class Scraper(BxCollectorBase):
         """"""
 
         # Get all the jobs ever done.
-        records = await self.__bx_dataface.get_bx_jobs(labels=[self.workflow_classname])
+        records = await self.__bx_dataface.get_bx_jobs(
+            labels=[self.workflow_classname],
+            why="scraper activation",
+        )
 
         # Make an initial list of the data labels associated with any job.
         self.__data_labels = []

@@ -227,7 +227,7 @@ class Naive(BxSchedulerBase):
         """
 
         launcher_records = await bx_datafaces_get_default().get_bx_launchers(
-            [BxLauncherStates.IDLE]
+            [BxLauncherStates.IDLE], why="scheduler finding idle launcher"
         )
 
         # No idle launchers at all?

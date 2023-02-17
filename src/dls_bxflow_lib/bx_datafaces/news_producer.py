@@ -110,7 +110,10 @@ class NewsProducer:
 
         if topic is not None:
 
-            bx_job_record = await self.__bx_dataface.get_bx_job(row["uuid"])
+            bx_job_record = await self.__bx_dataface.get_bx_job(
+                row["uuid"],
+                f"for news details about job state change to {state}",
+            )
             bx_job_label = bx_job_record[BxJobFieldnames.LABEL]
             data_label = bx_job_record[BxJobFieldnames.DATA_LABEL]
             headline = f"{bx_job_label} for {data_label} became {state}"

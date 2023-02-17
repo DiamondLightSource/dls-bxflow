@@ -86,20 +86,20 @@ class Aiohttp:
         return await self.__send_protocolj("get_bx_cookie", bx_cookie_uuid)
 
     # ----------------------------------------------------------------------------------------
-    async def get_bx_launcher(self, bx_launcher_uuid):
+    async def get_bx_launcher(self, bx_launcher_uuid, why=None):
         """
         Get single bx_launcher from its uuid.
         Returns database record format.
         """
-        return await self.__send_protocolj("get_bx_launcher", bx_launcher_uuid)
+        return await self.__send_protocolj("get_bx_launcher", bx_launcher_uuid, why=why)
 
     # ----------------------------------------------------------------------------------------
-    async def get_bx_launchers(self, states=None):
+    async def get_bx_launchers(self, states=None, why=None):
         """
         Get bx_launchers with given states.
         Returns database records format.
         """
-        return await self.__send_protocolj("get_bx_launchers", states=states)
+        return await self.__send_protocolj("get_bx_launchers", states=states, why=why)
 
     # ----------------------------------------------------------------------------------------
     async def get_bx_tasks_launched_by(self, bx_launcher_uuid, states=None):

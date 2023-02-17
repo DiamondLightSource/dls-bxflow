@@ -177,7 +177,9 @@ class Aiohttp(Thing, BaseAiohttp):
         bx_job_uuid = require("payload[bx_job]", bx_job_dict, "uuid")
 
         # Get the complete job record from the dataface.
-        bx_job_record = await bx_datafaces_get_default().get_bx_job(bx_job_uuid)
+        bx_job_record = await bx_datafaces_get_default().get_bx_job(
+            bx_job_uuid, why="catalog to create workflow run"
+        )
 
         # Create the catalog workflow run.
         await self.__actual_bx_catalog.create_workflow_run(bx_job_record)
@@ -200,7 +202,9 @@ class Aiohttp(Thing, BaseAiohttp):
         bx_job_uuid = require("payload[bx_job]", bx_job_dict, "uuid")
 
         # Get the complete job record from the dataface.
-        bx_job_record = await bx_datafaces_get_default().get_bx_job(bx_job_uuid)
+        bx_job_record = await bx_datafaces_get_default().get_bx_job(
+            bx_job_uuid, "for catalog to update job finished"
+        )
 
         # Tell the actual catalog that the job is finished.
         await self.__actual_bx_catalog.finish_workflow_run(bx_job_record)
