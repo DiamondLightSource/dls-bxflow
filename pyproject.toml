@@ -16,7 +16,31 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
 ]
 description = "Distributed beamline data processing workflow engine and gui platform core."
-dependencies = ["aio-pika", "dask[distributed]", "dls-servbase", "dls-mainiac", "dls-utilpack", "dls-pairstream", "future", "graypy", "h5py", "ispyb==6.13.0", "ipykernel", "jsonpickle", "lxml", "nbclient", "nbconvert", "nbformat", "pika", "prettytable", "pyyaml", "ruamel.yaml", "stomp.py", "workflows"]
+dependencies = [
+    "aio-pika",
+    "dask[distributed]",
+    "dls-servbase",
+    "dls-mainiac",
+    "dls-multiconf",
+    "dls-utilpack",
+    "dls-pairstream",
+    "future",
+    "graypy",
+    "h5py",
+    "ispyb==6.13.0",
+    "ipykernel",
+    "jsonpickle",
+    "lxml",
+    "nbclient",
+    "nbconvert",
+    "nbformat",
+    "pika",
+    "prettytable",
+    "pyyaml",
+    "ruamel.yaml",
+    "stomp.py",
+    "workflows",
+]
 dynamic = ["version"]
 license.file = "LICENSE"
 readme = "README.rst"
@@ -34,6 +58,7 @@ dev = [
     "pydocstyle[toml]",
     "tox-direct",
     "types-mock",
+    "types-PyYAML",
 ]
 docs = [
     "pydata-sphinx-theme>=0.12",
@@ -84,7 +109,7 @@ exclude = [".tox", "venv"]
 
 [tool.pytest.ini_options]
 # Run pytest with all our checkers, and don't spam us with massive tracebacks on error
-addopts = "    --tb=native -vv --doctest-modules --doctest-glob=\"*.rst\"\n    --cov=dls_bxflow_lib --cov-report term --cov-report xml:cov.xml\n    "
+addopts = "    --tb=native -vv --doctest-modules --doctest-glob=\"*.rst\"\n    "
 # https://iscinumpy.gitlab.io/post/bound-version-constraints/#watch-for-warnings
 filterwarnings = "error"
 # Doctest python code in docs, python code in src docstrings, test functions in tests
@@ -102,4 +127,4 @@ source = ["src", "**/site-packages/"]
 [tool.tox]
 legacy_tox_ini = "[tox]\nskipsdist=True\n\n[testenv:{pre-commit,mypy,pytest,docs}]\n# Don't create a virtualenv for the command, requires tox-direct plugin\ndirect = True\npassenv = *\nallowlist_externals = \n    pytest \n    pre-commit\n    mypy\n    sphinx-build\n    sphinx-autobuild\ncommands =\n    pytest: pytest {posargs}\n    mypy: mypy src tests {posargs}\n    pre-commit: pre-commit run --all-files {posargs}\n    docs: sphinx-{posargs:build -EW --keep-going} -T docs build/html\n"
 
-# dae_devops_fingerprint b97e16b96e68ca07d6deb43f26bc64ee
+# dae_devops_fingerprint 32c67ec7b2a3de3d46988bba8c8821ef

@@ -18,6 +18,7 @@ primary:
         - dask[distributed]
         - dls-servbase
         - dls-mainiac
+        - dls-multiconf
         - dls-utilpack
         - dls-pairstream
         - future

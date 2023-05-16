@@ -4,6 +4,7 @@ import multiprocessing
 import os
 
 import pytest
+from dls_multiconf_lib.constants import ThingTypes as MulticonfThingTypes
 
 # Object managers we interact with.
 from dls_bxflow_api.bx_datafaces.bx_datafaces import bx_datafaces_get_default
@@ -70,7 +71,7 @@ class BaseContextTester:
 
         bx_configurator = BxConfigurators().build_object(
             {
-                "type": "dls_bxflow_lib.bx_configurators.yaml",
+                "type": MulticonfThingTypes.YAML,
                 "type_specific_tbd": {"filename": self.__configuration_file},
             }
         )
