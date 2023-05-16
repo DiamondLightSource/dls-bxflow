@@ -3,9 +3,13 @@ import logging
 import os
 from typing import Optional
 
-# Use dls_servbase.
-from dls_servbase_lib.configurators.configurators import (
-    dls_servbase_configurators_set_default,
+# Configurator.
+from dls_multiconf_lib.constants import ThingTypes as MulticonfThingTypes
+from dls_multiconf_lib.multiconfs import (
+    Multiconfs,
+    multiconfs_get_default,
+    multiconfs_has_default,
+    multiconfs_set_default,
 )
 
 # Utilities.
@@ -28,63 +32,26 @@ __default_bx_configurator = None
 
 
 def bx_configurators_set_default(bx_configurator):
-    global __default_bx_configurator
-    __default_bx_configurator = bx_configurator
-
-    # Since bx uses dls_servbase to launch processes.
-    dls_servbase_configurators_set_default(bx_configurator)
+    multiconfs_set_default(bx_configurator)
 
 
 def bx_configurators_get_default():
-    global __default_bx_configurator
-    if __default_bx_configurator is None:
-        raise RuntimeError("bx_configurators_get_default instance is None")
-    return __default_bx_configurator
+    return multiconfs_get_default()
 
 
 def bx_configurators_has_default():
-    global __default_bx_configurator
-    return __default_bx_configurator is not None
+    return multiconfs_has_default()
 
 
 # -----------------------------------------------------------------------------------------
-class BxConfigurators(Things):
+class BxConfigurators(Multiconfs):
     """
     Configuration loader.
     """
 
     # ----------------------------------------------------------------------------------------
     def __init__(self, name=None):
-        Things.__init__(self, name)
-
-    # ----------------------------------------------------------------------------------------
-    def build_object(self, specification):
-        """"""
-
-        bx_configurator_class = self.lookup_class(
-            require(f"{callsign(self)} specification", specification, "type")
-        )
-
-        try:
-            bx_configurator_object = bx_configurator_class(specification)
-        except Exception as exception:
-            raise RuntimeError(
-                "unable to instantiate bx_configurator object from module %s"
-                % (bx_configurator_class.__module__)
-            ) from exception
-
-        return bx_configurator_object
-
-    # ----------------------------------------------------------------------------------------
-    def lookup_class(self, class_type):
-        """"""
-
-        if class_type == "dls_bxflow_lib.bx_configurators.yaml":
-            from dls_bxflow_lib.bx_configurators.yaml import Yaml
-
-            return Yaml
-
-        raise NotFound("unable to get bx_configurator class for type %s" % (class_type))
+        Multiconfs.__init__(self, name)
 
     # ----------------------------------------------------------------------------------------
     def build_object_from_environment(
@@ -127,7 +94,7 @@ class BxConfigurators(Things):
 
         bx_configurator = self.build_object(
             {
-                "type": "dls_bxflow_lib.bx_configurators.yaml",
+                "type": MulticonfThingTypes.YAML,
                 "type_specific_tbd": {"filename": configurator_filename},
             }
         )

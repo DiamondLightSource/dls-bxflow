@@ -5,12 +5,13 @@ import os
 
 import pytest
 import yaml
+from dls_multiconf_lib.constants import ThingTypes as MulticonfThingTypes
+
+# Exceptions.
+from dls_multiconf_lib.exceptions import NotFound
 
 # Utilities.
 from dls_utilpack.describe import describe
-
-# Exceptions.
-from dls_bxflow_api.exceptions import NotFound
 
 # Configurator.
 from dls_bxflow_lib.bx_configurators.bx_configurators import BxConfigurators
@@ -42,7 +43,7 @@ class TestConfiguratorDirectGood:
 
         # This is the object type we want to run the test on.
         specification = {
-            "type": "dls_bxflow_lib.bx_configurators.yaml",
+            "type": MulticonfThingTypes.YAML,
             "type_specific_tbd": {"filename": yaml_filename},
         }
 
@@ -61,14 +62,14 @@ class TestConfiguratorDirectBad:
         )
         BadConfiguratorDirectTester("RuntimeError", "unable to instantiate").main(
             constants,
-            {"type": "dls_bxflow_lib.bx_configurators.yaml"},
+            {"type": MulticonfThingTypes.YAML},
             output_directory,
         )
 
         # Another yaml file.
         bad_yaml_filename = f"{output_directory}/configuration.bad.yml"
         specification = {
-            "type": "dls_bxflow_lib.bx_configurators.yaml",
+            "type": MulticonfThingTypes.YAML,
             "type_specific_tbd": {"filename": bad_yaml_filename},
         }
 
