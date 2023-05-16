@@ -5,9 +5,6 @@ import logging
 import os
 import time
 
-# Utilities.
-from dls_utilpack.qualname import qualname
-
 # Object managing datafaces.
 from dls_bxflow_api.bx_datafaces.bx_datafaces import bx_datafaces_get_default
 
@@ -179,13 +176,8 @@ class LauncherCapacityTester(BaseContextTester):
                                 bx_task_specifications[i],
                             )
                             break
-                        except Exception as exception:
-                            if qualname(CapacityReached) in str(exception):
-                                logger.info(
-                                    f"general {exception}, will nap and try again"
-                                )
-                            else:
-                                raise
+                        except CapacityReached as exception:
+                            logger.info(f"general {exception}, will nap and try again")
 
                         await asyncio.sleep(nap)
 
