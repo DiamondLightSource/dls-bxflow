@@ -5,6 +5,8 @@ import logging
 import multiprocessing
 import threading
 
+from dls_multiconf_lib.exceptions import NotFound as MulticonfNotFound
+
 # Utilities.
 from dls_utilpack.callsign import callsign, callsign_html
 from dls_utilpack.describe import describe
@@ -519,28 +521,28 @@ class Aiohttp(Thing, BaseAiohttp):
             prepend_job_labels = bx_configurators_get_default().require(
                 "gui.job_data_grid.prepend_job_labels"
             )
-        except NotFound:
+        except MulticonfNotFound:
             prepend_job_labels = None
 
         try:
             append_job_labels = bx_configurators_get_default().require(
                 "gui.job_data_grid.append_job_labels"
             )
-        except NotFound:
+        except MulticonfNotFound:
             append_job_labels = None
 
         try:
             specific_job_labels = bx_configurators_get_default().require(
                 "gui.job_data_grid.specific_job_labels"
             )
-        except NotFound:
+        except MulticonfNotFound:
             specific_job_labels = None
 
         try:
             exclude_job_labels = bx_configurators_get_default().require(
                 "gui.job_data_grid.exclude_job_labels"
             )
-        except NotFound:
+        except MulticonfNotFound:
             exclude_job_labels = None
 
         # Compose the html using prettytable, with special cell composer method.
