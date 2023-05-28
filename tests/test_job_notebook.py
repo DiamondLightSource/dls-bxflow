@@ -40,7 +40,8 @@ from tests.base_context_tester import BaseContextTester
 
 logger = logging.getLogger(__name__)
 
-SOME_EXECUTION_SUMMARY_TEXT = "some text"
+# This is what the notebook will set for ExecutionSummary.
+RANDOM_STRING_PNG = "random_string.png"
 
 # ----------------------------------------------------------------------------------------
 class TestJobNotebook:
@@ -89,9 +90,6 @@ class JobNotebookTester(BaseContextTester):
                     RemexKeywords.HINTS: {RemexKeywords.CLUSTER: RemexClusters.LOCAL},
                     "type_specific_tbd": {
                         "ipynb_filename": ipynb_filename,
-                        "modify_cells": {
-                            "2": f"SOME_EXECUTION_SUMMARY_TEXT = '{SOME_EXECUTION_SUMMARY_TEXT}'"
-                        },
                     },
                 }
             )
@@ -139,14 +137,12 @@ class JobNotebookTester(BaseContextTester):
             self._assert_execution_output(
                 ExecutionSummary.filename,
                 self.tasks_execution_outputs[aclass_bx_task.uuid()],
-                expected_content=SOME_EXECUTION_SUMMARY_TEXT,
+                expected_content=RANDOM_STRING_PNG,
             )
 
             # Verify that the bx_job record has the execution summary from the task.
             record = await bx_datafaces_get_default().get_bx_job(bx_job.uuid())
-            assert (
-                record[BxJobFieldnames.EXECUTION_SUMMARY] == SOME_EXECUTION_SUMMARY_TEXT
-            )
+            assert record[BxJobFieldnames.EXECUTION_SUMMARY] == RANDOM_STRING_PNG
 
         # -------------------------------------------------------------
         # Context is now closed, database and all other services are unavailable.
