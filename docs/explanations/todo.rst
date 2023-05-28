@@ -1,0 +1,31 @@
+TODO
+=======================================================================
+
+- Finish scraping code for TODO to be added to this list.
+- Add documentation for more classes.
+- Change away from using import ispyb.model.__future__.
+- Reconsider package/module placement for remex keywords.
+- Use asyncio wait or sentinel for all started processes to be dead.
+- Centralize definition of configuration_keyword symbol.
+- Use ImportlibMetadataVersion to get package versions.
+- Sanitize input to sql query when looking for data label in ispyb.
+- Put lock around computing datacollection_number when creating new catalog workflow run.
+- When updating ispyb autoproc progarm status, determine if job is blocked due to error.
+- Add ispby file attachment type and rank.
+- Figure out some good things to do in the gda parser base class.
+- Fix hierarchy crossover where dataface imports job constants.
+- Use filestore object to discover all available files in task runtime directory.
+- Compose news details to open under click or hover.
+- Parallelize context process alive/dead checking.
+- Fix early-send problem when setting up news server/client context.
+- Set permission on sqlite file from configuration.
+- Properly escape literal label field in sql query.
+- Improved storage efficiency by separate lookup for task error lines in get_bx_jobs_bx_tasks_bx_gates.
+- Die if inserting a new job when its directory already exists.
+- Gui should get system health in parallel network requests.
+- Iron out where data_label comes from when submitting a new workflow from the gui.
+- Move sizewatch inside particular ux that needs it.
+- Figure out a way to put the package's version into the version.js file.
+- In aiohttp BxLauncher, give special http status to indicate task count max exceeded.
+- Make the task specification contain pythonpath, module, conda or venv.
+- Use the utilpack library for building the main.sh bash script.

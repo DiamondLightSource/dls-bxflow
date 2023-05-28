@@ -160,7 +160,7 @@ class Base(Thing):
         # Increment task count.
         if self.__task_count_now == self.__task_count_max:
             # Reply to client.
-            # TODO: In aiohttp rBxLauncher, give special http status to indicate task count max exceeded.
+            # TODO: In aiohttp BxLauncher, give special http status to indicate task count max exceeded.
             raise CapacityReached(
                 callsign(
                     self,

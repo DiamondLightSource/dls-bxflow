@@ -1,5 +1,5 @@
 # ********** Please don't edit this file!
-# ********** It has been generated automatically by dae_devops version 0.5.1.
+# ********** It has been generated automatically by dae_devops version 0.5.4.dev0+g1fb30ef.d20230527.
 # ********** For repository_name dls-bxflow
 
 # This file is for use as a devcontainer and a runtime container
@@ -40,4 +40,4 @@ ENV PATH=/venv/bin:$PATH
 ENTRYPOINT ["dls-bxflow"]
 CMD ["--version"]
 
-# dae_devops_fingerprint 803d20273c1c0b2a6a3200b8c6410702
+# dae_devops_fingerprint 4b16385a09d58128346881a6b53ef58a

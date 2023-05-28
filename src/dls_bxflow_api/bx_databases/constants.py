@@ -25,6 +25,7 @@ class BxJobFieldnames:
     BX_WORKFLOW_UUID = "bx_workflow_uuid"
     COMMENT = "comment"
     RATING = "rating"
+    EXECUTION_SUMMARY = "execution_summary"
 
 
 # ----------------------------------------------------------------------------------------
@@ -67,6 +68,7 @@ class BxTaskFieldnames:
     DIRECTORY = "directory"
     EXIT_CODE = "exit_code"
     ERROR_LINES = "error_lines"
+    EXECUTION_SUMMARY = "execution_summary"
 
 
 # ----------------------------------------------------------------------------------------

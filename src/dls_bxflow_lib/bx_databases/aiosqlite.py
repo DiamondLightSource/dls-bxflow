@@ -25,7 +25,7 @@ from dls_bxflow_api.bx_databases.constants import (
 
 logger = logging.getLogger(__name__)
 
-LATEST_REVISION = 4
+LATEST_REVISION = 5
 
 
 # ----------------------------------------------------------------------------------------
@@ -160,6 +160,15 @@ class Aiosqlite:
                     "bx_launchers",
                     BxLauncherFieldnames.REMEX_CLUSTER,
                 )
+            )
+        if revision == 5:
+            await self.execute(
+                f"ALTER TABLE bx_jobs ADD COLUMN {BxJobFieldnames.EXECUTION_SUMMARY} TEXT",
+                why=f"for revision 5",
+            )
+            await self.execute(
+                f"ALTER TABLE bx_tasks ADD COLUMN {BxTaskFieldnames.EXECUTION_SUMMARY} TEXT",
+                why=f"for revision 5",
             )
 
     # ----------------------------------------------------------------------------------------

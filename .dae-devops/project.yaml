@@ -2,7 +2,7 @@
 primary:
   repository_name: dls-bxflow
   package_name: dls_bxflow_lib
-  one_line_description: "Distributed beamline data processing workflow engine and gui platform core."
+  one_line_description: "Distributed beamline automated data processing workflow engine and gui platform core."
   author:
     name: David Erb
     email: david.erb@diamond.ac.uk
@@ -39,3 +39,5 @@ primary:
         - ruamel.yaml
         - stomp.py
         - workflows
+        # TODO: Change configuration so that certain depdendencies are marked for unit testing.
+        - beautifulsoup4

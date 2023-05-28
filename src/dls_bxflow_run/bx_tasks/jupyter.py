@@ -37,9 +37,9 @@ class Jupyter(Base):
         self.__modify_cells = None
 
     # ----------------------------------------------------------------------------------------
-    def modify_notebook(self, notebook):
+    def __modify_notebook(self, notebook):
         """
-        Offer opportunity to modify notebook.
+        Modify the notebook's cells.
         """
 
         if self.__modify_cells is None:

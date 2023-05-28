@@ -67,7 +67,6 @@ class Aiohttp(Thing, BaseAiohttp):
         self._bx_tasks = BxTasks()
 
         # Number of concurrent tasks we will support.
-        # TODO: In aiohttp rBxLauncher, make task count max configurable.
         self.__task_count_max = specification["type_specific_tbd"].get(
             "task_count_max", 10
         )

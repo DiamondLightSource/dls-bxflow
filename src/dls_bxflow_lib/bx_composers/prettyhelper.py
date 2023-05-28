@@ -78,7 +78,7 @@ class PrettyHelper:
             "job",
             "task",
             "topic",
-            # TODO: Compose news details to open under click.
+            # TODO: Compose news details to open under click or hover.
             # "details",
         ]
 

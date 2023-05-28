@@ -1,9 +1,9 @@
 Command Line
 =======================================================================
 
-dls-normsql
+dls-bxflow
 -----------------------------------------------------------------------
 .. argparse:: 
-    :module: dls_normsql.__main__
+    :module: dls_bxflow_lib.__main__
     :func: get_parser
-    :prog: dls-normsql
+    :prog: dls-bxflow
