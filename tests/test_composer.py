@@ -69,6 +69,7 @@ class ComposerTester(BaseContextTester):
                             "label": f"job{job_number}",
                             "data_label": f"data{data_number}",
                             "state": "GOOD",
+                            "execution_summary": f"summary for data {data_number}, job {job_number}",
                         }
                     bx_job_dicts.append(bx_job_dict)
 

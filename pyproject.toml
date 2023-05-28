@@ -16,7 +16,32 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
 ]
 description = "Distributed beamline automated data processing workflow engine and gui platform core."
-dependencies = ["aio-pika", "dask[distributed]", "dls-servbase", "dls-mainiac", "dls-multiconf", "dls-utilpack", "dls-pairstream", "future", "graypy", "h5py", "ispyb==6.13.0", "ipykernel", "jsonpickle", "lxml", "nbclient", "nbconvert", "nbformat", "pika", "prettytable", "pyyaml", "ruamel.yaml", "stomp.py", "workflows", "beautifulsoup4"]
+dependencies = [
+    "aio-pika",
+    "dask[distributed]",
+    "dls-servbase",
+    "dls-mainiac",
+    "dls-multiconf",
+    "dls-utilpack",
+    "dls-pairstream",
+    "future",
+    "graypy",
+    "h5py",
+    "ispyb==6.13.0",
+    "ipykernel",
+    "jsonpickle",
+    "lxml",
+    "nbclient",
+    "nbconvert",
+    "nbformat",
+    "pika",
+    "prettytable",
+    "pyyaml",
+    "ruamel.yaml",
+    "stomp.py",
+    "workflows",
+    "beautifulsoup4",
+]
 dynamic = ["version"]
 license.file = "LICENSE"
 readme = "README.md"
@@ -85,7 +110,7 @@ exclude = [".tox", "venv"]
 
 [tool.pytest.ini_options]
 # Run pytest with all our checkers, and don't spam us with massive tracebacks on error
-addopts = "    --tb=native -vv --doctest-modules --doctest-glob=\"*.rst\"\n    --cov=dls_bxflow_lib --cov-report term --cov-report xml:cov.xml\n    "
+addopts = "    --tb=native -vv --doctest-modules --doctest-glob=\"*.rst\"\n    "
 # https://iscinumpy.gitlab.io/post/bound-version-constraints/#watch-for-warnings
 filterwarnings = "error"
 # Doctest python code in docs, python code in src docstrings, test functions in tests

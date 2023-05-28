@@ -441,6 +441,10 @@ class BxJobsTable(BaseTable):
         self._fields[BxJobFieldnames.BX_WORKFLOW_UUID] = {"type": "TEXT", "index": True}
         self._fields[BxJobFieldnames.COMMENT] = {"type": "TEXT", "index": False}
         self._fields[BxJobFieldnames.RATING] = {"type": "INTEGER", "index": True}
+        self._fields[BxJobFieldnames.EXECUTION_SUMMARY] = {
+            "type": "TEXT",
+            "index": False,
+        }
 
 
 # ----------------------------------------------------------------------------------------
@@ -507,6 +511,10 @@ class BxTasksTable(BaseTable):
         self._fields[BxTaskFieldnames.DIRECTORY] = {"type": "TEXT", "index": True}
         self._fields[BxTaskFieldnames.EXIT_CODE] = {"type": "INTEGER", "index": True}
         self._fields[BxTaskFieldnames.ERROR_LINES] = {"type": "TEXT", "index": False}
+        self._fields[BxTaskFieldnames.EXECUTION_SUMMARY] = {
+            "type": "TEXT",
+            "index": False,
+        }
 
 
 # ----------------------------------------------------------------------------------------
