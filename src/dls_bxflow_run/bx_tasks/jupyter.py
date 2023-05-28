@@ -30,14 +30,19 @@ class Jupyter(Base):
 
     # ----------------------------------------------------------------------------------------
     def __init__(self, specification=None, predefined_uuid=None):
-        Base.__init__(self, thing_type, specification, predefined_uuid=predefined_uuid)
+        Base.__init__(
+            self,
+            thing_type,
+            specification,
+            predefined_uuid=predefined_uuid,
+        )
 
         self.state(States.PREPARED)
 
         self.__modify_cells = None
 
     # ----------------------------------------------------------------------------------------
-    def __modify_notebook(self, notebook):
+    def modify_notebook(self, notebook):
         """
         Modify the notebook's cells.
         """
@@ -74,11 +79,15 @@ class Jupyter(Base):
         from nbconvert import HTMLExporter
 
         type_specific_tbd = require(
-            f"{callsign(self)} specification", self.specification(), "type_specific_tbd"
+            f"{callsign(self)} specification",
+            self.specification(),
+            "type_specific_tbd",
         )
 
         ipynb_filename = require(
-            f"{callsign(self)} specification", type_specific_tbd, "ipynb_filename"
+            f"{callsign(self)} specification",
+            type_specific_tbd,
+            "ipynb_filename",
         )
 
         self.__modify_cells = type_specific_tbd.get("modify_cells")
@@ -99,7 +108,7 @@ class Jupyter(Base):
         execution_exception = None
 
         # The task specification contains a command?
-        if "command" in self.specification()["type_specific_tbd"]:
+        if "command" in type_specific_tbd:
             try:
                 # Execute the notebook from within a shell script.
                 await self.execute_in_script(notebook, cwd_ipynb_filename)
