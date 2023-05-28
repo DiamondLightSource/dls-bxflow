@@ -359,6 +359,12 @@ class Html(Thing):
             )
 
         html_lines.append(f"<div class='T_box T_clickable T_{state}'></div>")
+        execution_summary = data_cell["execution_summary"]
+        if execution_summary is not None and execution_summary.strip() != "":
+            html_lines.append(
+                f"<div class='T_execution_summary T_clickable'>{execution_summary}</div>"
+            )
+
         html_lines.append("</div>")
 
         composed = "".join(html_lines)
