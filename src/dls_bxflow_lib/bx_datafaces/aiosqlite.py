@@ -1,6 +1,9 @@
 import logging
 import shutil
 
+# Specific fields we want to access by symbolic constant.
+from dls_bxflow_api.bx_databases.constants import BxJobFieldnames
+
 # Base class for generic things.
 from dls_bxflow_api.thing import Thing
 
@@ -476,6 +479,42 @@ class Aiosqlite(Thing):
             await self.__news_producer.update_bx_job(row, why=why)
 
         return {"count": count}
+
+    # ----------------------------------------------------------------------------------------
+    async def update_bx_job_execution_summary(
+        self,
+        bx_job_uuid,
+        task_execution_summary,
+        why=None,
+    ):
+        """
+        Add a task's execution summary to the job's execution summary.
+
+        Called when task is finished.
+        """
+        await self.establish_database_connection()
+
+        # Get the current job's record.
+        record = await self.get_bx_job(bx_job_uuid)
+
+        if record is not None:
+            # Append the task's execution summary to the job's existing one.
+            # No spacing or newlines are added since the caller is responsible to format everything.
+            # TODO: Use ExecutionSummary class to manage the merging of a tasks' summary into a job's.
+            job_execution_summary = record[BxJobFieldnames.EXECUTION_SUMMARY]
+            if job_execution_summary is not None:
+                job_execution_summary += task_execution_summary
+            else:
+                job_execution_summary = task_execution_summary
+
+            # Update the job record with the new value.
+            # TODO: Lock against multiple threads calling update_bx_job_execution_summary.
+            row = {BxJobFieldnames.EXECUTION_SUMMARY: job_execution_summary}
+            await self.__database.bx_jobs_table.update(
+                row,
+                f"uuid = '{bx_job_uuid}'",
+                why=why,
+            )
 
     # ----------------------------------------------------------------------------------------
     async def cancel_bx_job(self, bx_job_uuid):

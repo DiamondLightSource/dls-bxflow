@@ -234,6 +234,21 @@ class Aiohttp:
         return await self.__send_protocolj("update_bx_job", row)
 
     # ----------------------------------------------------------------------------------------
+    async def update_bx_job_execution_summary(
+        self,
+        bx_job_uuid,
+        task_execution_summary,
+        why=None,
+    ):
+        """"""
+        return await self.__send_protocolj(
+            "update_bx_job_execution_summary",
+            bx_job_uuid,
+            task_execution_summary,
+            why=why,
+        )
+
+    # ----------------------------------------------------------------------------------------
     async def cancel_bx_job(self, bx_job_uuid):
         """"""
         return await self.__send_protocolj("cancel_bx_job", bx_job_uuid)
