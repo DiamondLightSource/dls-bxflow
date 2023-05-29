@@ -14,7 +14,7 @@ A launcher is responsible for actually running a task in a CPU process.
 When the process running a task finishes, the launcher harvests the task and updates it state in the database.  This happens in ``bx_launchers.base.harvest()``.
 
 A task has the opportunity to write a brief summary of its execution for display in a grid.
-It does this by either calling ``ExecutionSummary.append_raw()``.
+It does this by either calling ``ExecutionSummary().append_raw()``.
 Please see ``test_job_a.py`` for an example.
 
 Jupyter notebooks can accomplish the same thing by writing the file ``execution.summary`` in the current directory.

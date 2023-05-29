@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Workflows, Jobs, Tasks &#8212; dls-bxflow 2.2.1.dev10+g409870f documentation</title>
+    <title>Workflows, Jobs, Tasks &#8212; dls-bxflow 2.2.1.dev11+gd1d8e22 documentation</title>
   
   
   
@@ -401,7 +401,7 @@ Jobs are saved persisently in the database.</p>
 <p>A launcher is responsible for actually running a task in a CPU process.
 When the process running a task finishes, the launcher harvests the task and updates it state in the database.  This happens in <code class="docutils literal notranslate"><span class="pre">bx_launchers.base.harvest()</span></code>.</p>
 <p>A task has the opportunity to write a brief summary of its execution for display in a grid.
-It does this by either calling <code class="docutils literal notranslate"><span class="pre">ExecutionSummary.append_raw()</span></code>.
+It does this by either calling <code class="docutils literal notranslate"><span class="pre">ExecutionSummary().append_raw()</span></code>.
 Please see <code class="docutils literal notranslate"><span class="pre">test_job_a.py</span></code> for an example.</p>
 <p>Jupyter notebooks can accomplish the same thing by writing the file <code class="docutils literal notranslate"><span class="pre">execution.summary</span></code> in the current directory.</p>
 <p>After the task is harvested, the execution summary is saved into a field in the task table in the database by <code class="docutils literal notranslate"><span class="pre">bx_launchers.base.get_post_run_fields_after_run()</span></code>.
