@@ -164,11 +164,11 @@ class Aiosqlite:
         if revision == 5:
             await self.execute(
                 f"ALTER TABLE bx_jobs ADD COLUMN {BxJobFieldnames.EXECUTION_SUMMARY} TEXT",
-                why=f"for revision 5",
+                why="for revision 5",
             )
             await self.execute(
                 f"ALTER TABLE bx_tasks ADD COLUMN {BxTaskFieldnames.EXECUTION_SUMMARY} TEXT",
-                why=f"for revision 5",
+                why="for revision 5",
             )
 
     # ----------------------------------------------------------------------------------------

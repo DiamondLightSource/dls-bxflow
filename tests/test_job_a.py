@@ -39,6 +39,7 @@ logger = logging.getLogger(__name__)
 
 SOME_EXECUTION_SUMMARY_TEXT = "some text"
 
+
 # ----------------------------------------------------------------------------------------
 class TestJobALaptop:
     def test(self, constants, logging_setup, output_directory):
@@ -63,7 +64,7 @@ class Aclass:
         with open(self.outfile, "wt") as stream:
             stream.write(self.algorithm)
         # Append some raw text to execution summary.
-        ExecutionSummary.append_raw(SOME_EXECUTION_SUMMARY_TEXT)
+        ExecutionSummary().append_raw(SOME_EXECUTION_SUMMARY_TEXT)
 
 
 # Pythonpath where the Aclass can be found
@@ -168,7 +169,7 @@ class JobATester(BaseContextTester):
 
             # Verify the output file contents from the execution summary written by the task.
             self._assert_execution_output(
-                ExecutionSummary.filename,
+                ExecutionSummary().filename,
                 self.tasks_execution_outputs[aclass_bx_task.uuid()],
                 expected_content=SOME_EXECUTION_SUMMARY_TEXT,
             )

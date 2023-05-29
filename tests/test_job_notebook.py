@@ -31,7 +31,6 @@ from dls_bxflow_lib.bx_news.constants import Topics as BxNewsTopics
 from dls_bxflow_run.bx_tasks.bx_tasks import BxTasks
 
 # Task types.
-from dls_bxflow_run.bx_tasks.constants import Keywords as BxTaskKeywords
 from dls_bxflow_run.bx_tasks.constants import Types as BxTaskTypes
 from dls_bxflow_run.bx_tasks.execution_summary import ExecutionSummary
 
@@ -42,6 +41,7 @@ logger = logging.getLogger(__name__)
 
 # This is what the notebook will set for ExecutionSummary.
 RANDOM_STRING_PNG = "random_string.png"
+
 
 # ----------------------------------------------------------------------------------------
 class TestJobNotebook:
@@ -135,7 +135,7 @@ class JobNotebookTester(BaseContextTester):
 
             # Verify the output file contents from the execution summary written by the task.
             self._assert_execution_output(
-                ExecutionSummary.filename,
+                ExecutionSummary().filename,
                 self.tasks_execution_outputs[aclass_bx_task.uuid()],
                 expected_content=RANDOM_STRING_PNG,
             )

@@ -542,7 +542,9 @@ class Base(Thing):
             error_lines = bx_task.extract_error_lines()
             gate_label = "failure"
 
-        execution_summary_filename = f"{runtime_directory}/{ExecutionSummary.filename}"
+        execution_summary_filename = (
+            f"{runtime_directory}/{ExecutionSummary().filename}"
+        )
         if os.path.exists(execution_summary_filename):
             with open(execution_summary_filename, "r") as stream:
                 execution_summary = stream.read()
