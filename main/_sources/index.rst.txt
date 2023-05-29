@@ -1,11 +1,14 @@
+dls-bxflow
+=======================================================================
 
-.. include:: ../README.rst
-    :end-before: when included in index.rst
+Distributed beamline automated data processing workflow engine and gui platform core.
 
-Source code repository: ${git_url}/${repository_name}
+Support beamline-specific science algorithms as workflow tasks.
 
 .. toctree::
-    :caption: API-caption
-    :hidden:
+    :titlesonly:
 
-    api/index
+    tutorials/index
+    how-to/index
+    explanations/index
+    reference/index

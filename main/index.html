@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>dls-bxflow &#8212; dls-bxflow 2.2.1.dev1+gafeef17 documentation</title>
+    <title>dls-bxflow &#8212; dls-bxflow 2.2.1.dev10+g409870f documentation</title>
   
   
   
@@ -50,7 +50,7 @@
     <link rel="icon" href="_static/dls-favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="API" href="api/index.html" />
+    <link rel="next" title="Tutorials" href="tutorials/index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -141,8 +141,29 @@
   <ul class="bd-navbar-elements navbar-nav">
     
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="api/index.html">
-                        API
+                      <a class="nav-link nav-internal" href="tutorials/index.html">
+                        Tutorials
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="how-to/index.html">
+                        How-to Guides
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="explanations/index.html">
+                        Explanations
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="reference/index.html">
+                        Reference
                       </a>
                     </li>
                 
@@ -210,10 +231,6 @@ document.write(`
   
 
   
-    <label class="sidebar-toggle secondary-toggle" for="__secondary">
-      <span class="fa-solid fa-outdent"></span>
-    </label>
-  
 </div>
 
     </nav>
@@ -240,8 +257,29 @@ document.write(`
   <ul class="bd-navbar-elements navbar-nav">
     
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="api/index.html">
-                        API
+                      <a class="nav-link nav-internal" href="tutorials/index.html">
+                        Tutorials
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="how-to/index.html">
+                        How-to Guides
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="explanations/index.html">
+                        Explanations
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="reference/index.html">
+                        Reference
                       </a>
                     </li>
                 
@@ -310,41 +348,37 @@ document.write(`
                   
   <section id="dls-bxflow">
 <h1>dls-bxflow<a class="headerlink" href="#dls-bxflow" title="Permalink to this heading">#</a></h1>
-<p>Distributed beamline data processing workflow engine and gui platform core.</p>
-<p>Intended advantages:</p>
-<ul class="simple">
-<li><p>develop and manage automated data processing workflows</p></li>
-</ul>
-<section id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">#</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">gitlab</span><span class="o">.</span><span class="n">diamond</span><span class="o">.</span><span class="n">ac</span><span class="o">.</span><span class="n">uk</span><span class="o">/</span><span class="n">scisoft</span><span class="o">/</span><span class="n">bxflow</span><span class="o">/</span><span class="n">dls</span><span class="o">-</span><span class="n">bxflow</span><span class="o">.</span><span class="n">git</span>
-
-<span class="n">dls_bxflow</span> <span class="o">--</span><span class="n">version</span>
-</pre></div>
-</div>
-</section>
-<section id="documentation">
-<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this heading">#</a></h2>
-<p>See <a class="reference external" href="https://www.cs.diamond.ac.uk/dls-bxflow">https://www.cs.diamond.ac.uk/dls-bxflow</a> for more detailed documentation.</p>
-<p>Building and viewing the documents locally:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>git clone git+https://gitlab.diamond.ac.uk/scisoft/bxflow/dls-bxflow.git
-cd dls-bxflow
-virtualenv /scratch/$USER/venv/dls-bxflow
-source /scratch/$USER/venv/dls-bxflow/bin/activate
-pip install -e .[dev]
-make -f .dls-bxflow/Makefile validate_docs
-browse to file:///scratch/$USER/venvs/dls-bxflow/build/html/index.html
-</pre></div>
-</div>
-<p>Topics for further documentation:</p>
-<ul class="simple">
-<li><p>TODO list of improvements</p></li>
-<li><p>change log</p></li>
-</ul>
-<p>Source code repository: <a class="reference external" href="https://gitlab.diamond.ac.uk/scisoft/bxflow/dls-bxflow">https://gitlab.diamond.ac.uk/scisoft/bxflow/dls-bxflow</a></p>
+<p>Distributed beamline automated data processing workflow engine and gui platform core.</p>
+<p>Support beamline-specific science algorithms as workflow tasks.</p>
 <div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/tbd.html">TBD Tutorial</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="how-to/index.html">How-to Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="how-to/installing.html">Installing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-to/developing.html">Developing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-to/testing.html">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-to/documenting.html">Documenting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-to/devops.html">Devops</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="explanations/index.html">Explanations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="explanations/jobs.html">Workflows, Jobs, Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="explanations/docs_structure.html">About the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="explanations/conventions.html">Naming conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="explanations/todo.html">TODO</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference/index.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/command_line.html">Command Line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/classes.html">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/modules.html">Functions</a></li>
+</ul>
+</li>
+</ul>
 </div>
-</section>
 </section>
 
 
@@ -359,11 +393,11 @@ browse to file:///scratch/$USER/venvs/dls-bxflow/build/html/index.html
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="right-next"
-       href="api/index.html"
+       href="tutorials/index.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">API</p>
+        <p class="prev-next-title">Tutorials</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -376,21 +410,6 @@ browse to file:///scratch/$USER/venvs/dls-bxflow/build/html/index.html
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> On this page
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>
