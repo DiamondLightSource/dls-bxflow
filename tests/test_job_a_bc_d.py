@@ -51,22 +51,6 @@ class TestJobABcDLaptop:
 
 
 # ----------------------------------------------------------------------------------------
-class Aclass:
-    """
-    This is a user-defined class which gets instantiated and called at runtime.
-    """
-
-    def __init__(self, outfile, algorithm=None):
-        self.outfile = outfile
-        self.algorithm = algorithm
-
-    async def run(self):
-        logger.info("running Aclass")
-        with open(self.outfile, "wt") as stream:
-            stream.write(self.algorithm)
-
-
-# ----------------------------------------------------------------------------------------
 class JobABcDTester(BaseContextTester):
     """
     Class to test diamond-shaped dag job creation and running directly, without a workflow involved.

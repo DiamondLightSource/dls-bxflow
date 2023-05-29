@@ -10,6 +10,9 @@ from dls_utilpack.callsign import callsign
 from dls_utilpack.explain import explain, explain_cause_chain_error_lines
 from dls_utilpack.require import require
 
+# Specific field names we want to use symobolic constants.
+from dls_bxflow_api.bx_databases.constants import BxTaskFieldnames
+
 # Global bx_dataface.
 from dls_bxflow_api.bx_datafaces.bx_datafaces import bx_datafaces_get_default
 
@@ -36,6 +39,7 @@ from dls_bxflow_run.bx_tasks.bx_tasks import BxTasks
 
 # BxTask configuration keywords.
 from dls_bxflow_run.bx_tasks.constants import Keywords as BxTaskKeywords
+from dls_bxflow_run.bx_tasks.execution_summary import ExecutionSummary
 from dls_bxflow_run.bx_tasks.states import States as BxTaskStates
 
 
@@ -160,7 +164,7 @@ class Base(Thing):
         # Increment task count.
         if self.__task_count_now == self.__task_count_max:
             # Reply to client.
-            # TODO: In aiohttp rBxLauncher, give special http status to indicate task count max exceeded.
+            # TODO: In aiohttp BxLauncher, give special http status to indicate task count max exceeded.
             raise CapacityReached(
                 callsign(
                     self,
@@ -441,7 +445,12 @@ class Base(Thing):
             await self._catalog_artefacts(bx_job, bx_task)
 
             # Get the task post-run information for the database record.
-            exit_code, error_lines, gate_label = self.get_post_run_fields_after_run(
+            (
+                exit_code,
+                error_lines,
+                gate_label,
+                execution_summary,
+            ) = self.get_post_run_fields_after_run(
                 bx_job,
                 bx_task,
             )
@@ -453,8 +462,16 @@ class Base(Thing):
                     "state": BxTaskStates.FINISHED,
                     "exit_code": exit_code,
                     "error_lines": "\n".join(error_lines),
+                    BxTaskFieldnames.EXECUTION_SUMMARY: execution_summary,
                 }
             )
+
+            # Append the task's execution summary to the bx_job's.
+            if execution_summary is not None:
+                await self.__bx_dataface.update_bx_job_execution_summary(
+                    bx_task.bx_job_uuid(),
+                    execution_summary,
+                )
 
             # Update the gate which allows other tasks to run and/or the job to block.
             await self.__bx_dataface.open_bx_gate(bx_task.uuid(), gate_label)
@@ -525,7 +542,14 @@ class Base(Thing):
             error_lines = bx_task.extract_error_lines()
             gate_label = "failure"
 
-        return exit_code, error_lines, gate_label
+        execution_summary_filename = f"{runtime_directory}/{ExecutionSummary.filename}"
+        if os.path.exists(execution_summary_filename):
+            with open(execution_summary_filename, "r") as stream:
+                execution_summary = stream.read()
+        else:
+            execution_summary = None
+
+        return exit_code, error_lines, gate_label, execution_summary
 
     # ------------------------------------------------------------------------------------------
 

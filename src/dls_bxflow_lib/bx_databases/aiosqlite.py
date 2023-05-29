@@ -25,7 +25,7 @@ from dls_bxflow_api.bx_databases.constants import (
 
 logger = logging.getLogger(__name__)
 
-LATEST_REVISION = 4
+LATEST_REVISION = 5
 
 
 # ----------------------------------------------------------------------------------------
@@ -160,6 +160,15 @@ class Aiosqlite:
                     "bx_launchers",
                     BxLauncherFieldnames.REMEX_CLUSTER,
                 )
+            )
+        if revision == 5:
+            await self.execute(
+                f"ALTER TABLE bx_jobs ADD COLUMN {BxJobFieldnames.EXECUTION_SUMMARY} TEXT",
+                why=f"for revision 5",
+            )
+            await self.execute(
+                f"ALTER TABLE bx_tasks ADD COLUMN {BxTaskFieldnames.EXECUTION_SUMMARY} TEXT",
+                why=f"for revision 5",
             )
 
     # ----------------------------------------------------------------------------------------
@@ -432,6 +441,10 @@ class BxJobsTable(BaseTable):
         self._fields[BxJobFieldnames.BX_WORKFLOW_UUID] = {"type": "TEXT", "index": True}
         self._fields[BxJobFieldnames.COMMENT] = {"type": "TEXT", "index": False}
         self._fields[BxJobFieldnames.RATING] = {"type": "INTEGER", "index": True}
+        self._fields[BxJobFieldnames.EXECUTION_SUMMARY] = {
+            "type": "TEXT",
+            "index": False,
+        }
 
 
 # ----------------------------------------------------------------------------------------
@@ -498,6 +511,10 @@ class BxTasksTable(BaseTable):
         self._fields[BxTaskFieldnames.DIRECTORY] = {"type": "TEXT", "index": True}
         self._fields[BxTaskFieldnames.EXIT_CODE] = {"type": "INTEGER", "index": True}
         self._fields[BxTaskFieldnames.ERROR_LINES] = {"type": "TEXT", "index": False}
+        self._fields[BxTaskFieldnames.EXECUTION_SUMMARY] = {
+            "type": "TEXT",
+            "index": False,
+        }
 
 
 # ----------------------------------------------------------------------------------------

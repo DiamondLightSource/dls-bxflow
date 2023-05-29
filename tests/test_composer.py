@@ -1,5 +1,7 @@
 import logging
 
+from bs4 import BeautifulSoup
+
 # Object managing datafaces.
 from dls_bxflow_api.bx_datafaces.bx_datafaces import bx_datafaces_get_default
 
@@ -67,6 +69,7 @@ class ComposerTester(BaseContextTester):
                             "label": f"job{job_number}",
                             "data_label": f"data{data_number}",
                             "state": "GOOD",
+                            "execution_summary": f"summary for data {data_number}, job {job_number}",
                         }
                     bx_job_dicts.append(bx_job_dict)
 
@@ -152,6 +155,23 @@ class ComposerTester(BaseContextTester):
             )
 
             logger.debug(f"composed html\n{html}")
+
+            soup = BeautifulSoup(html, "html.parser")
+
+            # Find the table element.
+            table = soup.find("table")
+
+            # Count the number of rows in the table.
+            rows = table.find_all("tr")
+
+            # Assert that the row count is equal to the expected value.
+            assert len(rows) == 5
+
+            # Check the first row's columns.
+            # Wells are injected with increasing crystal counts, so default sorting is in reverse order.
+            row = rows[1]
+            columns = row.find_all("td")
+            assert len(columns) == 6
 
             # -----------------------------------------------------------------
             # Grid with no records.

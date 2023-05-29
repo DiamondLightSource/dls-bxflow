@@ -95,7 +95,7 @@ def logging_setup():
     logging.getLogger("dls_bxflow_lib.bx_launchers.base").setLevel("INFO")
 
     # All bxflow database sql commands.
-    logging.getLogger("dls_bxflow_lib.bx_databases.aiosqlite").setLevel("INFO")
+    # logging.getLogger("dls_bxflow_lib.bx_databases.aiosqlite").setLevel("INFO")
 
     # All ispyb database sql commands.
     # logging.getLogger("dls_bxflow_lib.bx_catalogs.ispyb").setLevel("INFO")

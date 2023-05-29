@@ -5,6 +5,7 @@ import os
 # Utilities.
 from dls_utilpack.describe import describe
 
+from dls_bxflow_api.bx_databases.constants import BxJobFieldnames
 from dls_bxflow_api.bx_datafaces.bx_datafaces import bx_datafaces_get_default
 
 # Remote execution.
@@ -29,12 +30,14 @@ from dls_bxflow_lib.bx_news.constants import Topics as BxNewsTopics
 # Object managing bx_tasks.
 from dls_bxflow_run.bx_tasks.bx_tasks import BxTasks
 from dls_bxflow_run.bx_tasks.constants import Keywords as BxTaskKeywords
+from dls_bxflow_run.bx_tasks.execution_summary import ExecutionSummary
 
 # Base class for the tester.
 from tests.base_context_tester import BaseContextTester
 
 logger = logging.getLogger(__name__)
 
+SOME_EXECUTION_SUMMARY_TEXT = "some text"
 
 # ----------------------------------------------------------------------------------------
 class TestJobALaptop:
@@ -59,6 +62,8 @@ class Aclass:
         logger.info("running Aclass")
         with open(self.outfile, "wt") as stream:
             stream.write(self.algorithm)
+        # Append some raw text to execution summary.
+        ExecutionSummary.append_raw(SOME_EXECUTION_SUMMARY_TEXT)
 
 
 # Pythonpath where the Aclass can be found
@@ -159,6 +164,19 @@ class JobATester(BaseContextTester):
                 "aclass_datafile.txt",
                 self.tasks_execution_outputs[aclass_bx_task.uuid()],
                 expected_content=aclass_algorithm,
+            )
+
+            # Verify the output file contents from the execution summary written by the task.
+            self._assert_execution_output(
+                ExecutionSummary.filename,
+                self.tasks_execution_outputs[aclass_bx_task.uuid()],
+                expected_content=SOME_EXECUTION_SUMMARY_TEXT,
+            )
+
+            # Verify that the bx_job record has the execution summary from the task.
+            record = await bx_datafaces_get_default().get_bx_job(bx_job.uuid())
+            assert (
+                record[BxJobFieldnames.EXECUTION_SUMMARY] == SOME_EXECUTION_SUMMARY_TEXT
             )
 
             # Delete the job and all related records and directories.
