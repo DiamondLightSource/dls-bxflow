@@ -4,6 +4,8 @@ import multiprocessing
 import os
 
 import pytest
+
+# Configuration manager for multi-service systems.
 from dls_multiconf_lib.constants import ThingTypes as MulticonfThingTypes
 
 # Object managers we interact with.
