@@ -137,12 +137,19 @@ class JobNotebookTester(BaseContextTester):
             self._assert_execution_output(
                 ExecutionSummary().filename,
                 self.tasks_execution_outputs[aclass_bx_task.uuid()],
-                expected_content=RANDOM_STRING_PNG,
             )
 
             # Verify that the bx_job record has the execution summary from the task.
             record = await bx_datafaces_get_default().get_bx_job(bx_job.uuid())
-            assert record[BxJobFieldnames.EXECUTION_SUMMARY] == RANDOM_STRING_PNG
+            logger.debug(
+                f"record[{BxJobFieldnames.EXECUTION_SUMMARY}"
+                f" is\n{record[BxJobFieldnames.EXECUTION_SUMMARY]}"
+            )
+
+            assert (
+                f"{aclass_bx_task.get_directory()}/{RANDOM_STRING_PNG}"
+                in record[BxJobFieldnames.EXECUTION_SUMMARY]
+            )
 
         # -------------------------------------------------------------
         # Context is now closed, database and all other services are unavailable.

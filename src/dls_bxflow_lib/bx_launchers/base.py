@@ -542,12 +542,23 @@ class Base(Thing):
             error_lines = bx_task.extract_error_lines()
             gate_label = "failure"
 
+        # An object to help with execution summary management and formatting.
+        # TODO: Make the ExecutionSummary class smarter, such as looking for files.
+        execution_summary_object = ExecutionSummary()
+
+        # Expected place where the runtime ExecutionSummary maybe wrote its file.
         execution_summary_filename = (
-            f"{runtime_directory}/{ExecutionSummary().filename}"
+            f"{runtime_directory}/{execution_summary_object.filename}"
         )
         if os.path.exists(execution_summary_filename):
             with open(execution_summary_filename, "r") as stream:
                 execution_summary = stream.read()
+
+            # Replace the task information in the execution summary.
+            execution_summary = execution_summary_object.substitute_task_information(
+                execution_summary, bx_task
+            )
+
         else:
             execution_summary = None
 

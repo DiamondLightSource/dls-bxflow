@@ -78,12 +78,11 @@ class Bxflow__JobDataGridUx extends Bxflow__UxAutoUpdate {
 
         var $cell = $(jquery_event_object.target);
 
-        if ($cell.attr("bx_job_uuid") === undefined &&
-            $cell.attr("workflow_filename_classname") === undefined) {
-            $cell = $cell.parent();
+        if (!$cell.hasClass("T_cell")) {
+            $cell = $cell.closest(".T_cell");
         }
 
-        console.log(F + ": clicked $cell " + $cell.attr("class") + ", updating " + $cell.attr("bx_job_uuid"))
+        console.log(F + ": clicked $cell " + $cell.attr("class") + ", bx_job_uuid is " + $cell.attr("bx_job_uuid"))
 
         this.#$cell_clicked = $cell;
 

@@ -38,6 +38,7 @@ from tests.base_context_tester import BaseContextTester
 logger = logging.getLogger(__name__)
 
 SOME_EXECUTION_SUMMARY_TEXT = "some text"
+SOME_EXECUTION_SUMMARY_IMAGE = "some_image.jpg"
 
 
 # ----------------------------------------------------------------------------------------
@@ -64,7 +65,8 @@ class Aclass:
         with open(self.outfile, "wt") as stream:
             stream.write(self.algorithm)
         # Append some raw text to execution summary.
-        ExecutionSummary().append_raw(SOME_EXECUTION_SUMMARY_TEXT)
+        ExecutionSummary().append_text(SOME_EXECUTION_SUMMARY_TEXT)
+        ExecutionSummary().append_image(SOME_EXECUTION_SUMMARY_IMAGE)
 
 
 # Pythonpath where the Aclass can be found
@@ -171,13 +173,21 @@ class JobATester(BaseContextTester):
             self._assert_execution_output(
                 ExecutionSummary().filename,
                 self.tasks_execution_outputs[aclass_bx_task.uuid()],
-                expected_content=SOME_EXECUTION_SUMMARY_TEXT,
             )
 
             # Verify that the bx_job record has the execution summary from the task.
             record = await bx_datafaces_get_default().get_bx_job(bx_job.uuid())
+            logger.debug(
+                f"record[{BxJobFieldnames.EXECUTION_SUMMARY}"
+                f" is\n{record[BxJobFieldnames.EXECUTION_SUMMARY]}"
+            )
+
             assert (
-                record[BxJobFieldnames.EXECUTION_SUMMARY] == SOME_EXECUTION_SUMMARY_TEXT
+                SOME_EXECUTION_SUMMARY_TEXT in record[BxJobFieldnames.EXECUTION_SUMMARY]
+            )
+            assert (
+                f"{aclass_bx_task.get_directory()}/{SOME_EXECUTION_SUMMARY_IMAGE}"
+                in record[BxJobFieldnames.EXECUTION_SUMMARY]
             )
 
             # Delete the job and all related records and directories.

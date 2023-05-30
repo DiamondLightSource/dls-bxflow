@@ -17,6 +17,9 @@ from dls_bxflow_lib.bx_filestores.bx_filestores import bx_filestores_get_default
 # TODO: Fix hierarchy crossover where dataface imports job constants.
 from dls_bxflow_lib.bx_jobs.states import States as BxJobStates
 
+# Execution summary manager.
+from dls_bxflow_run.bx_tasks.execution_summary import ExecutionSummary
+
 logger = logging.getLogger(__name__)
 
 thing_type = "dls_bxflow_lib.bx_composers.html"
@@ -358,14 +361,20 @@ class Html(Thing):
                 f" class='{action_class}'>"
             )
 
-        html_lines.append(f"<div class='T_box T_{state}'></div>")
-        execution_summary = data_cell.get("execution_summary")
-        if execution_summary is None:
-            execution_summary = ""
-        else:
-            execution_summary = execution_summary.strip()
+        # We may have execution summary.
+        execution_summary_text = data_cell.get("execution_summary")
 
-        html_lines.append(f"<div class='T_execution_summary'>{execution_summary}</div>")
+        # Compose as html.
+        execution_summary_html = ExecutionSummary().compose_html(execution_summary_text)
+
+        if execution_summary_html == "":
+            # Show the box if no execution summary.
+            html_lines.append(f"<div class='T_box T_{state}'></div>")
+        else:
+            # Show the execution summary instead of the box.
+            html_lines.append(
+                f"<div class='T_execution_summary'>{execution_summary_html}</div>"
+            )
 
         html_lines.append("</div>")
 
