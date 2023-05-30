@@ -23,10 +23,6 @@ class DuplicateLabelException(RuntimeError):
     pass
 
 
-class DuplicateUuidException(RuntimeError):
-    pass
-
-
 class DlsBxflowClientConnectorError(RuntimeError):
     pass
 

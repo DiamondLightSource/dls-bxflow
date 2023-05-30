@@ -2,10 +2,11 @@ import logging
 import os
 
 import pytest
+from dls_utilpack.exceptions import DuplicateUuidException
 from dls_utilpack.import_class import ImportClassFailed
 
 # Exceptions.
-from dls_bxflow_api.exceptions import DuplicateLabelException, DuplicateUuidException
+from dls_bxflow_api.exceptions import DuplicateLabelException
 
 # Remex (remote execution) API.
 from dls_bxflow_api.remex import Clusters as RemexClusters

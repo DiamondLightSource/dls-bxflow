@@ -3,7 +3,7 @@ import logging
 import pytest
 
 # Exceptions.
-from dls_bxflow_api.exceptions import NotFound
+from dls_utilpack.exceptions import NotFound
 
 # Context creator.
 from dls_bxflow_lib.bx_contexts.bx_contexts import BxContexts
