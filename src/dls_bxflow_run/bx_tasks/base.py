@@ -18,15 +18,15 @@ from dls_utilpack.explain import (
 # Utilities.
 from dls_utilpack.require import require
 
+# Base class for a Thing which has a name and traits.
+from dls_utilpack.thing import Thing
+
 # Exceptions.
 from dls_bxflow_api.exceptions import NotFound, NotSet
 
 # Remote execution.
 from dls_bxflow_api.remex import Clusters as RemexClusters
 from dls_bxflow_api.remex import Keywords as RemexKeywords
-
-# Base class for a Thing which has a name and traits.
-from dls_bxflow_api.thing import Thing
 
 # BxGates for the bx_task.
 from dls_bxflow_run.bx_gates.bx_gates import BxGates

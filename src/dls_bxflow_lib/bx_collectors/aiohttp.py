@@ -8,7 +8,7 @@ from dls_utilpack.callsign import callsign
 from dls_utilpack.require import require
 
 # Base class which maps flask bx_tasks to methods.
-from dls_bxflow_api.thing import Thing
+from dls_utilpack.thing import Thing
 
 # Base class for an aiohttp server.
 from dls_bxflow_lib.base_aiohttp import BaseAiohttp

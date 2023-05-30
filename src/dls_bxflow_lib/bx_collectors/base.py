@@ -5,7 +5,7 @@ import logging
 from dls_utilpack.import_class import import_class
 
 # Base class which maps flask bx_tasks to methods.
-from dls_bxflow_api.thing import Thing
+from dls_utilpack.thing import Thing
 
 logger = logging.getLogger(__name__)
 

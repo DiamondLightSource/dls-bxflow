@@ -8,7 +8,7 @@ from dls_utilpack.explain import explain
 from dls_utilpack.require import require
 
 # Base class which maps flask bx_tasks to methods.
-from dls_bxflow_api.thing import Thing
+from dls_utilpack.thing import Thing
 
 # Global bx_dataface.
 from dls_bxflow_lib.bx_datafaces.bx_datafaces import BxDatafaces

@@ -1,11 +1,11 @@
 # Use standard logging in this module.
 import logging
 
+# Class managing list of things.
+from dls_utilpack.things import Things
+
 # Exceptions.
 from dls_bxflow_api.exceptions import NotFound
-
-# Class managing list of things.
-from dls_bxflow_api.things import Things
 
 logger = logging.getLogger(__name__)
 

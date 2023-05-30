@@ -6,11 +6,11 @@ import threading
 # Utilities.
 from dls_utilpack.callsign import callsign
 
+# Base class which maps flask bx_tasks to methods.
+from dls_utilpack.thing import Thing
+
 # Global bx_dataface.
 from dls_bxflow_api.bx_datafaces.bx_datafaces import bx_datafaces_get_default
-
-# Base class which maps flask bx_tasks to methods.
-from dls_bxflow_api.thing import Thing
 
 # Base class for an aiohttp server.
 from dls_bxflow_lib.base_aiohttp import BaseAiohttp

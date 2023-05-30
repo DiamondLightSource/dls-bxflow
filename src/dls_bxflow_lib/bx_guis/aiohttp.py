@@ -13,15 +13,15 @@ from dls_utilpack.describe import describe
 from dls_utilpack.import_class import import_class
 from dls_utilpack.require import require
 
+# Basic things.
+from dls_utilpack.thing import Thing
+
 # Database field names.
 from dls_bxflow_api.bx_databases.constants import BxJobFieldnames, BxWorkflowFieldnames
 from dls_bxflow_api.bx_datafaces.bx_datafaces import bx_datafaces_get_default
 
 # Exceptions.
 from dls_bxflow_api.exceptions import NotFound
-
-# Basic things.
-from dls_bxflow_api.thing import Thing
 
 # Base class for an aiohttp server.
 from dls_bxflow_lib.base_aiohttp import BaseAiohttp

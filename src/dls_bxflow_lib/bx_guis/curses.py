@@ -1,12 +1,12 @@
 import logging
 import time
 
+# Basic things.
+from dls_utilpack.thing import Thing
+
 # Types of bx_dataface.
 # Global bx_dataface.
 from dls_bxflow_api.bx_datafaces.bx_datafaces import bx_datafaces_get_default
-
-# Basic things.
-from dls_bxflow_api.thing import Thing
 
 # Object managing bx_composers.
 from dls_bxflow_lib.bx_composers.bx_composers import bx_composers_get_default

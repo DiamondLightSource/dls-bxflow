@@ -1,7 +1,7 @@
 import logging
 
 # Base class for generic things.
-from dls_bxflow_api.thing import Thing
+from dls_utilpack.thing import Thing
 
 logger = logging.getLogger(__name__)
 

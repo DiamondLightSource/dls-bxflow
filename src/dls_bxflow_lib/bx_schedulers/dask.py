@@ -14,11 +14,11 @@ from dask.threaded import get
 from dls_utilpack.describe import describe
 from dls_utilpack.explain import explain
 
+# Base class for simple things.
+from dls_utilpack.thing import Thing
+
 # Global bx_dataface.
 from dls_bxflow_api.bx_datafaces.bx_datafaces import bx_datafaces_get_default
-
-# Base class for simple things.
-from dls_bxflow_api.thing import Thing
 from dls_bxflow_lib.base_aiohttp import BaseAiohttp
 from dls_bxflow_lib.bx_jobs.bx_jobs import BxJobs
 from dls_bxflow_lib.bx_jobs.states import States as BxJobStates

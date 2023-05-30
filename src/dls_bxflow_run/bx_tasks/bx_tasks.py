@@ -1,11 +1,11 @@
 # Use standard logging in this module.
 import logging
 
+# Class managing list of things.
+from dls_utilpack.things import Things
+
 # Exceptions.
 from dls_bxflow_api.exceptions import DuplicateLabelException, NotFound
-
-# Class managing list of things.
-from dls_bxflow_api.things import Things
 
 # Task types.
 from dls_bxflow_run.bx_tasks.constants import Types as BxTaskTypes

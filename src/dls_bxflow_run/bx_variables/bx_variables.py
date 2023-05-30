@@ -1,14 +1,14 @@
 # Use standard logging in this module.
 import logging
 
+# Class managing list of things.
+from dls_utilpack.things import Things
+
 # Global bx_dataface.
 from dls_bxflow_api.bx_datafaces.bx_datafaces import bx_datafaces_get_default
 
 # Exceptions.
 from dls_bxflow_api.exceptions import NotFound
-
-# Class managing list of things.
-from dls_bxflow_api.things import Things
 
 # States.
 from dls_bxflow_run.bx_variables.states import States

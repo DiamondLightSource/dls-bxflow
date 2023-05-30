@@ -1,11 +1,11 @@
 import logging
 import shutil
 
+# Base class for generic things.
+from dls_utilpack.thing import Thing
+
 # Specific fields we want to access by symbolic constant.
 from dls_bxflow_api.bx_databases.constants import BxJobFieldnames
-
-# Base class for generic things.
-from dls_bxflow_api.thing import Thing
 
 # Database manager.
 from dls_bxflow_lib.bx_databases.bx_databases import BxDatabases

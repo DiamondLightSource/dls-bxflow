@@ -10,11 +10,11 @@ from dls_utilpack.callsign import callsign, callsign_html
 from dls_utilpack.explain import explain
 from dls_utilpack.require import require
 
+# Class managing list of things.
+from dls_utilpack.things import Things
+
 # Exceptions.
 from dls_bxflow_api.exceptions import NotFound
-
-# Class managing list of things.
-from dls_bxflow_api.things import Things
 
 # Setting types.
 from dls_bxflow_lib.bx_settings.constants import Types as SettingTypes

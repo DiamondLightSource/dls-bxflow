@@ -1,11 +1,11 @@
 import html
 import logging
 
+# Base class for generic things.
+from dls_utilpack.thing import Thing
+
 # Database field names.
 from dls_bxflow_api.bx_databases.constants import BxJobFieldnames
-
-# Base class for generic things.
-from dls_bxflow_api.thing import Thing
 
 # Class to do the work using prettytable.
 from dls_bxflow_lib.bx_composers.prettyhelper import PrettyHelper

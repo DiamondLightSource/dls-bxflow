@@ -10,6 +10,9 @@ from dls_utilpack.callsign import callsign
 from dls_utilpack.explain import explain, explain_cause_chain_error_lines
 from dls_utilpack.require import require
 
+# Base class which maps flask bx_tasks to methods.
+from dls_utilpack.thing import Thing
+
 # Specific field names we want to use symobolic constants.
 from dls_bxflow_api.bx_databases.constants import BxTaskFieldnames
 
@@ -18,9 +21,6 @@ from dls_bxflow_api.bx_datafaces.bx_datafaces import bx_datafaces_get_default
 
 # Exceptions.
 from dls_bxflow_api.exceptions import CapacityReached
-
-# Base class which maps flask bx_tasks to methods.
-from dls_bxflow_api.thing import Thing
 
 # Base class for an aiohttp server.
 from dls_bxflow_lib.bx_catalogs.bx_catalogs import (

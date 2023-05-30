@@ -4,7 +4,7 @@ import logging
 from dls_utilpack.require import require
 
 # Base class for a Thing which has a name and traits.
-from dls_bxflow_api.thing import Thing
+from dls_utilpack.thing import Thing
 
 # States of bx_gates.
 from dls_bxflow_run.bx_gates.states import States

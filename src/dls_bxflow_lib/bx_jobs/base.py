@@ -4,11 +4,11 @@ import logging
 from dls_utilpack.callsign import callsign
 from dls_utilpack.require import require
 
+# Base class for a Thing which has a name and traits.
+from dls_utilpack.thing import Thing
+
 # Exceptions.
 from dls_bxflow_api.exceptions import NotSet
-
-# Base class for a Thing which has a name and traits.
-from dls_bxflow_api.thing import Thing
 
 # BxTasks for the bx_job.
 from dls_bxflow_run.bx_tasks.bx_tasks import BxTasks

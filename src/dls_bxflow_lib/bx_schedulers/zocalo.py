@@ -8,9 +8,9 @@ from dls_utilpack.explain import explain
 
 # Utilities.
 from dls_utilpack.require import require
+from dls_utilpack.thing import Thing
 
 from dls_bxflow_api.bx_datafaces.bx_datafaces import bx_datafaces_get_default
-from dls_bxflow_api.thing import Thing
 from dls_bxflow_lib.base_aiohttp import BaseAiohttp
 from dls_bxflow_lib.bx_jobs.bx_jobs import BxJobs
 

@@ -7,6 +7,9 @@ from dls_utilpack.callsign import callsign
 from dls_utilpack.explain import explain
 from dls_utilpack.qualname import qualname
 
+# Base class for simple things.
+from dls_utilpack.thing import Thing
+
 from dls_bxflow_api.bx_databases.constants import BxLauncherFieldnames
 
 # Global bx_dataface.
@@ -21,9 +24,6 @@ from dls_bxflow_api.exceptions import (
 
 # Remex things.
 from dls_bxflow_api.remex import Keywords as RemexKeywords
-
-# Base class for simple things.
-from dls_bxflow_api.thing import Thing
 from dls_bxflow_lib.bx_jobs.states import States as BxJobStates
 
 # BxLauncher manager.

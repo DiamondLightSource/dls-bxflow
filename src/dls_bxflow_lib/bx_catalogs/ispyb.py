@@ -11,14 +11,14 @@ from dls_utilpack.isodatetime import isodatetime
 from dls_utilpack.require import require
 from dls_utilpack.sanitize import sanitize
 
+# Base class for generic things.
+from dls_utilpack.thing import Thing
+
 # Database field names.
 from dls_bxflow_api.bx_databases.constants import BxJobFieldnames
 
 # Exception we might raise.
 from dls_bxflow_api.exceptions import NotFound
-
-# Base class for generic things.
-from dls_bxflow_api.thing import Thing
 from dls_bxflow_lib.typing import BxSpecificationType
 
 with warnings.catch_warnings():

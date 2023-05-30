@@ -8,11 +8,11 @@ from dls_utilpack.callsign import callsign
 from dls_utilpack.isodatetime import isodatetime_filename
 from dls_utilpack.sanitize import sanitize
 
+# Base class for generic things.
+from dls_utilpack.thing import Thing
+
 # Exceptions.
 from dls_bxflow_api.exceptions import NotSet
-
-# Base class for generic things.
-from dls_bxflow_api.thing import Thing
 
 logger = logging.getLogger(__name__)
 

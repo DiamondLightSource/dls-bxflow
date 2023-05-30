@@ -3,7 +3,7 @@ import logging
 import prettytable
 
 # Base class for generic things.
-from dls_bxflow_api.thing import Thing
+from dls_utilpack.thing import Thing
 
 # Class to do the work using prettytable.
 from dls_bxflow_lib.bx_composers.prettyhelper import PrettyHelper
