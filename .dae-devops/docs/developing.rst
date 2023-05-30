@@ -14,7 +14,7 @@ Clone the repository::
 
 It is recommended that you install into a virtual environment so this
 installation will not interfere with any existing Python software.
-Make sure to have at least python version 3.9 then::
+Make sure to have at least python version 3.10 then::
 
     $ python3 -m venv /scratch/$USER/myvenv
     $ source /scratch/$USER/myvenv/bin/activate
@@ -28,4 +28,4 @@ Install the package in edit mode which will also install all its dependencies::
 Now you may begin modifying the code.
 
 
-.. # dae_devops_fingerprint 11f0213ef0b324cda0df9d9d4e83e45e
+.. # dae_devops_fingerprint b43f9e92eb02335baa66fc0122af159e

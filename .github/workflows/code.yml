@@ -41,11 +41,6 @@ jobs:
         os: ["ubuntu-latest"] # can add windows-latest, macos-latest
         python: ["3.10"]
         install: ["-e .[dev,docs]"]
-        # Make one version be non-editable to test both paths of version code
-        include:
-          - os: "ubuntu-latest"
-            python: "3.9"
-            install: ".[dev,docs]"
 
     runs-on: ${{ matrix.os }}
     env:
@@ -216,4 +211,4 @@ jobs:
         with:
           password: ${{ secrets.PYPI_TOKEN }}
 
-# dae_devops_fingerprint 2496a94da8547d2fde5764df660161fd
+# dae_devops_fingerprint 76b2b7d9457d45b8ee28d0cfc2a4c3df

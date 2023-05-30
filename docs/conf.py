@@ -188,7 +188,7 @@ ultimate_replacements = {
     "$" + "{repository_name}": "dls-bxflow",
     "$" + "{package_name}": "dls_bxflow_lib",
     "$" + "{git_url}": "https://gitlab.diamond.ac.uk/scisoft/bxflow",
-    "$" + "{python_version_at_least}": "3.9",
+    "$" + "{python_version_at_least}": "3.10",
 }
 
 
@@ -197,4 +197,4 @@ def setup(app):
     app.connect("source-read", ultimateReplace)
 
 
-# dae_devops_fingerprint 08922598dd967c3d6e3355939a1f96e9
+# dae_devops_fingerprint 381ce18acea8a261e7dad332b63a5366
