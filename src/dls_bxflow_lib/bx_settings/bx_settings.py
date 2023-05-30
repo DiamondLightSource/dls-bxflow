@@ -7,6 +7,7 @@ import yaml
 
 # Utilities.
 from dls_utilpack.callsign import callsign, callsign_html
+from dls_utilpack.exceptions import NotFound as UtilpackNotFound
 from dls_utilpack.explain import explain
 from dls_utilpack.require import require
 
@@ -14,7 +15,7 @@ from dls_utilpack.require import require
 from dls_utilpack.things import Things
 
 # Exceptions.
-from dls_bxflow_api.exceptions import NotFound
+from dls_bxflow_api.exceptions import NotFound as BxflowNotFound
 
 # Setting types.
 from dls_bxflow_lib.bx_settings.constants import Types as SettingTypes
@@ -103,22 +104,22 @@ class BxSettings(Things):
 
             return Integer
 
-        raise NotFound("unable to get setting class for type %s" % (class_type))
+        raise BxflowNotFound("unable to get setting class for type %s" % (class_type))
 
     # ----------------------------------------------------------------------------------------
     def get_value(self, uuid):
         """"""
         try:
             return self.find(uuid).get_value()
-        except NotFound:
-            raise NotFound(f"{self.name()} does not have setting {uuid}")
+        except UtilpackNotFound:
+            raise BxflowNotFound(f"{self.name()} does not have setting {uuid}")
 
     # ----------------------------------------------------------------------------------------
     def get_value_or_default(self, uuid, default_value=None):
         """"""
         try:
             return self.find(uuid).get_value()
-        except NotFound:
+        except UtilpackNotFound:
             return default_value
 
     # ----------------------------------------------------------------------------------------
@@ -126,8 +127,8 @@ class BxSettings(Things):
         """"""
         try:
             self.find(uuid).set_value(value)
-        except NotFound:
-            raise NotFound(f"{self.name()} does not have setting {uuid}")
+        except UtilpackNotFound:
+            raise BxflowNotFound(f"{self.name()} does not have setting {uuid}")
 
     # ----------------------------------------------------------------------------------------
     def as_list_of_dicts(self):
