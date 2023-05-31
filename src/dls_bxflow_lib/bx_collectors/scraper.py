@@ -134,7 +134,7 @@ class Scraper(BxCollectorBase):
 
         seconds = "%0.3f" % (t1 - t0)
         logger.debug(
-            f"glob {self.__scrape_glob} found {len(data_filenames)} files in {seconds} seconds"
+            f"[SCRAPER_POLL] glob {self.__scrape_glob} found {len(data_filenames)} files in {seconds} seconds"
         )
 
         for data_filename in data_filenames:
