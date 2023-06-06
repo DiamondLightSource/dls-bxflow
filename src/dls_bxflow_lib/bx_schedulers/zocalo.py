@@ -11,14 +11,14 @@ from dls_utilpack.require import require
 from dls_utilpack.thing import Thing
 
 from dls_bxflow_api.bx_datafaces.bx_datafaces import bx_datafaces_get_default
+
+# BxLauncher manager.
+from dls_bxflow_api.bx_launchers.constants import Queues
 from dls_bxflow_lib.base_aiohttp import BaseAiohttp
 from dls_bxflow_lib.bx_jobs.bx_jobs import BxJobs
 
 # States of things.
 from dls_bxflow_lib.bx_jobs.states import States as BxJobStates
-
-# BxLauncher manager.
-from dls_bxflow_lib.bx_launchers.constants import Queues
 
 # Parameters manager.
 from dls_bxflow_run.bx_variables.bx_variables import BxVariables

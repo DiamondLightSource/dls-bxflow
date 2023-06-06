@@ -1,3 +1,11 @@
+class ClassTypes:
+    POPENER = "dls_bxflow_lib.bx_launchers.popener"
+    QSUBBER = "dls_bxflow_lib.bx_launchers.qsubber"
+    SLURMER = "dls_bxflow_lib.bx_launchers.slurmer"
+    AIOHTTP = "dls_bxflow_lib.bx_launchers.aiohttp"
+    ISLAND = "dls_bxflow_lib.bx_launchers.island"
+
+
 class Keywords:
     COMMAND = "bx_launchers::keywords::command"
     PAYLOAD = "bx_launchers::keywords::payload"

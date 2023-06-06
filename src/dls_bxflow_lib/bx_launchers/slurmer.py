@@ -24,11 +24,11 @@ from dls_bxflow_lib.bx_launchers.base import BaseLaunchInfo
 
 logger = logging.getLogger(__name__)
 
-thing_type = ClassTypes.QSUBBER
+thing_type = ClassTypes.SLURMER
 
 
 # ------------------------------------------------------------------------------------------
-class QsubberLaunchInfo(BaseLaunchInfo):
+class SlurmerLaunchInfo(BaseLaunchInfo):
     """Launch info specific to this launcher type needed to identify a launched task."""
 
     def __init__(self, bx_job, bx_task):
@@ -41,9 +41,9 @@ class QsubberLaunchInfo(BaseLaunchInfo):
 
 
 # ------------------------------------------------------------------------------------------
-class Qsubber(BxLauncherBase):
+class Slurmer(BxLauncherBase):
     """
-    Object representing a bx_launcher which launches a task using qsub for cluster execution.
+    Object representing a bx_launcher which launches a task using slurm for cluster execution.
     """
 
     # ----------------------------------------------------------------------------------------
@@ -85,154 +85,6 @@ class Qsubber(BxLauncherBase):
     # ----------------------------------------------------------------------------------------
     def __sanitize(self, uuid: str) -> str:
         return f"bx_task_{uuid}"
-
-    # ------------------------------------------------------------------------------------------
-    async def __submit_OLD(
-        self, bx_job_uuid, bx_job_specification, bx_task_uuid, bx_task_specification
-    ):
-        """Handle request to submit bx_task for execution."""
-
-        # Let the base class prepare the directory and build up a script to run.
-        (
-            bx_job,
-            bx_task,
-            runtime_directory,
-            bash_filename,
-        ) = await BxLauncherBase.presubmit(
-            self,
-            bx_job_uuid,
-            bx_job_specification,
-            bx_task_uuid,
-            bx_task_specification,
-        )
-
-        job_name = self.__sanitize(bx_task_uuid)
-        # stdout_filename = "%s/stdout.txt" % (runtime_directory)
-        # stderr_filename = "%s/stderr.txt" % (runtime_directory)
-
-        command = []
-        command.extend(["qsub"])
-        command.extend(["-N", job_name])
-        command.extend(["-P", self.__cluster_project])
-        command.extend(["-now", "no"])
-        command.extend(["-cwd"])
-
-        # The task may specify remex hints to help select the cluster affinity.
-        remex_hints = bx_task_specification.get("remex_hints", None)
-        if remex_hints is None:
-            remex_hints = {}
-
-        # Options for qsub based on the remex hints.
-        qsub_options = {}
-        qsub_l_options = {}
-        qsub_l_options["m_mem_free"] = "64G"
-        qsub_l_options["h_rt"] = "8:00:00"
-
-        cluster = remex_hints.get(RemexKeywords.CLUSTER, "")
-        if cluster in [RemexClusters.SCIENCE, RemexClusters.TEST]:
-            qsub_options["-q"] = "high.q"
-            qsub_options["-pe"] = "smp"
-            qsub_options[">-pe"] = "1"
-
-        if cluster == RemexClusters.HAMILTON and RemexKeywords.PTYPY_MPI in remex_hints:
-            # This is from https://github.com/DiamondLightSource/PtychographyTools/tree/master/ptychotools/ptychotools.ptypy_launcher
-            #   TOTAL_NUM_PROCESSORS=$(( NUM_GPU * 10 ));
-            #   NUM_PROCS_PER_NODE=$(( 4 < NUM_GPU ? 4 : NUM_GPU )); # can be maximum 4
-            #   EXTRA_ARGS="$EXTRA_ARGS -g"
-            #   JOB_NAME="ptypy_gpu"
-            #   MEMORY_REQUEST=8G
-            #   qsub_args="-pe openmpi $TOTAL_NUM_PROCESSORS -l gpu=$NUM_PROCS_PER_NODE,m_mem_free=$MEMORY_REQUEST,gpu_arch=$GPU_ARCH,h=!(cs05r-sc-gpu01-02.diamond.ac.uk|cs05r-sc-gpu01-01.diamond.ac.uk) -N $JOB_NAME"
-
-            ptypy_mpi_hints = remex_hints[RemexKeywords.PTYPY_MPI]
-            if not isinstance(ptypy_mpi_hints, dict):
-                ptypy_mpi_hints = {}
-            num_gpu = ptypy_mpi_hints.get(RemexKeywords.NUM_GPU, 1)
-            if num_gpu > 4:
-                num_gpu = 4
-            openmpi = ptypy_mpi_hints.get(RemexKeywords.OPENMPI, num_gpu * 10)
-            qsub_options["-pe"] = "openmpi"
-            qsub_options[">-pe"] = str(openmpi)
-
-            qsub_l_options["m_mem_free"] = "8G"
-            qsub_l_options["gpu"] = str(num_gpu)
-            qsub_l_options["gpu_arch"] = ptypy_mpi_hints.get("gpu_arch", "Volta")
-            qsub_l_options[
-                "h"
-            ] = "!(cs05r-sc-gpu01-02.diamond.ac.uk|cs05r-sc-gpu01-01.diamond.ac.uk)"
-
-        if (
-            cluster == RemexClusters.HAMILTON
-            and RemexKeywords.PTYREX_MPI in remex_hints
-        ):
-            # This is from communication from Mohsen:
-            # $ -l h_rt=01:00:00,gpu=4
-            # $ -pe openmpi 4
-
-            ptyrex_mpi_hints = remex_hints[RemexKeywords.PTYREX_MPI]
-            if not isinstance(ptyrex_mpi_hints, dict):
-                ptyrex_mpi_hints = {}
-            num_gpu = ptyrex_mpi_hints.get(RemexKeywords.NUM_GPU, 4)
-            if num_gpu > 4:
-                num_gpu = 4
-            openmpi = ptyrex_mpi_hints.get(RemexKeywords.OPENMPI, num_gpu)
-            qsub_options["-pe"] = "openmpi"
-            qsub_options[">-pe"] = str(openmpi)
-
-            qsub_l_options["m_mem_free"] = "64G"
-            qsub_l_options["gpu"] = str(num_gpu)
-            qsub_l_options["gpu_arch"] = ptyrex_mpi_hints.get("gpu_arch", "Volta")
-
-        # -------------------------------------------------------------------------------
-        memory_limit = remex_hints.get(RemexKeywords.MEMORY_LIMIT)
-        if memory_limit is not None:
-            gigabytes = str(memory_limit)
-
-            if gigabytes.endswith("G") or gigabytes.endswith("g"):
-                gigabytes = gigabytes[:-1]
-
-            if not gigabytes.isnumeric():
-                raise RuntimeError(
-                    f"cannot parse {callsign(bx_task)}"
-                    f' remex_hints[{RemexKeywords.MEMORY_LIMIT}] "{memory_limit}"'
-                )
-
-            qsub_l_options["m_mem_free"] = f"{gigabytes}G"
-
-        # -------------------------------------------------------------------------------
-        time_limit = remex_hints.get(RemexKeywords.TIME_LIMIT)
-        if time_limit is not None:
-            parts = str(time_limit).split(":")
-            if len(parts) == 1:
-                parts.append("0")
-
-            if len(parts) != 2 or not parts[0].isnumeric() or not parts[1].isnumeric():
-                raise RuntimeError(
-                    f"cannot parse {callsign(bx_task)}"
-                    f' remex_hints[{RemexKeywords.TIME_LIMIT}] "{time_limit}"'
-                )
-
-            qsub_l_options["h_rt"] = "%d:%02d:00" % (int(parts[0]), int(parts[1]))
-
-        # -------------------------------------------------------------------------------
-        redhat_release = remex_hints.get(RemexKeywords.REDHAT_RELEASE)
-        if redhat_release is not None:
-            qsub_l_options["redhat_release"] = redhat_release
-
-        # -------------------------------------------------------------------------------
-        # Add the qsub_options to the command line.
-        for qsub_option, qsub_value in qsub_options.items():
-            if not qsub_option.startswith(">"):
-                command.append(qsub_option)
-            if qsub_value is not None and qsub_value != "":
-                command.append(qsub_value)
-
-        # Add the qsub "-l" and its sub-options to the command line.
-        if len(qsub_l_options) > 0:
-            qsub_l_values = []
-            for qsub_l_option, qsub_l_value in qsub_l_options.items():
-                qsub_l_values.append(f"{qsub_l_option}={qsub_l_value}")
-            command.append("-l")
-            command.append(",".join(qsub_l_values))
 
     # ------------------------------------------------------------------------------------------
     async def submit(
@@ -383,7 +235,7 @@ class Qsubber(BxLauncherBase):
                 with open(qsuberr_filename, "wt") as qsuberr_handle:
                     try:
                         # Wait until qsub command completes.
-                        # TODO: In qsubber, use asyncio to run qsub.
+                        # TODO: In slurmer, use asyncio to run qsub.
                         completed = subprocess.run(
                             command,
                             shell=False,
@@ -422,7 +274,7 @@ class Qsubber(BxLauncherBase):
             # Sleep before retrying.
             await asyncio.sleep(5)
 
-            # TODO: In qsubber launcher, have a limit to number of retries.
+            # TODO: In slurmer launcher, have a limit to number of retries.
             # raise RemoteSubmitFailed("; ".join(lines))
 
         with open(qsubout_filename, "r") as stream:
@@ -433,7 +285,7 @@ class Qsubber(BxLauncherBase):
         )
 
         # Make a serializable object representing the entity which was launched.
-        launch_info = QsubberLaunchInfo(bx_job, bx_task)
+        launch_info = SlurmerLaunchInfo(bx_job, bx_task)
         launch_info.job_number = job_number
 
         # Let the base class update the objects in the database.
@@ -445,11 +297,11 @@ class Qsubber(BxLauncherBase):
         unserialized = json.loads(serialized)
 
         # Create a launch info object for our launcher type.
-        launch_info = QsubberLaunchInfo(bx_job, bx_task)
+        launch_info = SlurmerLaunchInfo(bx_job, bx_task)
 
         # Add the fields which were in the serialized string.
         launch_info.job_number = require(
-            "QsubberLaunchInfo unserialized", unserialized, "job_number"
+            "SlurmerLaunchInfo unserialized", unserialized, "job_number"
         )
 
         return launch_info
