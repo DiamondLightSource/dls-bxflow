@@ -1,0 +1,355 @@
+%YAML 1.1
+---
+!!map
+!!str meta: !!map
+  !!str plugin: !!map
+    !!str type: !!str openapi/v0.0.38
+    !!str name: !!str Slurm OpenAPI v0.0.38
+  !!str Slurm: !!map
+    !!str version: !!map
+      !!str major: !!int 22
+      !!str micro: !!int 8
+      !!str minor: !!int 5
+    !!str release: !!str 22.05.8
+!!str errors: !!seq []
+!!str jobs: !!seq
+  - !!map
+    !!str account: !!null null
+    !!str accrue_time: !!int 1685620893
+    !!str admin_comment: !!null null
+    !!str array_job_id: !!int 0
+    !!str array_task_id: !!null null
+    !!str array_max_tasks: !!int 0
+    !!str array_task_string: !!null null
+    !!str association_id: !!int 0
+    !!str batch_features: !!null null
+    !!str batch_flag: !!bool true
+    !!str batch_host: !!str cs05r-sc-com05-02
+    !!str flags: !!seq
+      - !!str JOB_WAS_RUNNING
+    !!str burst_buffer: !!null null
+    !!str burst_buffer_state: !!null null
+    !!str cluster: !!str cluster
+    !!str cluster_features: !!null null
+    !!str command: !!str /dls/physics/wsw/IonEffects/ForLattice45/IonSimulation/OpenID/ChargeVariationStage3/Standard05p/elegant-wilson
+    !!str comment: !!null null
+    !!str container: !!null null
+    !!str contiguous: !!bool false
+    !!str core_spec: !!null null
+    !!str thread_spec: !!null null
+    !!str cores_per_socket: !!null null
+    !!str billable_tres: !!float 40.000000
+    !!str cpus_per_task: !!null null
+    !!str cpu_frequency_minimum: !!null null
+    !!str cpu_frequency_maximum: !!null null
+    !!str cpu_frequency_governor: !!null null
+    !!str cpus_per_tres: !!null null
+    !!str deadline: !!int 0
+    !!str delay_boot: !!int 0
+    !!str dependency: !!null null
+    !!str derived_exit_code: !!int 0
+    !!str eligible_time: !!int 1685620893
+    !!str end_time: !!int 1686830493
+    !!str excluded_nodes: !!null null
+    !!str exit_code: !!int 0
+    !!str features: !!null null
+    !!str federation_origin: !!null null
+    !!str federation_siblings_active: !!null null
+    !!str federation_siblings_viable: !!null null
+    !!str gres_detail: !!seq []
+    !!str group_id: !!int 1218929
+    !!str group_name: !!str cgr29268
+    !!str job_id: !!int 4410
+    !!str job_resources: !!map
+      !!str nodes: !!str cs05r-sc-com05-02
+      !!str allocated_cores: !!int 40
+      !!str allocated_hosts: !!int 1
+      !!str allocated_nodes: !!seq
+        - !!map
+          !!str sockets: !!map
+            !!str 0: !!map
+              !!str cores: !!map
+                !!str 0: !!str allocated_and_in_use
+                !!str 1: !!str allocated_and_in_use
+                !!str 2: !!str allocated_and_in_use
+                !!str 3: !!str allocated_and_in_use
+                !!str 4: !!str allocated_and_in_use
+                !!str 5: !!str allocated_and_in_use
+                !!str 6: !!str allocated_and_in_use
+                !!str 7: !!str allocated_and_in_use
+                !!str 8: !!str allocated_and_in_use
+                !!str 9: !!str allocated_and_in_use
+                !!str 10: !!str allocated_and_in_use
+                !!str 11: !!str allocated_and_in_use
+                !!str 12: !!str allocated_and_in_use
+                !!str 13: !!str allocated_and_in_use
+                !!str 14: !!str allocated_and_in_use
+                !!str 15: !!str allocated_and_in_use
+                !!str 16: !!str allocated_and_in_use
+                !!str 17: !!str allocated_and_in_use
+                !!str 18: !!str allocated_and_in_use
+                !!str 19: !!str allocated_and_in_use
+            !!str 1: !!map
+              !!str cores: !!map
+                !!str 0: !!str allocated_and_in_use
+                !!str 1: !!str allocated_and_in_use
+                !!str 2: !!str allocated_and_in_use
+                !!str 3: !!str allocated_and_in_use
+                !!str 4: !!str allocated_and_in_use
+                !!str 5: !!str allocated_and_in_use
+                !!str 6: !!str allocated_and_in_use
+                !!str 7: !!str allocated_and_in_use
+                !!str 8: !!str allocated_and_in_use
+                !!str 9: !!str allocated_and_in_use
+                !!str 10: !!str allocated_and_in_use
+                !!str 11: !!str allocated_and_in_use
+                !!str 12: !!str allocated_and_in_use
+                !!str 13: !!str allocated_and_in_use
+                !!str 14: !!str allocated_and_in_use
+                !!str 15: !!str allocated_and_in_use
+                !!str 16: !!str allocated_and_in_use
+                !!str 17: !!str allocated_and_in_use
+                !!str 18: !!str allocated_and_in_use
+                !!str 19: !!str allocated_and_in_use
+          !!str nodename: !!str cs05r-sc-com05-02
+          !!str cpus_used: !!int 40
+          !!str memory_used: !!int 0
+          !!str memory_allocated: !!int 0
+    !!str job_state: !!str RUNNING
+    !!str last_sched_evaluation: !!int 1685620893
+    !!str licenses: !!null null
+    !!str max_cpus: !!int 0
+    !!str max_nodes: !!int 0
+    !!str mcs_label: !!null null
+    !!str memory_per_tres: !!null null
+    !!str name: !!str elegant-ion
+    !!str nodes: !!str cs05r-sc-com05-02
+    !!str nice: !!null null
+    !!str tasks_per_core: !!null null
+    !!str tasks_per_node: !!int 40
+    !!str tasks_per_socket: !!null null
+    !!str tasks_per_board: !!int 0
+    !!str cpus: !!int 40
+    !!str node_count: !!int 1
+    !!str tasks: !!int 40
+    !!str het_job_id: !!int 0
+    !!str het_job_id_set: !!null null
+    !!str het_job_offset: !!int 0
+    !!str partition: !!str ap
+    !!str prefer: !!null null
+    !!str memory_per_node: !!null null
+    !!str memory_per_cpu: !!null null
+    !!str minimum_cpus_per_node: !!int 40
+    !!str minimum_tmp_disk_per_node: !!int 0
+    !!str preempt_time: !!int 0
+    !!str pre_sus_time: !!int 0
+    !!str priority: !!int 4294901488
+    !!str profile: !!null null
+    !!str qos: !!str normal
+    !!str reboot: !!bool false
+    !!str required_nodes: !!null null
+    !!str requeue: !!bool true
+    !!str resize_time: !!int 0
+    !!str restart_cnt: !!int 0
+    !!str resv_name: !!null null
+    !!str shared: !!null null
+    !!str show_flags: !!seq
+      - !!str SHOW_ALL
+      - !!str SHOW_DETAIL
+      - !!str SHOW_LOCAL
+    !!str sockets_per_board: !!int 0
+    !!str sockets_per_node: !!null null
+    !!str start_time: !!int 1685620893
+    !!str state_description: !!null null
+    !!str state_reason: !!str None
+    !!str standard_error: !!str /dls/physics/wsw/IonEffects/ForLattice45/IonSimulation/OpenID/ChargeVariationStage3/Standard05p/./logs/%x%J.%a.err
+    !!str standard_input: !!str /dev/null
+    !!str standard_output: !!str /dls/physics/wsw/IonEffects/ForLattice45/IonSimulation/OpenID/ChargeVariationStage3/Standard05p/./logs/%x%J.%a.log
+    !!str submit_time: !!int 1685620893
+    !!str suspend_time: !!int 0
+    !!str system_comment: !!null null
+    !!str time_limit: !!int 20160
+    !!str time_minimum: !!int 0
+    !!str threads_per_core: !!null null
+    !!str tres_bind: !!null null
+    !!str tres_freq: !!null null
+    !!str tres_per_job: !!null null
+    !!str tres_per_node: !!null null
+    !!str tres_per_socket: !!null null
+    !!str tres_per_task: !!null null
+    !!str tres_req_str: !!str cpu=40,mem=386381M,node=1,billing=40
+    !!str tres_alloc_str: !!str cpu=40,node=1,billing=40
+    !!str user_id: !!int 1218929
+    !!str user_name: !!str cgr29268
+    !!str wckey: !!null null
+    !!str current_working_directory: !!str /dls/physics/wsw/IonEffects/ForLattice45/IonSimulation/OpenID/ChargeVariationStage3/Standard05p
+  - !!map
+    !!str account: !!null null
+    !!str accrue_time: !!int 1685620947
+    !!str admin_comment: !!null null
+    !!str array_job_id: !!int 0
+    !!str array_task_id: !!null null
+    !!str array_max_tasks: !!int 0
+    !!str array_task_string: !!null null
+    !!str association_id: !!int 0
+    !!str batch_features: !!null null
+    !!str batch_flag: !!bool true
+    !!str batch_host: !!str cs05r-sc-com05-06
+    !!str flags: !!seq
+      - !!str JOB_WAS_RUNNING
+    !!str burst_buffer: !!null null
+    !!str burst_buffer_state: !!null null
+    !!str cluster: !!str cluster
+    !!str cluster_features: !!null null
+    !!str command: !!str /dls/physics/wsw/IonEffects/ForLattice45/IonSimulation/OpenID/ChargeVariationStage3/Standard10p/elegant-wilson
+    !!str comment: !!null null
+    !!str container: !!null null
+    !!str contiguous: !!bool false
+    !!str core_spec: !!null null
+    !!str thread_spec: !!null null
+    !!str cores_per_socket: !!null null
+    !!str billable_tres: !!float 40.000000
+    !!str cpus_per_task: !!null null
+    !!str cpu_frequency_minimum: !!null null
+    !!str cpu_frequency_maximum: !!null null
+    !!str cpu_frequency_governor: !!null null
+    !!str cpus_per_tres: !!null null
+    !!str deadline: !!int 0
+    !!str delay_boot: !!int 0
+    !!str dependency: !!null null
+    !!str derived_exit_code: !!int 0
+    !!str eligible_time: !!int 1685620947
+    !!str end_time: !!int 1686830547
+    !!str excluded_nodes: !!null null
+    !!str exit_code: !!int 0
+    !!str features: !!null null
+    !!str federation_origin: !!null null
+    !!str federation_siblings_active: !!null null
+    !!str federation_siblings_viable: !!null null
+    !!str gres_detail: !!seq []
+    !!str group_id: !!int 1218929
+    !!str group_name: !!str cgr29268
+    !!str job_id: !!int 4411
+    !!str job_resources: !!map
+      !!str nodes: !!str cs05r-sc-com05-06
+      !!str allocated_cores: !!int 40
+      !!str allocated_hosts: !!int 1
+      !!str allocated_nodes: !!seq
+        - !!map
+          !!str sockets: !!map
+            !!str 0: !!map
+              !!str cores: !!map
+                !!str 0: !!str allocated_and_in_use
+                !!str 1: !!str allocated_and_in_use
+                !!str 2: !!str allocated_and_in_use
+                !!str 3: !!str allocated_and_in_use
+                !!str 4: !!str allocated_and_in_use
+                !!str 5: !!str allocated_and_in_use
+                !!str 6: !!str allocated_and_in_use
+                !!str 7: !!str allocated_and_in_use
+                !!str 8: !!str allocated_and_in_use
+                !!str 9: !!str allocated_and_in_use
+                !!str 10: !!str allocated_and_in_use
+                !!str 11: !!str allocated_and_in_use
+                !!str 12: !!str allocated_and_in_use
+                !!str 13: !!str allocated_and_in_use
+                !!str 14: !!str allocated_and_in_use
+                !!str 15: !!str allocated_and_in_use
+                !!str 16: !!str allocated_and_in_use
+                !!str 17: !!str allocated_and_in_use
+                !!str 18: !!str allocated_and_in_use
+                !!str 19: !!str allocated_and_in_use
+            !!str 1: !!map
+              !!str cores: !!map
+                !!str 0: !!str allocated_and_in_use
+                !!str 1: !!str allocated_and_in_use
+                !!str 2: !!str allocated_and_in_use
+                !!str 3: !!str allocated_and_in_use
+                !!str 4: !!str allocated_and_in_use
+                !!str 5: !!str allocated_and_in_use
+                !!str 6: !!str allocated_and_in_use
+                !!str 7: !!str allocated_and_in_use
+                !!str 8: !!str allocated_and_in_use
+                !!str 9: !!str allocated_and_in_use
+                !!str 10: !!str allocated_and_in_use
+                !!str 11: !!str allocated_and_in_use
+                !!str 12: !!str allocated_and_in_use
+                !!str 13: !!str allocated_and_in_use
+                !!str 14: !!str allocated_and_in_use
+                !!str 15: !!str allocated_and_in_use
+                !!str 16: !!str allocated_and_in_use
+                !!str 17: !!str allocated_and_in_use
+                !!str 18: !!str allocated_and_in_use
+                !!str 19: !!str allocated_and_in_use
+          !!str nodename: !!str cs05r-sc-com05-06
+          !!str cpus_used: !!int 40
+          !!str memory_used: !!int 0
+          !!str memory_allocated: !!int 0
+    !!str job_state: !!str RUNNING
+    !!str last_sched_evaluation: !!int 1685620947
+    !!str licenses: !!null null
+    !!str max_cpus: !!int 0
+    !!str max_nodes: !!int 0
+    !!str mcs_label: !!null null
+    !!str memory_per_tres: !!null null
+    !!str name: !!str elegant-ion
+    !!str nodes: !!str cs05r-sc-com05-06
+    !!str nice: !!null null
+    !!str tasks_per_core: !!null null
+    !!str tasks_per_node: !!int 40
+    !!str tasks_per_socket: !!null null
+    !!str tasks_per_board: !!int 0
+    !!str cpus: !!int 40
+    !!str node_count: !!int 1
+    !!str tasks: !!int 40
+    !!str het_job_id: !!int 0
+    !!str het_job_id_set: !!null null
+    !!str het_job_offset: !!int 0
+    !!str partition: !!str ap
+    !!str prefer: !!null null
+    !!str memory_per_node: !!null null
+    !!str memory_per_cpu: !!null null
+    !!str minimum_cpus_per_node: !!int 40
+    !!str minimum_tmp_disk_per_node: !!int 0
+    !!str preempt_time: !!int 0
+    !!str pre_sus_time: !!int 0
+    !!str priority: !!int 4294901487
+    !!str profile: !!null null
+    !!str qos: !!str normal
+    !!str reboot: !!bool false
+    !!str required_nodes: !!null null
+    !!str requeue: !!bool true
+    !!str resize_time: !!int 0
+    !!str restart_cnt: !!int 0
+    !!str resv_name: !!null null
+    !!str shared: !!null null
+    !!str show_flags: !!seq
+      - !!str SHOW_ALL
+      - !!str SHOW_DETAIL
+      - !!str SHOW_LOCAL
+    !!str sockets_per_board: !!int 0
+    !!str sockets_per_node: !!null null
+    !!str start_time: !!int 1685620947
+    !!str state_description: !!null null
+    !!str state_reason: !!str None
+    !!str standard_error: !!str /dls/physics/wsw/IonEffects/ForLattice45/IonSimulation/OpenID/ChargeVariationStage3/Standard10p/./logs/%x%J.%a.err
+    !!str standard_input: !!str /dev/null
+    !!str standard_output: !!str /dls/physics/wsw/IonEffects/ForLattice45/IonSimulation/OpenID/ChargeVariationStage3/Standard10p/./logs/%x%J.%a.log
+    !!str submit_time: !!int 1685620947
+    !!str suspend_time: !!int 0
+    !!str system_comment: !!null null
+    !!str time_limit: !!int 20160
+    !!str time_minimum: !!int 0
+    !!str threads_per_core: !!null null
+    !!str tres_bind: !!null null
+    !!str tres_freq: !!null null
+    !!str tres_per_job: !!null null
+    !!str tres_per_node: !!null null
+    !!str tres_per_socket: !!null null
+    !!str tres_per_task: !!null null
+    !!str tres_req_str: !!str cpu=40,mem=386381M,node=1,billing=40
+    !!str tres_alloc_str: !!str cpu=40,node=1,billing=40
+    !!str user_id: !!int 1218929
+    !!str user_name: !!str cgr29268
+    !!str wckey: !!null null
+    !!str current_working_directory: !!str /dls/physics/wsw/IonEffects/ForLattice45/IonSimulation/OpenID/ChargeVariationStage3/Standard10p
