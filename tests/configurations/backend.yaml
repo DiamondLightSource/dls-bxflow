@@ -85,6 +85,7 @@ bx_task_environments:
 remex_clusters:
     - &CLUSTER_HAMILTON "dls_bxflow_api::remex::cluster::hamilton"
     - &CLUSTER_SCIENCE "dls_bxflow_api::remex::cluster::global/cluster"
+    - &CLUSTER_WILSON "dls_bxflow_api::remex::cluster::wilson"
     - &CLUSTER_TEST "dls_bxflow_api::remex::cluster::global/testcluster"
     - &CLUSTER_LOCAL "dls_bxflow_api::remex::cluster::local"
 
@@ -206,10 +207,10 @@ bx_dataface_specification: &BX_DATAFACE_SPECIFICATION
         start_as: process
 
 # The available bx_launchers.
-bx_launcher_popener_specification: &BX_LAUNCHER_POPENER_SPECIFICATION
+bx_launcher_popener_specification:
     type: "dls_bxflow_lib.bx_launchers.aiohttp"
     uuid: "popener-01"
-    remex_cluster: "dls_bxflow_api::remex::cluster::local"
+    remex_cluster: *CLUSTER_LOCAL
     type_specific_tbd:
         aiohttp_specification:
             server: *LAUNCHER1_SERVER
@@ -225,7 +226,7 @@ bx_launcher_popener_specification: &BX_LAUNCHER_POPENER_SPECIFICATION
 bx_launcher_qsubber_specification:
     type: "dls_bxflow_lib.bx_launchers.aiohttp"
     uuid: "qsubber-01"
-    remex_cluster: "dls_bxflow_api::remex::cluster::global/testcluster"
+    remex_cluster: *CLUSTER_TEST
     type_specific_tbd:
         aiohttp_specification:
             server: *LAUNCHER2_SERVER
@@ -239,16 +240,16 @@ bx_launcher_qsubber_specification:
     context:
         start_as: process
 
-bx_launcher_slurmer_specification:
+bx_launcher_sbatcher_specification:
     type: "dls_bxflow_lib.bx_launchers.aiohttp"
-    uuid: "slurmer-01"
-    remex_cluster: "dls_bxflow_api::remex::cluster::global/testcluster"
+    uuid: "sbatcher-01"
+    remex_cluster: *CLUSTER_WILSON
     type_specific_tbd:
         aiohttp_specification:
             server: *LAUNCHER3_SERVER
             client: *LAUNCHER3_CLIENT
         actual_bx_launcher_specification:
-            type: "dls_bxflow_lib.bx_launchers.slurmer"
+            type: "dls_bxflow_lib.bx_launchers.sbatcher"
             type_specific_tbd:
                 task_count_max: 10
                 cluster_project: test_project
@@ -260,7 +261,7 @@ bx_launcher_slurmer_specification:
 bx_launcher_specifications:
     - bx_launcher_popener_specification
     - bx_launcher_qsubber_specification
-    - bx_launcher_slurmer_specification
+    - bx_launcher_sbatcher_specification
 
 # The bx_job.
 bx_job_specification:

@@ -24,7 +24,7 @@ from dls_bxflow_lib.bx_launchers.base import BaseLaunchInfo
 
 logger = logging.getLogger(__name__)
 
-thing_type = ClassTypes.SLURMER
+thing_type = ClassTypes.SBATCHER
 
 
 # ------------------------------------------------------------------------------------------
