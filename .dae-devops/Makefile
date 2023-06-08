@@ -1,5 +1,5 @@
 # ********** Please don't edit this file!
-# ********** It has been generated automatically by dae_devops version 0.5.4.dev0+g1fb30ef.d20230527.
+# ********** It has been generated automatically by dae_devops version 0.5.4.dev3+g9aafdd5.d20230608.
 # ********** For repository_name dls-bxflow
 
 # ---------------------------------------------------------------------
@@ -69,4 +69,4 @@ publish_docs:
 	cp -r build/html/* $(DOCS_PUBLISH_ROOT)
 	
 
-# dae_devops_fingerprint e6429d30b68cdf1d9bf59cd6ba82a897
+# dae_devops_fingerprint da37516b8f7bcbfeb9885a49c08b1e85

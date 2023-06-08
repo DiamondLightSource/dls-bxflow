@@ -1,5 +1,5 @@
 # ********** Please don't edit this file!
-# ********** It has been generated automatically by dae_devops version 0.5.4.dev0+g1fb30ef.d20230527.
+# ********** It has been generated automatically by dae_devops version 0.5.4.dev3+g9aafdd5.d20230608.
 # ********** For repository_name dls-bxflow
 
 from pathlib import Path
@@ -55,7 +55,7 @@ extensions = [
 
 # If true, Sphinx will warn about all references where the target cannot
 # be found.
-nitpicky = True
+nitpicky = False
 
 # A list of (type, target) tuples (by default empty) that should be ignored when
 # generating warnings in "nitpicky mode". Note that type should include the
@@ -197,4 +197,4 @@ def setup(app):
     app.connect("source-read", ultimateReplace)
 
 
-# dae_devops_fingerprint 381ce18acea8a261e7dad332b63a5366
+# dae_devops_fingerprint 67f12942c62a1495ca10314b0fb1f55b

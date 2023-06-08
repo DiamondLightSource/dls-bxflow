@@ -1,5 +1,5 @@
 # ********** Please don't edit this file!
-# ********** It has been generated automatically by dae_devops version 0.5.4.dev0+g1fb30ef.d20230527.
+# ********** It has been generated automatically by dae_devops version 0.5.4.dev3+g9aafdd5.d20230608.
 # ********** For repository_name dls-bxflow
 
 name: Install requirements
@@ -61,4 +61,4 @@ runs:
       shell: bash
 
 
-# dae_devops_fingerprint a5800c88a9ba24077377747d0c06fb25
+# dae_devops_fingerprint eb5296912f183adb712ebeace6d7ab4b

@@ -1,5 +1,5 @@
 .. # ********** Please don't edit this file!
-.. # ********** It has been generated automatically by dae_devops version 0.5.4.dev0+g1fb30ef.d20230527.
+.. # ********** It has been generated automatically by dae_devops version 0.5.4.dev3+g9aafdd5.d20230608.
 .. # ********** For repository_name dls-bxflow
 
 Developing
@@ -28,4 +28,4 @@ Install the package in edit mode which will also install all its dependencies::
 Now you may begin modifying the code.
 
 
-.. # dae_devops_fingerprint b43f9e92eb02335baa66fc0122af159e
+.. # dae_devops_fingerprint 4b6f21ffa82227a90036da2ba46aaedb

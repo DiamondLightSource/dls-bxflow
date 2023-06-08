@@ -1,5 +1,5 @@
 .. # ********** Please don't edit this file!
-.. # ********** It has been generated automatically by dae_devops version 0.5.4.dev0+g1fb30ef.d20230527.
+.. # ********** It has been generated automatically by dae_devops version 0.5.4.dev3+g9aafdd5.d20230608.
 .. # ********** For repository_name dls-bxflow
 
 Contributing to the project
@@ -38,4 +38,4 @@ should follow.
 
 .. _Developer Guide: https://diamondlightsource.github.io/dls-bxflow/main/developer/how-to/contribute.html
 
-.. # dae_devops_fingerprint 12687dadc26b00ae0ff61a410a4e6ff1
+.. # dae_devops_fingerprint 64a480c612412a8e9973d9fa32679061
