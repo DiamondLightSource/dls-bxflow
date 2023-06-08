@@ -1,5 +1,5 @@
 .. # ********** Please don't edit this file!
-.. # ********** It has been generated automatically by dae_devops version 0.5.4.dev0+g1fb30ef.d20230527.
+.. # ********** It has been generated automatically by dae_devops version 0.5.4.dev3+g9aafdd5.d20230608.
 .. # ********** For repository_name dls-bxflow
 
 Installing
@@ -39,4 +39,4 @@ You can check the version that has been installed by typing::
     $ dls-bxflow --version
     $ dls-bxflow --version-json
 
-.. # dae_devops_fingerprint 8ccbf8988522125959e98a89c3955b2f
+.. # dae_devops_fingerprint 274dbcfedd4feea41d06ffaab3fc4b25

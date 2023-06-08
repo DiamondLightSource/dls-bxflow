@@ -1,5 +1,5 @@
 .. # ********** Please don't edit this file!
-.. # ********** It has been generated automatically by dae_devops version 0.5.4.dev0+g1fb30ef.d20230527.
+.. # ********** It has been generated automatically by dae_devops version 0.5.4.dev3+g9aafdd5.d20230608.
 .. # ********** For repository_name dls-bxflow
 
 Devops
@@ -44,4 +44,4 @@ Publishing (for the Diamond intranet)::
     
 The Diamond intranet commands are not used for production. The production packaging and publishing are handled in the GitHub Actions workflows mechanism.
 
-.. # dae_devops_fingerprint 0bdf01a58645f01f7153360f52c5d06f
+.. # dae_devops_fingerprint 8d6b0f96c36b5d913fa0074fc843ec5f

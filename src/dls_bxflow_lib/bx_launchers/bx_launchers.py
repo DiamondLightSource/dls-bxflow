@@ -4,6 +4,8 @@ import logging
 # Class managing list of things.
 from dls_utilpack.things import Things
 
+from dls_bxflow_api.bx_launchers.constants import ClassTypes
+
 # Exceptions.
 from dls_bxflow_api.exceptions import NotFound
 
@@ -41,24 +43,29 @@ class BxLaunchers(Things):
     def lookup_class(self, class_type):
         """"""
 
-        if class_type == "dls_bxflow_lib.bx_launchers.aiohttp":
+        if class_type == ClassTypes.AIOHTTP:
             from dls_bxflow_lib.bx_launchers.aiohttp import Aiohttp
 
             return Aiohttp
 
-        elif class_type == "dls_bxflow_lib.bx_launchers.island":
+        elif class_type == ClassTypes.ISLAND:
             from dls_bxflow_lib.bx_launchers.island import Island
 
             return Island
 
-        elif class_type == "dls_bxflow_lib.bx_launchers.popener":
+        elif class_type == ClassTypes.POPENER:
             from dls_bxflow_lib.bx_launchers.popener import Popener
 
             return Popener
 
-        elif class_type == "dls_bxflow_lib.bx_launchers.qsubber":
+        elif class_type == ClassTypes.QSUBBER:
             from dls_bxflow_lib.bx_launchers.qsubber import Qsubber
 
             return Qsubber
+
+        elif class_type == ClassTypes.SBATCHER:
+            from dls_bxflow_lib.bx_launchers.sbatcher import Slurmer
+
+            return Slurmer
 
         raise NotFound("unable to get bx_launcher class for %s" % (class_type))

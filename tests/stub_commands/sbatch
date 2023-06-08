@@ -1,0 +1,22 @@
+#!/usr/bin/env python
+
+import os
+from subprocess import Popen
+
+job_number = "1325866"
+
+cwd = os.path.abspath(os.getcwd())
+print(job_number)
+
+stdout_filename = "stdout.txt"
+stderr_filename = "stderr.txt"
+
+with open(stdout_filename, "wt") as stdout_handle:
+    with open(stderr_filename, "wt") as stderr_handle:
+        # Start but don't wait.
+        popen = Popen(
+            "/bin/bash -c .bxflow/main.sh",
+            shell=True,
+            stdout=stdout_handle,
+            stderr=stderr_handle,
+        )

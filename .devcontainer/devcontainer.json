@@ -1,5 +1,5 @@
 // ********** Please don't edit this file!
-// ********** It has been generated automatically by dae_devops version 0.5.4.dev0+g1fb30ef.d20230527.
+// ********** It has been generated automatically by dae_devops version 0.5.4.dev3+g9aafdd5.d20230608.
 // ********** For repository_name dls-bxflow
 
 // For format details, see https://containers.dev/implementors/json_reference/
@@ -57,4 +57,4 @@
     "postCreateCommand": "pip install -e .[dev]"
 }
 
-// dae_devops_fingerprint 8ee55efb6c475521fa40db01bb2eb177
+// dae_devops_fingerprint 5ebaaca7d58787f31793553084e238d1

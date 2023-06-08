@@ -31,6 +31,7 @@ class Keywords:
 class Clusters:
     HAMILTON = "dls_bxflow_api::remex::cluster::hamilton"
     SCIENCE = "dls_bxflow_api::remex::cluster::global/cluster"
+    WILSON = "dls_bxflow_api::remex::cluster::wilson"
     TEST = "dls_bxflow_api::remex::cluster::global/testcluster"
     LOCAL = "dls_bxflow_api::remex::cluster::local"
 

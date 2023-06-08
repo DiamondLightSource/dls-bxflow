@@ -17,6 +17,9 @@ from dls_bxflow_api.bx_databases.constants import BxLauncherFieldnames
 # Global bx_dataface.
 from dls_bxflow_api.bx_datafaces.bx_datafaces import bx_datafaces_get_default
 
+# BxLauncher protocolj things.
+from dls_bxflow_api.bx_launchers.constants import ClassTypes, Commands, Keywords
+
 # Remex things.
 from dls_bxflow_api.remex import Clusters as RemexClusters
 
@@ -29,9 +32,6 @@ from dls_bxflow_lib.bx_jobs.bx_jobs import BxJobs
 # Factory to make a BxLauncher.
 from dls_bxflow_lib.bx_launchers.bx_launchers import BxLaunchers
 
-# BxLauncher protocolj things.
-from dls_bxflow_lib.bx_launchers.constants import Commands, Keywords
-
 # Possible bx_launcher states.
 from dls_bxflow_lib.bx_launchers.states import States as BxLauncherStates
 
@@ -40,7 +40,8 @@ from dls_bxflow_run.bx_tasks.bx_tasks import BxTasks
 
 logger = logging.getLogger(__name__)
 
-thing_type = "dls_bxflow_lib.bx_launchers.aiohttp"
+
+thing_type = ClassTypes.AIOHTTP
 
 
 # ------------------------------------------------------------------------------------------

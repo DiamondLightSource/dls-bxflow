@@ -134,6 +134,27 @@ class TestLauncherQsubberGoodLaptop:
 
 
 # ----------------------------------------------------------------------------------------
+class TestLauncherSbatcherGoodLaptop:
+    def test(self, constants, logging_setup, output_directory):
+        """ """
+
+        # Configuration file to use.
+        configuration_file = "tests/configurations/backend.yaml"
+        # The launcher configuration to replace in the configuration file for this test.
+        desired_bx_launcher_specification = "bx_launcher_sbatcher_specification"
+
+        # Good test.
+        bx_task_type_specific_tbd = {"delay": 0}
+        expected_exit_code = 0
+        LauncherTester(
+            desired_bx_launcher_specification,
+            bx_task_type_specific_tbd,
+            expected_exit_code,
+            None,
+        ).main(constants, configuration_file, output_directory)
+
+
+# ----------------------------------------------------------------------------------------
 class LauncherTester(BaseContextTester):
     """
     Class to test the launcher running jobs directly, without a workflow involved.
@@ -158,8 +179,11 @@ class LauncherTester(BaseContextTester):
     async def _main_coroutine(self, constants, output_directory):
         """ """
 
-        # Make the fake qsub findable in the path.
-        os.environ["PATH"] = "%s:%s" % (os.path.dirname(__file__), os.environ["PATH"])
+        # Make the qsub and sbatch stubs findable in the path.
+        os.environ["PATH"] = "%s/stub_commands:%s" % (
+            os.path.dirname(__file__),
+            os.environ["PATH"],
+        )
 
         # Supply environment variable for substitution in the bx configurator.
         os.environ["OUTPUT_DIRECTORY"] = output_directory

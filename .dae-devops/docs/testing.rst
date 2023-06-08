@@ -1,5 +1,5 @@
 .. # ********** Please don't edit this file!
-.. # ********** It has been generated automatically by dae_devops version 0.5.4.dev0+g1fb30ef.d20230527.
+.. # ********** It has been generated automatically by dae_devops version 0.5.4.dev3+g9aafdd5.d20230608.
 .. # ********** For repository_name dls-bxflow
 
 Testing
@@ -31,4 +31,4 @@ This allows you to examine what's been written by the test.
     
 
 
-.. # dae_devops_fingerprint 58ccb8ff8aa55ed529e1d7942f96bd3c
+.. # dae_devops_fingerprint 2afce2f25b27f584270a1f93218bce37

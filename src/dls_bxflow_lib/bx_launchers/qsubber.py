@@ -11,6 +11,8 @@ from dls_utilpack.callsign import callsign
 from dls_utilpack.module import module_get_environ
 from dls_utilpack.require import require
 
+from dls_bxflow_api.bx_launchers.constants import ClassTypes
+
 # Remex (remote execution) API.
 from dls_bxflow_api.remex import Clusters as RemexClusters
 from dls_bxflow_api.remex import Keywords as RemexKeywords
@@ -22,7 +24,7 @@ from dls_bxflow_lib.bx_launchers.base import BaseLaunchInfo
 
 logger = logging.getLogger(__name__)
 
-thing_type = "dls_bxflow_lib.bx_launchers.qsubber"
+thing_type = ClassTypes.QSUBBER
 
 
 # ------------------------------------------------------------------------------------------
