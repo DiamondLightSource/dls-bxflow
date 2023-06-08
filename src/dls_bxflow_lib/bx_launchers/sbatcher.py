@@ -142,7 +142,11 @@ class Slurmer(BxLauncherBase):
 
     # ------------------------------------------------------------------------------------------
     async def submit(
-        self, bx_job_uuid, bx_job_specification, bx_task_uuid, bx_task_specification
+        self,
+        bx_job_uuid,
+        bx_job_specification,
+        bx_task_uuid,
+        bx_task_specification,
     ):
         """Handle request to submit bx_task for execution."""
 
@@ -164,24 +168,23 @@ class Slurmer(BxLauncherBase):
         stdout_filename = "%s/stdout.txt" % (runtime_directory)
         stderr_filename = "%s/stderr.txt" % (runtime_directory)
 
+        # Options for sbatch based on the remex hints.
+        sbatch_options = {}
+
         command = []
         command.extend(["sbatch"])
-        command.extend(["-N", job_name])
+
+        sbatch_options["job-name"] = job_name
+
         if self.__cluster_project is not None:
-            command.extend(["-P", self.__cluster_project])
-        command.extend(["-now", "no"])
-        command.extend(["-cwd"])
+            sbatch_options["account"] = self.__cluster_project
 
         # The task may specify remex hints to help select the cluster affinity.
         remex_hints = bx_task_specification.get("remex_hints", None)
         if remex_hints is None:
             remex_hints = {}
 
-        # Options for sbatch based on the remex hints.
-        sbatch_options = {}
-        sbatch_l_options = {}
-
-        # The following keywords are honored:
+        # The following keywords are for qsub:
         # cluster
         # redhat_release
         # m_mem_free
@@ -192,13 +195,28 @@ class Slurmer(BxLauncherBase):
         # gpu_arch
         # h
 
+        # Sbatch options:
+        #   --comment=name          arbitrary comment
+        #   --cpus-per-task=ncpus   number of cpus required per task
+        #   --chdir=directory       set working directory for batch script
+        #   --error=err             file for batch script's standard error
+        #   --job-name=jobname      name of job
+        #   --ntasks-per-node=n     number of tasks to invoke on each node
+        #   --nodes=N               number of nodes on which to run (N = min[-max])
+        #   --output=out            file for batch script's standard output
+        #   --partition=partition   partition requested
+        #   --parsable              outputs only the jobid and cluster name (if present),
+        #                           separated by semicolon, only on successful submission.
+        #   --priority=value        set the priority of the job to value
+        #   --quiet                 quiet mode (suppress informational messages)
+        #   --signal=[[R][B]:]num[@time] send signal when time limit within time seconds
+        #   --time=minutes          time limit
+        #   --mem=MB                minimum amount of real memory
+        #   --cpus-per-gpu=n        number of CPUs required per allocated GPU
+        #   --gpus=n                count of GPUs required for the job
+
         # TODO: Check that the launcher's remex_hints match the task specification's.
         # cluster = remex_hints.get(RemexKeywords.CLUSTER, "")
-
-        # -------------------------------------------------------------------------------
-        t = remex_hints.get(RemexKeywords.REDHAT_RELEASE)
-        if t is not None:
-            sbatch_l_options["redhat_release"] = t
 
         # -------------------------------------------------------------------------------
         memory_limit = remex_hints.get(RemexKeywords.MEMORY_LIMIT)
@@ -208,80 +226,46 @@ class Slurmer(BxLauncherBase):
             if gigabytes.endswith("G") or gigabytes.endswith("g"):
                 gigabytes = gigabytes[:-1]
 
-            if not gigabytes.isnumeric():
+            if not gigabytes.isdigit():
                 raise RuntimeError(
                     f"cannot parse {callsign(bx_task)}"
                     f' remex_hints[{RemexKeywords.MEMORY_LIMIT}] "{memory_limit}"'
                 )
 
-            sbatch_l_options["m_mem_free"] = f"{gigabytes}G"
+            # Sbatch wants megabytes.
+            sbatch_options["mem"] = f"{int(gigabytes)*1000}"
 
         # -------------------------------------------------------------------------------
         t = remex_hints.get(RemexKeywords.TIME_LIMIT)
         if t is not None:
 
-            sbatch_l_options["h_rt"] = t
+            sbatch_options["time"] = t
 
         # -------------------------------------------------------------------------------
         t = remex_hints.get(RemexKeywords.QUEUE)
         if t is not None:
-            sbatch_options["-q"] = t
+            sbatch_options["qos"] = t
 
         # -------------------------------------------------------------------------------
-        t = remex_hints.get(RemexKeywords.PARALLEL_ENVIRONMENT)
-        if t is not None:
-            t = t.split(" ")
-            if len(t) != 2:
-                raise RuntimeError(
-                    f"{RemexKeywords.PARALLEL_ENVIRONMENT} should be of two parts separated by a space"
-                )
-            sbatch_options["-pe"] = t[0].strip()
-            sbatch_options[">-pe"] = t[1].strip()
-
-        # -------------------------------------------------------------------------------
-        t = remex_hints.get(RemexKeywords.GPU)
-        if t is not None:
-            sbatch_l_options["gpu"] = t
-
-        # -------------------------------------------------------------------------------
-        t = remex_hints.get(RemexKeywords.GPU_ARCH)
-        if t is not None:
-            sbatch_l_options["gpu_arch"] = t
-
-        # -------------------------------------------------------------------------------
-        t = remex_hints.get(RemexKeywords.HOST)
-        if t is not None:
-            sbatch_l_options["h"] = t
+        sbatch_options["output"] = stdout_filename
+        sbatch_options["error"] = stderr_filename
 
         # -------------------------------------------------------------------------------
         # Add the sbatch_options to the command line.
         for sbatch_option, sbatch_value in sbatch_options.items():
-            if not sbatch_option.startswith(">"):
-                command.append(sbatch_option)
-            if sbatch_value is not None and sbatch_value != "":
-                command.append(sbatch_value)
+            command.append(f"--{sbatch_option}={sbatch_value}")
 
-        # Add the sbatch "-l" and its sub-options to the command line.
-        if len(sbatch_l_options) > 0:
-            sbatch_l_values = []
-            for sbatch_l_option, sbatch_l_value in sbatch_l_options.items():
-                sbatch_l_values.append(f"{sbatch_l_option}={sbatch_l_value}")
-            command.append("-l")
-            command.append(",".join(sbatch_l_values))
-
-        # -------------------------------------------------------------------------------
-        command.extend(["-o", stdout_filename])
-        command.extend(["-e", stderr_filename])
-        command.extend(["-terse"])
         command.extend([bash_filename])
-
-        # command_string = bash_filename
 
         sbatchout_filename = "%s/.bxflow/sbatchout.txt" % (runtime_directory)
         sbatcherr_filename = "%s/.bxflow/sbatcherr.txt" % (runtime_directory)
 
         # Split the command into arguments/values for readability in the debug.
-        readable = (" ".join(command)).replace(" -", " \\\n    -")
+        readable = (
+            (" ".join(command[:-1])).replace(" --", " \\\n    --")
+            + "\n    "
+            + command[-1]
+        )
         logger.debug(f"{callsign(self)} running command\n{readable}")
 
         while True:
