@@ -25,7 +25,7 @@ from dls_bxflow_lib.bx_launchers.base import BaseLaunchInfo
 
 logger = logging.getLogger(__name__)
 
-thing_type = ClassTypes.SBATCHER
+thing_type = ClassTypes.SLURMER
 
 
 # ------------------------------------------------------------------------------------------
@@ -169,15 +169,15 @@ class Slurmer(BxLauncherBase):
         stderr_filename = "%s/stderr.txt" % (runtime_directory)
 
         # Options for sbatch based on the remex hints.
-        sbatch_options = {}
+        slurm_options = {}
 
         command = []
         command.extend(["sbatch"])
 
-        sbatch_options["job-name"] = job_name
+        slurm_options["job-name"] = job_name
 
         if self.__cluster_project is not None:
-            sbatch_options["account"] = self.__cluster_project
+            slurm_options["account"] = self.__cluster_project
 
         # The task may specify remex hints to help select the cluster affinity.
         remex_hints = bx_task_specification.get("remex_hints", None)
@@ -233,26 +233,26 @@ class Slurmer(BxLauncherBase):
                 )
 
             # Sbatch wants megabytes.
-            sbatch_options["mem"] = f"{int(gigabytes)*1000}"
+            slurm_options["mem"] = f"{int(gigabytes)*1000}"
 
         # -------------------------------------------------------------------------------
         t = remex_hints.get(RemexKeywords.TIME_LIMIT)
         if t is not None:
 
-            sbatch_options["time"] = t
+            slurm_options["time"] = t
 
         # -------------------------------------------------------------------------------
         t = remex_hints.get(RemexKeywords.QUEUE)
         if t is not None:
-            sbatch_options["qos"] = t
+            slurm_options["qos"] = t
 
         # -------------------------------------------------------------------------------
-        sbatch_options["output"] = stdout_filename
-        sbatch_options["error"] = stderr_filename
+        slurm_options["output"] = stdout_filename
+        slurm_options["error"] = stderr_filename
 
         # -------------------------------------------------------------------------------
         # Add the sbatch_options to the command line.
-        for sbatch_option, sbatch_value in sbatch_options.items():
+        for sbatch_option, sbatch_value in slurm_options.items():
             command.append(f"--{sbatch_option}={sbatch_value}")
 
         command.extend([bash_filename])

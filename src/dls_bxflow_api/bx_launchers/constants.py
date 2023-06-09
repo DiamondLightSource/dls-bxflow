@@ -1,7 +1,7 @@
 class ClassTypes:
     POPENER = "dls_bxflow_lib.bx_launchers.popener"
     QSUBBER = "dls_bxflow_lib.bx_launchers.qsubber"
-    SBATCHER = "dls_bxflow_lib.bx_launchers.sbatcher"
+    SLURMER = "dls_bxflow_lib.bx_launchers.slurmer"
     AIOHTTP = "dls_bxflow_lib.bx_launchers.aiohttp"
     ISLAND = "dls_bxflow_lib.bx_launchers.island"
 

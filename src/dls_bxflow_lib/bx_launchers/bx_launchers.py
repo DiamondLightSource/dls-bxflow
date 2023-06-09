@@ -63,8 +63,8 @@ class BxLaunchers(Things):
 
             return Qsubber
 
-        elif class_type == ClassTypes.SBATCHER:
-            from dls_bxflow_lib.bx_launchers.sbatcher import Slurmer
+        elif class_type == ClassTypes.SLURMER:
+            from dls_bxflow_lib.bx_launchers.slurmer import Slurmer
 
             return Slurmer
 

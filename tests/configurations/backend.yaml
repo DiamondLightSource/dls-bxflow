@@ -240,16 +240,16 @@ bx_launcher_qsubber_specification:
     context:
         start_as: process
 
-bx_launcher_sbatcher_specification:
+bx_launcher_slurmer_specification:
     type: "dls_bxflow_lib.bx_launchers.aiohttp"
-    uuid: "sbatcher-01"
+    uuid: "slurmer-01"
     remex_cluster: *CLUSTER_WILSON
     type_specific_tbd:
         aiohttp_specification:
             server: *LAUNCHER3_SERVER
             client: *LAUNCHER3_CLIENT
         actual_bx_launcher_specification:
-            type: "dls_bxflow_lib.bx_launchers.sbatcher"
+            type: "dls_bxflow_lib.bx_launchers.slurmer"
             type_specific_tbd:
                 task_count_max: 10
                 cluster_project: test_project
@@ -261,7 +261,7 @@ bx_launcher_sbatcher_specification:
 bx_launcher_specifications:
     - bx_launcher_popener_specification
     - bx_launcher_qsubber_specification
-    - bx_launcher_sbatcher_specification
+    - bx_launcher_slurmer_specification
 
 # The bx_job.
 bx_job_specification:

@@ -62,7 +62,7 @@ class TestLauncherDirectSbatcher:
         configuration_file = "tests/configurations/backend.yaml"
 
         # The launcher configuration to replace in the configuration file for this test.
-        launcher_keyword = "bx_launcher_sbatcher_specification"
+        launcher_keyword = "bx_launcher_slurmer_specification"
 
         LauncherDirectTester(launcher_keyword).main(
             constants, configuration_file, output_directory
@@ -87,7 +87,7 @@ class LauncherDirectTester(BaseContextTester):
     async def _main_coroutine(self, constants, output_directory):
         """ """
 
-        # Make the qsub and sbatch stub commands findable in the path.
+        # Make the qsub stub commands findable in the path.
         os.environ["PATH"] = "%s/stub_commands:%s" % (
             os.path.dirname(__file__),
             os.environ["PATH"],

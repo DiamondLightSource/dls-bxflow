@@ -141,7 +141,7 @@ class TestLauncherSbatcherGoodLaptop:
         # Configuration file to use.
         configuration_file = "tests/configurations/backend.yaml"
         # The launcher configuration to replace in the configuration file for this test.
-        desired_bx_launcher_specification = "bx_launcher_sbatcher_specification"
+        desired_bx_launcher_specification = "bx_launcher_slurmer_specification"
 
         # Good test.
         bx_task_type_specific_tbd = {"delay": 0}
@@ -179,7 +179,7 @@ class LauncherTester(BaseContextTester):
     async def _main_coroutine(self, constants, output_directory):
         """ """
 
-        # Make the qsub and sbatch stubs findable in the path.
+        # Make the qsub stub findable in the path.
         os.environ["PATH"] = "%s/stub_commands:%s" % (
             os.path.dirname(__file__),
             os.environ["PATH"],
