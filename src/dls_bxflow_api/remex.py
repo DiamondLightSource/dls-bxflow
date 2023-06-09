@@ -35,7 +35,7 @@ class Clusters:
     TEST = "dls_bxflow_api::remex::cluster::global/testcluster"
     LOCAL = "dls_bxflow_api::remex::cluster::local"
 
-    __list = [HAMILTON, SCIENCE, TEST, LOCAL]
+    __list = [HAMILTON, SCIENCE, WILSON, TEST, LOCAL]
 
     def validate(name):
         if name not in Clusters.__list:
