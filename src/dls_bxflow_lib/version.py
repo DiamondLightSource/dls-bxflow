@@ -12,12 +12,6 @@ as well as versions of other depdency packages.
 
 from typing import Optional
 
-import dls_mainiac_lib.version
-import dls_pairstream_lib.version
-import dls_servbase_lib.version
-import dls_slurmjob_lib.version
-import dls_utilpack.version
-
 from dls_bxflow_lib import __version__
 
 
@@ -40,12 +34,41 @@ def meta(given_meta: Optional[dict] = None) -> dict:
 
     meta = {}
     meta["dls_bxflow"] = version()
-    meta.update(dls_utilpack.version.meta())
-    meta.update(dls_servbase_lib.version.meta())
-    meta.update(dls_slurmjob_lib.version.meta())
-    meta.update(dls_mainiac_lib.version.meta())
-    meta.update(dls_utilpack.version.meta())
-    meta.update(dls_pairstream_lib.version.meta())
+
+    try:
+        import dls_utilpack.version
+
+        meta.update(dls_utilpack.version.meta())
+    except Exception:
+        meta["dls_utilpack"] = "unavailable"
+
+    try:
+        import dls_servbase_lib.version
+
+        meta.update(dls_servbase_lib.version.meta())
+    except Exception:
+        meta["dls_servbase_lib"] = "unavailable"
+
+    try:
+        import dls_slurmjob_lib.version
+
+        meta.update(dls_slurmjob_lib.version.meta())
+    except Exception:
+        meta["dls_slurmjob_lib"] = "unavailable"
+
+    try:
+        import dls_mainiac_lib.version
+
+        meta.update(dls_mainiac_lib.version.meta())
+    except Exception:
+        meta["dls_mainiac_lib"] = "unavailable"
+
+    try:
+        import dls_pairstream_lib.version
+
+        meta.update(dls_pairstream_lib.version.meta())
+    except Exception:
+        meta["dls_pairstream_lib"] = "unavailable"
 
     try:
         import stomp

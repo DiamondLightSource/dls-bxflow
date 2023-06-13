@@ -1,14 +1,10 @@
 import asyncio
 import json
 import logging
-import os
 from typing import List
 
 # Job rejected by slurm engine, for example missing some required property.
 from dls_slurmjob_api.exceptions import Rejected
-
-# Job info.
-from dls_slurmjob_api.models.job_summary_model import JobSummaryModel
 
 # Job properties.
 from dls_slurmjob_api.models.openapi.v0.field_0 import (
@@ -26,14 +22,11 @@ from dls_utilpack.callsign import callsign
 from dls_utilpack.explain import explain2
 
 # Environment module loader.
-from dls_utilpack.module import module_get_environ
 from dls_utilpack.require import require
 
 from dls_bxflow_api.bx_launchers.constants import ClassTypes
 
 # Remex (remote execution) API.
-from dls_bxflow_api.remex import Clusters as RemexClusters
-from dls_bxflow_api.remex import Keywords as RemexKeywords
 from dls_bxflow_lib.bx_launchers.base import Base as BxLauncherBase
 from dls_bxflow_lib.bx_launchers.base import BaseLaunchInfo
 
@@ -90,7 +83,8 @@ class Slurmer(BxLauncherBase):
             logger.warning(f"{callsign(self)} specification has no remex_hints")
             return
 
-        cluster = remex_hints.get(RemexKeywords.CLUSTER, None)
+        # TODO: Consider forcing slurmer launcher to detect "cluster" in constructor.
+        # cluster = remex_hints.get(RemexKeywords.CLUSTER, None)
 
     # ----------------------------------------------------------------------------------------
     def __sanitize(self, uuid: str) -> str:
