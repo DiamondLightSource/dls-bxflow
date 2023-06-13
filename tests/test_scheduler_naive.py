@@ -145,8 +145,9 @@ class SchedulerNaiveTester(BaseContextTester):
 
             # ----------------------------------------------------------------------
             case = "single hint, found no idle launchers"
-            row = {"uuid": "popener-01", "state": BxLauncherStates.BUSY}
             row = {"uuid": "qsubber-01", "state": BxLauncherStates.BUSY}
+            await bx_datafaces_get_default().update_bx_launcher(row)
+            row = {"uuid": "slurmer-01", "state": BxLauncherStates.BUSY}
             await bx_datafaces_get_default().update_bx_launcher(row)
             task_specification[RemexKeywords.HINTS] = {
                 RemexKeywords.CLUSTER: RemexClusters.LOCAL

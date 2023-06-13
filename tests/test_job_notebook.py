@@ -160,7 +160,7 @@ class JobNotebookTester(BaseContextTester):
 
         # Check we got all the news.
         count = len(self.consumed_news)
-        expected_news_count = 8
+        expected_news_count = 9
         if count != expected_news_count:
             logger.info(describe("self.consumed_news", self.consumed_news))
 
@@ -195,5 +195,9 @@ class JobNotebookTester(BaseContextTester):
         assert payload["bx_launcher"]["state"] == BxLauncherStates.SHUTDOWN
 
         topic, headline, payload = self.consumed_news[7]
+        assert topic == BxNewsTopics.BXLAUNCHER_WAS_UPDATED
+        assert payload["bx_launcher"]["state"] == BxLauncherStates.SHUTDOWN
+
+        topic, headline, payload = self.consumed_news[8]
         assert topic == BxNewsTopics.BXLAUNCHER_WAS_UPDATED
         assert payload["bx_launcher"]["state"] == BxLauncherStates.SHUTDOWN

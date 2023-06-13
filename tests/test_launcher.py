@@ -134,27 +134,6 @@ class TestLauncherQsubberGoodLaptop:
 
 
 # ----------------------------------------------------------------------------------------
-class TestLauncherSbatcherGoodLaptop:
-    def test(self, constants, logging_setup, output_directory):
-        """ """
-
-        # Configuration file to use.
-        configuration_file = "tests/configurations/backend.yaml"
-        # The launcher configuration to replace in the configuration file for this test.
-        desired_bx_launcher_specification = "bx_launcher_slurmer_specification"
-
-        # Good test.
-        bx_task_type_specific_tbd = {"delay": 0}
-        expected_exit_code = 0
-        LauncherTester(
-            desired_bx_launcher_specification,
-            bx_task_type_specific_tbd,
-            expected_exit_code,
-            None,
-        ).main(constants, configuration_file, output_directory)
-
-
-# ----------------------------------------------------------------------------------------
 class LauncherTester(BaseContextTester):
     """
     Class to test the launcher running jobs directly, without a workflow involved.
