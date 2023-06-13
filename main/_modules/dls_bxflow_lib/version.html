@@ -8,7 +8,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>dls_bxflow_lib.version &#8212; dls-bxflow 2.4.3.dev8+ge12b0ee documentation</title>
+    <title>dls_bxflow_lib.version &#8212; dls-bxflow 2.4.3.dev13+gcc8ac2f documentation</title>
   
   
   
@@ -388,11 +388,6 @@ document.write(`
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
-<span class="kn">import</span> <span class="nn">dls_mainiac_lib.version</span>
-<span class="kn">import</span> <span class="nn">dls_pairstream_lib.version</span>
-<span class="kn">import</span> <span class="nn">dls_servbase_lib.version</span>
-<span class="kn">import</span> <span class="nn">dls_utilpack.version</span>
-
 <span class="kn">from</span> <span class="nn">dls_bxflow_lib</span> <span class="kn">import</span> <span class="n">__version__</span>
 
 
@@ -415,11 +410,41 @@ document.write(`
 
     <span class="n">meta</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;dls_bxflow&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">version</span><span class="p">()</span>
-    <span class="n">meta</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dls_utilpack</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">meta</span><span class="p">())</span>
-    <span class="n">meta</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dls_servbase_lib</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">meta</span><span class="p">())</span>
-    <span class="n">meta</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dls_mainiac_lib</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">meta</span><span class="p">())</span>
-    <span class="n">meta</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dls_utilpack</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">meta</span><span class="p">())</span>
-    <span class="n">meta</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dls_pairstream_lib</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">meta</span><span class="p">())</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">dls_utilpack.version</span>
+
+        <span class="n">meta</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dls_utilpack</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">meta</span><span class="p">())</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;dls_utilpack&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;unavailable&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">dls_servbase_lib.version</span>
+
+        <span class="n">meta</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dls_servbase_lib</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">meta</span><span class="p">())</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;dls_servbase_lib&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;unavailable&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">dls_slurmjob_lib.version</span>
+
+        <span class="n">meta</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dls_slurmjob_lib</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">meta</span><span class="p">())</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;dls_slurmjob_lib&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;unavailable&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">dls_mainiac_lib.version</span>
+
+        <span class="n">meta</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dls_mainiac_lib</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">meta</span><span class="p">())</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;dls_mainiac_lib&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;unavailable&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">dls_pairstream_lib.version</span>
+
+        <span class="n">meta</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dls_pairstream_lib</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">meta</span><span class="p">())</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;dls_pairstream_lib&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;unavailable&quot;</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="kn">import</span> <span class="nn">stomp</span>
