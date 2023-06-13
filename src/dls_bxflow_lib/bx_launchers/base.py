@@ -300,6 +300,8 @@ class Base(Thing):
             f"echo 'date: ' `date +'%Y-%m-%d %H:%M:%S %z'` >> {prepare_log}"
         )
         bash_lines.append(f"echo 'pwd: ' `pwd` >> {prepare_log}")
+        bash_lines.append(f"echo 'MODULEPATH: ' $MODULEPATH >> {prepare_log}")
+        bash_lines.append(f"echo 'MODULESHOME: ' $MODULESHOME >> {prepare_log}")
 
         bash_lines.append(f"echo '-----------------' >> {prepare_log}")
 

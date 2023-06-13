@@ -4,6 +4,9 @@ import logging
 import os
 from typing import List
 
+# Job rejected by slurm engine, for example missing some required property.
+from dls_slurmjob_api.exceptions import Rejected
+
 # Job info.
 from dls_slurmjob_api.models.job_summary_model import JobSummaryModel
 
@@ -89,11 +92,6 @@ class Slurmer(BxLauncherBase):
 
         cluster = remex_hints.get(RemexKeywords.CLUSTER, None)
 
-        if cluster is not None:
-            # Load the environment module needed to talk to this cluster.
-            os.environ.update(module_get_environ(cluster))
-            logger.debug(f"successful module load {cluster}")
-
     # ----------------------------------------------------------------------------------------
     def __sanitize(self, uuid: str) -> str:
         return f"bx_task_{uuid}"
@@ -140,7 +138,9 @@ class Slurmer(BxLauncherBase):
 
         # These others are also minimum required.
         properties.current_working_directory = runtime_directory
-        properties.environment = {"DLS_SLURMJOB": dls_slurmjob_version()}
+        if properties.environment is None:
+            properties.environment = {}
+        properties.environment["DLS_SLURMJOB_VERSION"] = dls_slurmjob_version()
 
         # These are per-task.
         properties.name = job_name
@@ -158,6 +158,24 @@ class Slurmer(BxLauncherBase):
                 async with client_context as client:
                     # Get jobs.
                     job_id = await client.submit_job(bash_filename, properties)
+
+                    logger.debug(
+                        f"{callsign(self)} submitted job_id {job_id}"
+                        f' for job "{bx_job.label()}" task "{bx_task.label()}"'
+                        f" in directory {runtime_directory}"
+                    )
+
+                    # Stop retrying.
+                    break
+
+            # Job rejected by slurm engine, for example missing some required property.
+            except Rejected as exception:
+                with open(stderr_filename, "wt") as stderr_stream:
+                    stderr_stream.write(explain2(exception, "submitting the task"))
+                    # Set job_id to -1, meaning it got rejected, so no need to wait for it when harvesting.
+                    job_id = -1
+
+                    # This is probably not an ephemeral error, so stop trying.
                     break
 
             except Exception as exception:
@@ -165,19 +183,13 @@ class Slurmer(BxLauncherBase):
                     explain2(
                         exception,
                         f'{callsign(self)} submitting job "{bx_job.label()}" task "{bx_task.label()}"',
-                        exc_info=exception,
-                    )
+                    ),
+                    exc_info=exception,
                 )
                 # Sleep before retrying.
                 await asyncio.sleep(5)
                 # TODO: In slurmer launcher, have a limit to number of retries.
                 # raise RemoteSubmitFailed("; ".join(lines))
-
-        logger.debug(
-            f"{callsign(self)} submitted job_id {job_id}"
-            f' for job "{bx_job.label()}" task "{bx_task.label()}"'
-            f" in directory {runtime_directory}"
-        )
 
         # Make a serializable object representing the entity which was launched.
         launch_info = SlurmerLaunchInfo(bx_job, bx_task)
@@ -208,14 +220,16 @@ class Slurmer(BxLauncherBase):
         # Look through all the job infos which we are monitoring.
         job_id_list: List[int] = []
         for launch_info in launch_infos:
-            job_id_list.append(launch_info.job_id)
+            if launch_info.job_id != -1:
+                job_id_list.append(launch_info.job_id)
 
         # Make the slurmjob client context from the specification in the configuration.
         client_context = DlsSlurmjobRestdClientContext(self.__slurmjob_specification)
 
         # Open the slurmjob client context connects to the service process.
         async with client_context as client:
-            # Get jobs of interest.
+            # Get a results for every job of interest.
+            # Guarantees an answer for every job requested.
             slurm_infos = await client.query_jobs(job_id_list)
 
         done_infos = []
@@ -225,9 +239,14 @@ class Slurmer(BxLauncherBase):
         for launch_info in launch_infos:
             job_id = launch_info.job_id
 
-            # This job looks done according to the slurm query?
-            if slurm_infos[job_id].is_finished:
+            # This job got rejected by the slurn engine?
+            if job_id == -1:
                 done_infos.append(launch_info)
+
+            # This job looks done according to the slurm query?
+            elif job_id == -1 or slurm_infos[job_id].is_finished:
+                done_infos.append(launch_info)
+
             else:
                 remaining_infos.append(launch_info)
 

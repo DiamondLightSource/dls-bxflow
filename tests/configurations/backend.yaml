@@ -88,7 +88,7 @@ bx_task_environments:
 remex_clusters:
     - &CLUSTER_HAMILTON "dls_bxflow_api::remex::cluster::hamilton"
     - &CLUSTER_SCIENCE "dls_bxflow_api::remex::cluster::global/cluster"
-    - &CLUSTER_WILSON "dls_bxflow_api::remex::cluster::wilson"
+    - &CLUSTER_SLURM "dls_bxflow_api::remex::cluster::slurm"
     - &CLUSTER_TEST "dls_bxflow_api::remex::cluster::global/testcluster"
     - &CLUSTER_LOCAL "dls_bxflow_api::remex::cluster::local"
 
@@ -246,7 +246,7 @@ bx_launcher_qsubber_specification:
 bx_launcher_slurmer_specification:
     type: "dls_bxflow_lib.bx_launchers.aiohttp"
     uuid: "slurmer-01"
-    remex_cluster: *CLUSTER_WILSON
+    remex_cluster: *CLUSTER_SLURM
     type_specific_tbd:
         aiohttp_specification:
             server: *LAUNCHER3_SERVER

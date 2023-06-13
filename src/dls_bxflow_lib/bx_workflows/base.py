@@ -8,6 +8,7 @@ from dls_multiconf_lib.exceptions import NotFound
 
 # Utilities.
 from dls_utilpack.callsign import callsign
+from dls_utilpack.describe import describe
 from dls_utilpack.explain import explain2
 from dls_utilpack.require import require
 
@@ -205,9 +206,20 @@ class Base:
         except NotFound:
             pass
 
+        logger.debug(describe("[TSKRHNT] overall_default_hints", overall_default_hints))
+        logger.debug(
+            describe(
+                f"[TSKRHNT] task_type_default_hints for {thing_type}",
+                task_type_default_hints,
+            )
+        )
+
+        logger.debug(describe("[TSKRHNT] task_remex_hints", task_remex_hints))
         remex_hints = copy.deepcopy(overall_default_hints)
         remex_hints.update(task_type_default_hints)
         remex_hints.update(task_remex_hints)
+
+        logger.debug(describe("[TSKRHNT] assembled remex_hints", remex_hints))
 
         # Check that the clusters are valid.
         remex_clusters = require(

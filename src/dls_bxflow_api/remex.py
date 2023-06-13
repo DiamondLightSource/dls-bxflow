@@ -31,11 +31,11 @@ class Keywords:
 class Clusters:
     HAMILTON = "dls_bxflow_api::remex::cluster::hamilton"
     SCIENCE = "dls_bxflow_api::remex::cluster::global/cluster"
-    WILSON = "dls_bxflow_api::remex::cluster::wilson"
+    SLURM = "dls_bxflow_api::remex::cluster::slurm"
     TEST = "dls_bxflow_api::remex::cluster::global/testcluster"
     LOCAL = "dls_bxflow_api::remex::cluster::local"
 
-    __list = [HAMILTON, SCIENCE, WILSON, TEST, LOCAL]
+    __list = [HAMILTON, SCIENCE, SLURM, TEST, LOCAL]
 
     def validate(name):
         if name not in Clusters.__list:
