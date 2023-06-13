@@ -26,7 +26,7 @@ dependencies = [
     "future",
     "graypy",
     "h5py",
-    "ispyb==6.13.0",
+    "ispyb==8.0.1",
     "ipykernel",
     "jsonpickle",
     "lxml",
