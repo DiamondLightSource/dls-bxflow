@@ -63,9 +63,11 @@ class SchedulerNaiveTester(BaseContextTester):
     async def _main_coroutine(self, constants, output_directory):
         """ """
 
-        # Make the fake qsub findable in the path.
-        os.environ["PATH"] = "%s:%s" % (os.path.dirname(__file__), os.environ["PATH"])
-
+        # Make the qsub stub commands findable in the path.
+        os.environ["PATH"] = "%s/stub_commands:%s" % (
+            os.path.dirname(__file__),
+            os.environ["PATH"],
+        )
         # Supply environment variable for substitution in the bx configurator.
         os.environ["OUTPUT_DIRECTORY"] = output_directory
 
