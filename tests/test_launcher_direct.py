@@ -55,7 +55,7 @@ class TestLauncherDirectQsubber:
 
 
 # ----------------------------------------------------------------------------------------
-class TestLauncherDirectSbatcher:
+class TestLauncherDirectSlurmer:
     def test(self, constants, logging_setup, output_directory):
         """ """
 

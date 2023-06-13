@@ -21,6 +21,7 @@ primary:
         - dls-multiconf
         - dls-utilpack
         - dls-pairstream
+        - dls-slurmjob
         - future
         - graypy
         - h5py

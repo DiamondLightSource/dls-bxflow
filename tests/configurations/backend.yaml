@@ -62,6 +62,9 @@ external_access_bits:
     stomp_server: &STOMP_SERVER stomp://172.23.7.128:61613
     stomp_client: &STOMP_CLIENT stomp://172.23.7.128:61613
 
+dls_slurmjob_restd_specification: &DLS_SLURMJOB_RESTD_SPECIFICATION
+    type: "dls_slurmjob_lib.restds.dummy"
+
 bx_task_specification:
     pairstream:
         producer:
@@ -252,8 +255,7 @@ bx_launcher_slurmer_specification:
             type: "dls_bxflow_lib.bx_launchers.slurmer"
             type_specific_tbd:
                 task_count_max: 10
-                cluster_project: test_project
-                cluster_queue: test_queue
+                slurmjob_specification: *DLS_SLURMJOB_RESTD_SPECIFICATION
     context:
         start_as: process
 

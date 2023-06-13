@@ -11,9 +11,6 @@ from dls_utilpack.callsign import callsign
 from dls_utilpack.require import require
 
 from dls_bxflow_api.bx_launchers.constants import ClassTypes
-
-# Describes a particular launch in terms of the job and task it belongs to.
-# Base class for bx_launcher instances.
 from dls_bxflow_lib.bx_launchers.base import Base as BxLauncherBase
 from dls_bxflow_lib.bx_launchers.base import BaseLaunchInfo
 

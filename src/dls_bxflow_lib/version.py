@@ -15,6 +15,7 @@ from typing import Optional
 import dls_mainiac_lib.version
 import dls_pairstream_lib.version
 import dls_servbase_lib.version
+import dls_slurmjob_lib.version
 import dls_utilpack.version
 
 from dls_bxflow_lib import __version__
@@ -41,6 +42,7 @@ def meta(given_meta: Optional[dict] = None) -> dict:
     meta["dls_bxflow"] = version()
     meta.update(dls_utilpack.version.meta())
     meta.update(dls_servbase_lib.version.meta())
+    meta.update(dls_slurmjob_lib.version.meta())
     meta.update(dls_mainiac_lib.version.meta())
     meta.update(dls_utilpack.version.meta())
     meta.update(dls_pairstream_lib.version.meta())
