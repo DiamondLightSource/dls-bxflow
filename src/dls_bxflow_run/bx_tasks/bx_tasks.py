@@ -101,6 +101,11 @@ class BxTasks(Things):
 
             return PtyrexMpi
 
+        if class_type == BxTaskTypes.PTYREX_SRUN:
+            from dls_bxflow_run.bx_tasks.ptyrex_srun import PtyrexSrun
+
+            return PtyrexSrun
+
         if class_type == "dls_bxflow_run.bx_tasks.shell":
             from dls_bxflow_run.bx_tasks.shell import Shell
 

@@ -18,3 +18,4 @@ class Types:
     MODULE_CLASSNAME = "dls_bxflow_run.bx_tasks.module_classname"
     PTYPY_MPI = "dls_bxflow_run.bx_tasks.ptypy_mpi"
     PTYREX_MPI = "dls_bxflow_run.bx_tasks.ptyrex_mpi"
+    PTYREX_SRUN = "dls_bxflow_run.bx_tasks.ptyrex_srun"

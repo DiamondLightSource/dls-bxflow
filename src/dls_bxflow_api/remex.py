@@ -26,6 +26,8 @@ class Keywords:
     GPU = "gpu"
     GPU_ARCH = "gpu_arch"
     HOST = "host"
+    # When slurm is there, the it contains native slurm JobProperties keywords.
+    SLURM_JOB_PROPERTIES = "slurm_job_properties"
 
 
 class Clusters:
