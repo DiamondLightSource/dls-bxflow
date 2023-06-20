@@ -1,8 +1,6 @@
 import logging
 import os
 
-import pytest
-
 # Utilities.
 from dls_utilpack.describe import describe
 from dls_utilpack.module import module_use

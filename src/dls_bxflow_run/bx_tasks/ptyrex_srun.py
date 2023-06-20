@@ -14,9 +14,6 @@ from dls_utilpack.explain import explain
 from dls_utilpack.require import require
 from dls_utilpack.substitute import substitute_dict
 
-# Remote execution.
-from dls_bxflow_api.remex import Keywords as RemexKeywords
-
 # Base class for a bx_task.
 from dls_bxflow_run.bx_tasks.base import Base
 
