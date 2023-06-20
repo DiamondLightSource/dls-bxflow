@@ -171,6 +171,8 @@ class PtyrexTester(BaseContextTester):
 
                 return_code = await bx_task.run()
 
+                self.__debug_files(output_directory)
+
                 if self.__expected_script_error is None:
                     if return_code != 0:
                         error_lines = bx_task.extract_error_lines()
@@ -193,3 +195,25 @@ class PtyrexTester(BaseContextTester):
 
             finally:
                 os.chdir(original_directory)
+
+    def __debug_files(self, output_directory):
+        files = [
+            "ptyrex_mpi.sh",
+            "ptyrex_mpi_stderr.txt",
+            "ptyrex_mpi_stdout.txt",
+            "ptyrex_srun.sh",
+            "ptyrex_srun_stderr.txt",
+            "ptyrex_srun_stdout.txt",
+        ]
+
+        for file in files:
+            self.__debug_file(f"{output_directory}/{file}")
+
+    def __debug_file(self, file):
+
+        if os.path.exists(file):
+            with open(file, "r") as stream:
+                lines = stream.readlines()
+            logger.debug(describe(file, lines))
+        else:
+            logger.debug(f"no file {file}")
