@@ -12,4 +12,9 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-np", dest="mpi_number_of_processors", required=False)
 args, remainder = parser.parse_known_args()
 
+sys.stderr.write("output from stub mpirun script to stderr\n")
+
+with open("ptyrex.log", "w") as stream:
+    stream.write("output from stub mpirun script to ptyrex.log\n")
+
 sys.exit(0)
