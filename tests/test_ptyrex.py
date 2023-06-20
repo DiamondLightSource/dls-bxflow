@@ -172,6 +172,9 @@ class PtyrexTester(BaseContextTester):
                 return_code = await bx_task.run()
 
                 if self.__expected_script_error is None:
+                    if return_code != 0:
+                        error_lines = bx_task.extract_error_lines()
+                        logger.debug(describe("error_lines", error_lines))
                     assert return_code == 0
                     error_lines = bx_task.extract_error_lines()
                     assert isinstance(error_lines, list)
