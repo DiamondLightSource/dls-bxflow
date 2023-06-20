@@ -27,9 +27,6 @@ logger = logging.getLogger(__name__)
 
 
 # ----------------------------------------------------------------------------------------
-
-
-@pytest.mark.skipif("not config.getoption('gpu')")
 class TestPtyrexMpiGood:
     def test(self, constants, logging_setup, output_directory):
         """
@@ -66,7 +63,7 @@ class TestPtyrexMpiGood:
         }
 
         configuration_file = "tests/configurations/filestore.yaml"
-        PtyrexMpiTester(task_specification).main(
+        PtyrexTester(task_specification).main(
             constants,
             configuration_file,
             output_directory,
@@ -74,7 +71,51 @@ class TestPtyrexMpiGood:
 
 
 # ----------------------------------------------------------------------------------------
-class PtyrexMpiTester(BaseContextTester):
+class TestPtyrexSrunGood:
+    def test(self, constants, logging_setup, output_directory):
+        """
+        Tests that a ptyrex_srun task can be run.
+        """
+
+        ptyrex_configfile = f"{os.path.dirname(__file__)}/configurations/ptyrex_configfiles/region_p4_p6.json"
+        ptyrex_configfile_updated_fields = {}
+        ptyrex_configfile_substitutions = {}
+
+        # The data filename is checked by the task, so it must exist.
+        data_filename = f"{output_directory}/some_data.hdf5"
+        with open(data_filename, "w") as stream:
+            stream.write("")
+
+        task_specification = {
+            "type": BxTaskTypes.PTYREX_SRUN,
+            "label": "my_ptyrex_srun",
+            "remex_hints": {
+                RemexKeywords.CLUSTER: RemexClusters.LOCAL,
+                RemexKeywords.SLURM_JOB_PROPERTIES: {},
+            },
+            "type_specific_tbd": {
+                "data_filename": data_filename,
+                "ptyrex_configfile": ptyrex_configfile,
+                "ptyrex_configfile_updated_fields": ptyrex_configfile_updated_fields,
+                "ptyrex_configfile_substitutions": ptyrex_configfile_substitutions,
+                # The pytrex_srun will run in a script in which these modules are loaded.
+                "load_modules": {
+                    "directories": [output_directory],
+                    "modules": ["my_ptyrex_module"],
+                },
+            },
+        }
+
+        configuration_file = "tests/configurations/filestore.yaml"
+        PtyrexTester(task_specification).main(
+            constants,
+            configuration_file,
+            output_directory,
+        )
+
+
+# ----------------------------------------------------------------------------------------
+class PtyrexTester(BaseContextTester):
     """
     Test the ptyrex_mpi task.
     """
@@ -98,11 +139,12 @@ class PtyrexMpiTester(BaseContextTester):
             stream.write(
                 f"setenv  PATH my_good_path1:my_good_path2:{os.path.dirname(__file__)}/stub_commands:{os.environ['PATH']}\n"
             )
+            stream.write('puts stderr "my_ptyrex_module: some blather to stderr"\n')
 
         # Make sure there is at least a stderr.txt for extract_error_lines
         # to look in if there is no ptyrex_mpi_stderr.txt.
-        with open(f"{output_directory}/stderr.txt", "w") as stream:
-            stream.write("")
+        # with open(f"{output_directory}/stderr.txt", "w") as stream:
+        #     stream.write("")
 
         os.environ.update(module_use(output_directory))
 
@@ -114,7 +156,10 @@ class PtyrexMpiTester(BaseContextTester):
         bx_configurator = self.get_bx_configurator()
         specification = await bx_configurator.load()
         # Remex hints for task type.
-        specification["bx_task_remex_hints"] = {BxTaskTypes.PTYREX_MPI: {}}
+        specification["bx_task_remex_hints"] = {
+            BxTaskTypes.PTYREX_MPI: {},
+            BxTaskTypes.PTYREX_SRUN: {},
+        }
 
         bx_context = BxContexts().build_object(specification)
 
@@ -135,7 +180,7 @@ class PtyrexMpiTester(BaseContextTester):
                     assert len(error_lines) == 0
 
                     # TODO: In test_ptyrex_mpi, check the yaml file to make sure the visit.directory is replaced.
-                    assert os.path.exists(f"{output_directory}/ptyrex_configfile.yaml")
+                    assert os.path.exists(f"{output_directory}/ptyrex_configfile.json")
                 else:
                     # assert return_code != 0
                     error_lines = bx_task.extract_error_lines()
