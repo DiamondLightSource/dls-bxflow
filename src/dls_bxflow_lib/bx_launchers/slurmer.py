@@ -26,6 +26,9 @@ from dls_utilpack.require import require
 
 from dls_bxflow_api.bx_launchers.constants import ClassTypes
 
+# Remote execution.
+from dls_bxflow_api.remex import Keywords as RemexKeywords
+
 # Remex (remote execution) API.
 from dls_bxflow_lib.bx_launchers.base import Base as BxLauncherBase
 from dls_bxflow_lib.bx_launchers.base import BaseLaunchInfo
@@ -124,11 +127,13 @@ class Slurmer(BxLauncherBase):
             remex_hints = {}
 
         # The remex hints may contain slurm properties to be used directly.
-        remex_slurm = remex_hints.get("slurm", {})
+        remex_slurm_job_properties = remex_hints.get(
+            RemexKeywords.SLURM_JOB_PROPERTIES, {}
+        )
 
         # Start with properties direct from the remex hints.
         # Partition is required among these.
-        properties = OpenapiJobProperties(**remex_slurm)
+        properties = OpenapiJobProperties(**remex_slurm_job_properties)
 
         # These others are also minimum required.
         properties.current_working_directory = runtime_directory
